@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ECToolBar.h
 //  Circuit
 //
 //  Created by Edward Guo on 2014-06-26.
@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iAd/iAd.h>
 
-@interface ViewController : UIViewController
-
+@interface ECToolBar : UIView
++(instancetype)autosizeToolBarForView:(UIView*)view;
 @end

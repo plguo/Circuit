@@ -8,22 +8,40 @@
 
 #import "ViewController.h"
 
+#import "ECToolBar.h"
+
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
 
+#pragma mark - View Loading
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    //Setup tool bar
+    ECToolBar* toolBar = [ECToolBar autosizeToolBarForView:self.view];
+    [self.view addSubview:toolBar];
+	
+    
+    //End of View Initialization
+    //Setup iAd
+    //self.canDisplayBannerAds = YES;
 }
 
+
+#pragma mark - Memory Mangement
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Preferre Style
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 @end

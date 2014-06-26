@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B06E600195C822400DE0165 /* ECToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B06E5FF195C822400DE0165 /* ECToolBar.m */; };
 		2B097FE3195C7C7E00EBF2E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */; };
 		2B097FE5195C7C7E00EBF2E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */; };
 		2B097FE7195C7C7E00EBF2E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE6195C7C7E00EBF2E6 /* UIKit.framework */; };
@@ -22,6 +23,7 @@
 		2B098007195C7C7E00EBF2E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE6195C7C7E00EBF2E6 /* UIKit.framework */; };
 		2B09800F195C7C7E00EBF2E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B09800D195C7C7E00EBF2E6 /* InfoPlist.strings */; };
 		2B098011195C7C7E00EBF2E6 /* CircuitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B098010195C7C7E00EBF2E6 /* CircuitTests.m */; };
+		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B06E5FE195C822400DE0165 /* ECToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECToolBar.h; sourceTree = "<group>"; };
+		2B06E5FF195C822400DE0165 /* ECToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECToolBar.m; sourceTree = "<group>"; };
 		2B097FDF195C7C7E00EBF2E6 /* Circuit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Circuit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,6 +59,7 @@
 		2B09800C195C7C7E00EBF2E6 /* CircuitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircuitTests-Info.plist"; sourceTree = "<group>"; };
 		2B09800E195C7C7E00EBF2E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2B098010195C7C7E00EBF2E6 /* CircuitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircuitTests.m; sourceTree = "<group>"; };
+		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */,
 				2B097FE5195C7C7E00EBF2E6 /* CoreGraphics.framework in Frameworks */,
 				2B097FE7195C7C7E00EBF2E6 /* UIKit.framework in Frameworks */,
 				2B097FE3195C7C7E00EBF2E6 /* Foundation.framework in Frameworks */,
@@ -103,6 +109,7 @@
 		2B097FE1195C7C7E00EBF2E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B0F2006195CCEDD00EC267E /* iAd.framework */,
 				2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */,
 				2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */,
 				2B097FE6195C7C7E00EBF2E6 /* UIKit.framework */,
@@ -120,6 +127,8 @@
 				2B097FF7195C7C7E00EBF2E6 /* Main_iPad.storyboard */,
 				2B097FFA195C7C7E00EBF2E6 /* ViewController.h */,
 				2B097FFB195C7C7E00EBF2E6 /* ViewController.m */,
+				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
+				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
 				2B097FFD195C7C7E00EBF2E6 /* Images.xcassets */,
 				2B097FE9195C7C7E00EBF2E6 /* Supporting Files */,
 			);
@@ -199,6 +208,7 @@
 		2B097FD7195C7C7E00EBF2E6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = EC;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Edward Peiliang Guo";
 				TargetAttributes = {
@@ -254,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
+				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
 				2B097FEF195C7C7E00EBF2E6 /* main.m in Sources */,
 			);
@@ -470,6 +481,7 @@
 				2B098016195C7C7E00EBF2E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2B098017195C7C7E00EBF2E6 /* Build configuration list for PBXNativeTarget "CircuitTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +490,7 @@
 				2B098019195C7C7E00EBF2E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
