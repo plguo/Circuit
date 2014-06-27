@@ -10,6 +10,7 @@
 
 #import "ECToolBar.h"
 #import "ECNavigationBar.h"
+#import "ECGridView.h"
 
 @interface ViewController ()
 
@@ -21,6 +22,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    ECGridView* gridView = [ECGridView generateGridWithNumberOfVerticalLines:12 HorizonLines:12];
+    [self.view addSubview:gridView];
     
     //Setup tool bar
     ECToolBar* toolBar = [ECToolBar autosizeToolBarForView:self.view];

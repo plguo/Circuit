@@ -25,6 +25,7 @@
 		2B098011195C7C7E00EBF2E6 /* CircuitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B098010195C7C7E00EBF2E6 /* CircuitTests.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */; };
+		2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECNavigationBar.h; sourceTree = "<group>"; };
 		2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECNavigationBar.m; sourceTree = "<group>"; };
+		2BFC7B0D195D9223007AD84E /* ECGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECGridView.h; sourceTree = "<group>"; };
+		2BFC7B0E195D9223007AD84E /* ECGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECGridView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,8 @@
 				2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */,
 				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
 				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
+				2BFC7B0D195D9223007AD84E /* ECGridView.h */,
+				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
 				2B097FFD195C7C7E00EBF2E6 /* Images.xcassets */,
 				2B097FE9195C7C7E00EBF2E6 /* Supporting Files */,
 			);
@@ -268,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */,
 				2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */,
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
