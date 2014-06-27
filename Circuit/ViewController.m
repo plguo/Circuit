@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import "ECToolBar.h"
+#import "ECNavigationBar.h"
 
 @interface ViewController ()
 
@@ -25,7 +26,9 @@
     ECToolBar* toolBar = [ECToolBar autosizeToolBarForView:self.view];
     [self.view addSubview:toolBar];
 	
-    
+    //Setup navigation bar
+    ECNavigationBar* navBar = [ECNavigationBar autosizeTooNavigationBarForView:self.view];
+    [self.view addSubview:navBar];
     //End of View Initialization
     //Setup iAd
     //self.canDisplayBannerAds = YES;
