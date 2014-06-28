@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iAd/iAd.h>
 
-@interface ViewController : UIViewController
+#import "ECToolBar.h"
+#import "ECNavigationBar.h"
+#import "ECGridView.h"
+
+@interface ViewController : UIViewController<ECNavigationBarDelegate>
 
 @end

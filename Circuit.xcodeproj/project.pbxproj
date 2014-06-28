@@ -44,6 +44,7 @@
 		2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B06E5FF195C822400DE0165 /* ECToolBar.m */; };
 		2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 		2B3C6FF8195F3EBE002FDFDC /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
+		2B3C6FFA195F6B82002FDFDC /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */; };
 		2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 /* End PBXBuildFile section */
@@ -106,6 +107,7 @@
 		2B3C6FE9195F3D2E002FDFDC /* LogicGateTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGateTests-Info.plist"; sourceTree = "<group>"; };
 		2B3C6FEB195F3D2E002FDFDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2B3C6FED195F3D2E002FDFDC /* LogicGateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicGateTests.m; sourceTree = "<group>"; };
+		2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECNavigationBarDelegate.h; sourceTree = "<group>"; };
 		2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECNavigationBar.h; path = Shared/ECNavigationBar.h; sourceTree = "<group>"; };
 		2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECNavigationBar.m; path = Shared/ECNavigationBar.m; sourceTree = "<group>"; };
 		2BFC7B0D195D9223007AD84E /* ECGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGridView.h; path = Shared/ECGridView.h; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B3C6FFA195F6B82002FDFDC /* iAd.framework in Frameworks */,
 				2B3C6FC4195F3D2D002FDFDC /* CoreGraphics.framework in Frameworks */,
 				2B3C6FC5195F3D2D002FDFDC /* UIKit.framework in Frameworks */,
 				2B3C6FC3195F3D2D002FDFDC /* Foundation.framework in Frameworks */,
@@ -242,6 +245,7 @@
 			children = (
 				2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */,
 				2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */,
+				2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */,
 				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
 				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
 				2BFC7B0D195D9223007AD84E /* ECGridView.h */,

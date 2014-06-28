@@ -184,4 +184,22 @@
     UIButton* button =  _buttonsArray[index];
     button.selected = YES;
 }
+
+#pragma mark - Animation
+- (void)startHideAnimation{
+    [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
+        self.center = CGPointMake(self.center.x, self.center.y + self.frame.size.height);
+    } completion:^(BOOL finished) {
+        self.hidden = YES;
+    }];
+}
+
+- (void)startShowAnimation{
+    self.hidden = NO;
+    [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
+        self.center = CGPointMake(self.center.x, self.center.y - self.frame.size.height);
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 @end

@@ -8,15 +8,16 @@
 
 #import "ViewController.h"
 
-#import "ECToolBar.h"
-#import "ECNavigationBar.h"
-#import "ECGridView.h"
-
 @interface ViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ViewController{
+    ECNavigationBar* _navBar;
+    UIScrollView* _mainScrollView;
+    ECToolBar* _toolBar;
+    UIButton* _showButton;
+}
 
 #pragma mark - View Loading
 
@@ -25,36 +26,42 @@
     [super viewDidLoad];
     
     //Setup tool bar
-    ECToolBar* toolBar = [ECToolBar autosizeToolBarForView:self.view];
-    [self.view addSubview:toolBar];
+    _toolBar = [ECToolBar autosizeToolBarForView:self.originalContentView];
+    [self.originalContentView addSubview:_toolBar];
 	
     //Setup navigation bar
     
-    ECNavigationBar* navBar = [ECNavigationBar autosizeTooNavigationBarForView:self.view];
-    [navBar sizeToFit];
-    [self.view addSubview:navBar];
+    _navBar = [ECNavigationBar autosizeTooNavigationBarForView:self.originalContentView];
+    _navBar.delegate = self;
+    [self.originalContentView addSubview:_navBar];
     
     
     //Setup scroll view
-    CGRect scrollViewFrame = CGRectMake(0, CGRectGetMaxY(navBar.frame), self.view.frame.size.width, CGRectGetMinY(toolBar.frame) - CGRectGetMaxY(navBar.frame));
-    //CGRect scrollViewFrame = self.view.bounds;
-    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
-    scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    //scrollView.zoomScale = 0.1;
-    [self.view addSubview:scrollView];
+    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), self.originalContentView.frame.size.width, CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
+
+    _mainScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
+    _mainScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    [self.originalContentView insertSubview:_mainScrollView belowSubview:_toolBar];
     
     
     ECGridView* gridView = [ECGridView generateGridWithNumberOfVerticalLines:24 HorizonLines:24];
-    [scrollView addSubview:gridView];
+    [_mainScrollView addSubview:gridView];
     
-    scrollView.contentSize = gridView.frame.size;
-    [scrollView setContentOffset:CGPointMake(scrollView.contentSize.width/2 - scrollView.bounds.size.width/2, scrollView.contentSize.height/2 - scrollView.bounds.size.height/2) animated:NO];
+    _mainScrollView.contentSize = gridView.frame.size;
+    [_mainScrollView setContentOffset:CGPointMake(_mainScrollView.contentSize.width/2 - _mainScrollView.bounds.size.width/2, _mainScrollView.contentSize.height/2 - _mainScrollView.bounds.size.height/2) animated:NO];
+    
+    _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
+    [_showButton setImage:[UIImage imageNamed:@"ShowMenuIcon"] forState:UIControlStateNormal];
+    [_showButton sizeToFit];
+    _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 5, 5, _showButton.frame.size.width, _showButton.frame.size.height);
+    _showButton.alpha = 0.8;
+    _showButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
+    [_showButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     
     //End of View Initialization
     //Setup iAd
-    //self.canDisplayBannerAds = YES;
+    self.canDisplayBannerAds = YES;
 }
-
 
 #pragma mark - Memory Mangement
 - (void)didReceiveMemoryWarning
@@ -66,5 +73,32 @@
 #pragma mark - UIStatusBar
 -(BOOL)prefersStatusBarHidden{
     return YES;
+}
+
+#pragma mark - Hide Menu
+- (void)hideMenu{
+    [_navBar startHideAnimation];
+    [_toolBar startHideAnimation];
+    _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 5, 5, _showButton.frame.size.width, _showButton.frame.size.height);
+    [self.originalContentView insertSubview:_showButton belowSubview:_navBar];
+    [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
+        _mainScrollView.frame = self.originalContentView.frame;
+        _showButton.alpha = 0.8;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+#pragma mark - Show Menu
+- (void)showMenu{
+    [_navBar startShowAnimation];
+    [_toolBar startShowAnimation];
+    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), self.originalContentView.frame.size.width, CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
+    [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
+        _mainScrollView.frame = scrollViewFrame;
+        _showButton.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [_showButton removeFromSuperview];
+    }];
 }
 @end

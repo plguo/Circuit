@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECNavigationBarDelegate.h"
 
 @interface ECNavigationBar : UIView
 +(instancetype)autosizeTooNavigationBarForView:(UIView*)view;
+- (void)startHideAnimation;
+- (void)startShowAnimation;
+@property(nonatomic,weak) id<ECNavigationBarDelegate> delegate;
 @end

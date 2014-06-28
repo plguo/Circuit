@@ -10,4 +10,6 @@
 
 @interface ECToolBar : UIView
 +(instancetype)autosizeToolBarForView:(UIView*)view;
+- (void)startHideAnimation;
+- (void)startShowAnimation;
 @end
