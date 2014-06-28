@@ -24,6 +24,7 @@
 		2B09800F195C7C7E00EBF2E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B09800D195C7C7E00EBF2E6 /* InfoPlist.strings */; };
 		2B098011195C7C7E00EBF2E6 /* CircuitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B098010195C7C7E00EBF2E6 /* CircuitTests.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
+		2B3805CE195F0F76004E7FC2 /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
 		2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */; };
 		2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		2B09800E195C7C7E00EBF2E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2B098010195C7C7E00EBF2E6 /* CircuitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircuitTests.m; sourceTree = "<group>"; };
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ButtonIcons.xcassets; sourceTree = "<group>"; };
 		2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECNavigationBar.h; sourceTree = "<group>"; };
 		2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECNavigationBar.m; sourceTree = "<group>"; };
 		2BFC7B0D195D9223007AD84E /* ECGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECGridView.h; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */,
 				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
 				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
+				2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */,
 				2BFC7B0D195D9223007AD84E /* ECGridView.h */,
 				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
 				2B097FFD195C7C7E00EBF2E6 /* Images.xcassets */,
@@ -253,6 +256,7 @@
 			files = (
 				2B097FF9195C7C7E00EBF2E6 /* Main_iPad.storyboard in Resources */,
 				2B097FFE195C7C7E00EBF2E6 /* Images.xcassets in Resources */,
+				2B3805CE195F0F76004E7FC2 /* ButtonIcons.xcassets in Resources */,
 				2B097FF6195C7C7E00EBF2E6 /* Main_iPhone.storyboard in Resources */,
 				2B097FED195C7C7E00EBF2E6 /* InfoPlist.strings in Resources */,
 			);

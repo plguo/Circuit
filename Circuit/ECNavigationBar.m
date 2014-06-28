@@ -17,15 +17,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Set color
-        self.barStyle = UIBarStyleBlackOpaque;
-        self.translucent = NO;
+        self.backgroundColor = [UIColor blackColor];
     }
     return self;
 }
 
 +(instancetype)autosizeTooNavigationBarForView:(UIView*)view{
-    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    ECNavigationBar* autosizeNavigationBar = [[ECNavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(view.frame), navigationBarHeight + statusBarHeight)];
+    ECNavigationBar* autosizeNavigationBar = [[ECNavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(view.frame), navigationBarHeight)];
     
     //Autosizing property
     autosizeNavigationBar.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;

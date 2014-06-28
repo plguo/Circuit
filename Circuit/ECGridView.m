@@ -7,7 +7,7 @@
 //
 
 #import "ECGridView.h"
-#define GridWidth 30.0
+#define GridWidth 40.0
 #define BorderWidth 60.0
 
 @implementation ECGridView{
@@ -21,7 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = [UIColor whiteColor];
         CGSize contentSize = CGSizeMake(frame.size.width - BorderWidth*2, frame.size.height - BorderWidth*2);
         _width = (NSUInteger)contentSize.width/GridWidth + 1;
         _height = (NSUInteger)contentSize.height/GridWidth + 1;
@@ -57,16 +57,52 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     
-    //Draw Vertical Lines
-    for (NSUInteger i = 0; i < _width; i ++) {
-        CGContextMoveToPoint(context, i*GridWidth+BorderWidth, BorderWidth);
-        CGContextAddLineToPoint(context, i*GridWidth+BorderWidth, BorderWidth+(_height-1)*GridWidth);
-        
+    //Draw Vertical Lines Expect Border And Every 10 Lines
+    for (NSUInteger i = 1; i < _width - 1; i ++) {
+        if (i % 5 != 0) {
+            CGContextMoveToPoint(context, i*GridWidth+BorderWidth, BorderWidth);
+            CGContextAddLineToPoint(context, i*GridWidth+BorderWidth, BorderWidth+(_height-1)*GridWidth);
+        }
+    }
+    
+    //Draw Horizon Lines Expect Border And Every 10 Lines
+    for (NSUInteger i = 1; i < _height - 1; i ++) {
+        if (i % 5 != 0) {
+            CGContextMoveToPoint(context, BorderWidth, i*GridWidth+BorderWidth);
+            CGContextAddLineToPoint(context, BorderWidth+(_width-1)*GridWidth, i*GridWidth+BorderWidth);
+        }
     }
     CGContextStrokePath(context);
     
+    //Draw Vertical Lines Every 10 Lines
+    CGContextSetLineWidth(context, 4.0);
+    for (NSUInteger i = 5; i < _width - 1; i += 5) {
+        CGContextMoveToPoint(context, i*GridWidth+BorderWidth, BorderWidth);
+        CGContextAddLineToPoint(context, i*GridWidth+BorderWidth, BorderWidth+(_height-1)*GridWidth);
+    }
+    
+    //Draw Vertical Lines Every 10 Lines
+    for (NSUInteger i = 5; i < _height -1; i += 5) {
+        CGContextMoveToPoint(context, BorderWidth, i*GridWidth+BorderWidth);
+        CGContextAddLineToPoint(context, BorderWidth+(_width-1)*GridWidth, i*GridWidth+BorderWidth);
+    }
+    
+    //Draw Border
+    CGContextMoveToPoint(context, +BorderWidth, BorderWidth);
+    CGContextAddLineToPoint(context, +BorderWidth, BorderWidth+(_height-1)*GridWidth);
+    
+    CGContextMoveToPoint(context, _width*GridWidth+BorderWidth, BorderWidth);
+    CGContextAddLineToPoint(context, _width*GridWidth+BorderWidth, BorderWidth+(_height-1)*GridWidth);
+    
+    CGContextMoveToPoint(context, BorderWidth, BorderWidth);
+    CGContextAddLineToPoint(context, BorderWidth+(_width-1)*GridWidth, BorderWidth);
+    
+    CGContextMoveToPoint(context, BorderWidth, _height*GridWidth+BorderWidth);
+    CGContextAddLineToPoint(context, BorderWidth+(_width-1)*GridWidth, _height*GridWidth+BorderWidth);
+    
+    CGContextStrokePath(context);
 }
 
 

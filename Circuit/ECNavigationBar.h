@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ECNavigationBar : UINavigationBar
+@interface ECNavigationBar : UIView
 +(instancetype)autosizeTooNavigationBarForView:(UIView*)view;
 @end

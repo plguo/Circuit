@@ -50,6 +50,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2B097FDE195C7C7E00EBF2E6"
+            BuildableName = "Circuit.app"
+            BlueprintName = "Circuit"
+            ReferencedContainer = "container:Circuit.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
