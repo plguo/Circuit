@@ -40,8 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B06E5FE195C822400DE0165 /* ECToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECToolBar.h; sourceTree = "<group>"; };
-		2B06E5FF195C822400DE0165 /* ECToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECToolBar.m; sourceTree = "<group>"; };
+		2B06E5FE195C822400DE0165 /* ECToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECToolBar.h; path = Shared/ECToolBar.h; sourceTree = "<group>"; };
+		2B06E5FF195C822400DE0165 /* ECToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECToolBar.m; path = Shared/ECToolBar.m; sourceTree = "<group>"; };
 		2B097FDF195C7C7E00EBF2E6 /* Circuit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Circuit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -64,10 +64,10 @@
 		2B098010195C7C7E00EBF2E6 /* CircuitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircuitTests.m; sourceTree = "<group>"; };
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ButtonIcons.xcassets; sourceTree = "<group>"; };
-		2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECNavigationBar.h; sourceTree = "<group>"; };
-		2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECNavigationBar.m; sourceTree = "<group>"; };
-		2BFC7B0D195D9223007AD84E /* ECGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECGridView.h; sourceTree = "<group>"; };
-		2BFC7B0E195D9223007AD84E /* ECGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECGridView.m; sourceTree = "<group>"; };
+		2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECNavigationBar.h; path = Shared/ECNavigationBar.h; sourceTree = "<group>"; };
+		2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECNavigationBar.m; path = Shared/ECNavigationBar.m; sourceTree = "<group>"; };
+		2BFC7B0D195D9223007AD84E /* ECGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGridView.h; path = Shared/ECGridView.h; sourceTree = "<group>"; };
+		2BFC7B0E195D9223007AD84E /* ECGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECGridView.m; path = Shared/ECGridView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +98,7 @@
 		2B097FD6195C7C7E00EBF2E6 = {
 			isa = PBXGroup;
 			children = (
+				2B3C6FBD195F377C002FDFDC /* Shared */,
 				2B097FE8195C7C7E00EBF2E6 /* Circuit */,
 				2B09800A195C7C7E00EBF2E6 /* CircuitTests */,
 				2B097FE1195C7C7E00EBF2E6 /* Frameworks */,
@@ -135,13 +136,7 @@
 				2B097FF7195C7C7E00EBF2E6 /* Main_iPad.storyboard */,
 				2B097FFA195C7C7E00EBF2E6 /* ViewController.h */,
 				2B097FFB195C7C7E00EBF2E6 /* ViewController.m */,
-				2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */,
-				2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */,
-				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
-				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
 				2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */,
-				2BFC7B0D195D9223007AD84E /* ECGridView.h */,
-				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
 				2B097FFD195C7C7E00EBF2E6 /* Images.xcassets */,
 				2B097FE9195C7C7E00EBF2E6 /* Supporting Files */,
 			);
@@ -175,6 +170,19 @@
 				2B09800D195C7C7E00EBF2E6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2B3C6FBD195F377C002FDFDC /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */,
+				2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */,
+				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
+				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
+				2BFC7B0D195D9223007AD84E /* ECGridView.h */,
+				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
