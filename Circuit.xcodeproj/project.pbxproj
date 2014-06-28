@@ -25,6 +25,25 @@
 		2B098011195C7C7E00EBF2E6 /* CircuitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B098010195C7C7E00EBF2E6 /* CircuitTests.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2B3805CE195F0F76004E7FC2 /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
+		2B3C6FC3195F3D2D002FDFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */; };
+		2B3C6FC4195F3D2D002FDFDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */; };
+		2B3C6FC5195F3D2D002FDFDC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE6195C7C7E00EBF2E6 /* UIKit.framework */; };
+		2B3C6FCB195F3D2D002FDFDC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B3C6FC9195F3D2D002FDFDC /* InfoPlist.strings */; };
+		2B3C6FCD195F3D2D002FDFDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3C6FCC195F3D2D002FDFDC /* main.m */; };
+		2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3C6FD0195F3D2D002FDFDC /* AppDelegate.m */; };
+		2B3C6FD4195F3D2D002FDFDC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3C6FD2195F3D2D002FDFDC /* Main_iPhone.storyboard */; };
+		2B3C6FD7195F3D2D002FDFDC /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3C6FD5195F3D2D002FDFDC /* Main_iPad.storyboard */; };
+		2B3C6FDA195F3D2D002FDFDC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3C6FD9195F3D2D002FDFDC /* ViewController.m */; };
+		2B3C6FDC195F3D2D002FDFDC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3C6FDB195F3D2D002FDFDC /* Images.xcassets */; };
+		2B3C6FE2195F3D2E002FDFDC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B098004195C7C7E00EBF2E6 /* XCTest.framework */; };
+		2B3C6FE3195F3D2E002FDFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */; };
+		2B3C6FE4195F3D2E002FDFDC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE6195C7C7E00EBF2E6 /* UIKit.framework */; };
+		2B3C6FEC195F3D2E002FDFDC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B3C6FEA195F3D2E002FDFDC /* InfoPlist.strings */; };
+		2B3C6FEE195F3D2E002FDFDC /* LogicGateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3C6FED195F3D2E002FDFDC /* LogicGateTests.m */; };
+		2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */; };
+		2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B06E5FF195C822400DE0165 /* ECToolBar.m */; };
+		2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
+		2B3C6FF8195F3EBE002FDFDC /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
 		2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */; };
 		2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 /* End PBXBuildFile section */
@@ -36,6 +55,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2B097FDE195C7C7E00EBF2E6;
 			remoteInfo = Circuit;
+		};
+		2B3C6FE5195F3D2E002FDFDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B097FD7195C7C7E00EBF2E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B3C6FC1195F3D2D002FDFDC;
+			remoteInfo = LogicGate;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -63,7 +89,23 @@
 		2B09800E195C7C7E00EBF2E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2B098010195C7C7E00EBF2E6 /* CircuitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircuitTests.m; sourceTree = "<group>"; };
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ButtonIcons.xcassets; sourceTree = "<group>"; };
+		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ButtonIcons.xcassets; path = Shared/ButtonIcons.xcassets; sourceTree = "<group>"; };
+		2B3C6FC2195F3D2D002FDFDC /* LogicGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LogicGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B3C6FC8195F3D2D002FDFDC /* LogicGate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGate-Info.plist"; sourceTree = "<group>"; };
+		2B3C6FCA195F3D2D002FDFDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2B3C6FCC195F3D2D002FDFDC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2B3C6FCE195F3D2D002FDFDC /* LogicGate-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LogicGate-Prefix.pch"; sourceTree = "<group>"; };
+		2B3C6FCF195F3D2D002FDFDC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2B3C6FD0195F3D2D002FDFDC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2B3C6FD3195F3D2D002FDFDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		2B3C6FD6195F3D2D002FDFDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		2B3C6FD8195F3D2D002FDFDC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2B3C6FD9195F3D2D002FDFDC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2B3C6FDB195F3D2D002FDFDC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2B3C6FE1195F3D2E002FDFDC /* LogicGateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicGateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B3C6FE9195F3D2E002FDFDC /* LogicGateTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGateTests-Info.plist"; sourceTree = "<group>"; };
+		2B3C6FEB195F3D2E002FDFDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2B3C6FED195F3D2E002FDFDC /* LogicGateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicGateTests.m; sourceTree = "<group>"; };
 		2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECNavigationBar.h; path = Shared/ECNavigationBar.h; sourceTree = "<group>"; };
 		2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECNavigationBar.m; path = Shared/ECNavigationBar.m; sourceTree = "<group>"; };
 		2BFC7B0D195D9223007AD84E /* ECGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGridView.h; path = Shared/ECGridView.h; sourceTree = "<group>"; };
@@ -92,6 +134,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2B3C6FBF195F3D2D002FDFDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B3C6FC4195F3D2D002FDFDC /* CoreGraphics.framework in Frameworks */,
+				2B3C6FC5195F3D2D002FDFDC /* UIKit.framework in Frameworks */,
+				2B3C6FC3195F3D2D002FDFDC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B3C6FDE195F3D2E002FDFDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B3C6FE2195F3D2E002FDFDC /* XCTest.framework in Frameworks */,
+				2B3C6FE4195F3D2E002FDFDC /* UIKit.framework in Frameworks */,
+				2B3C6FE3195F3D2E002FDFDC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -101,6 +163,8 @@
 				2B3C6FBD195F377C002FDFDC /* Shared */,
 				2B097FE8195C7C7E00EBF2E6 /* Circuit */,
 				2B09800A195C7C7E00EBF2E6 /* CircuitTests */,
+				2B3C6FC6195F3D2D002FDFDC /* LogicGate */,
+				2B3C6FE7195F3D2E002FDFDC /* LogicGateTests */,
 				2B097FE1195C7C7E00EBF2E6 /* Frameworks */,
 				2B097FE0195C7C7E00EBF2E6 /* Products */,
 			);
@@ -111,6 +175,8 @@
 			children = (
 				2B097FDF195C7C7E00EBF2E6 /* Circuit.app */,
 				2B098003195C7C7E00EBF2E6 /* CircuitTests.xctest */,
+				2B3C6FC2195F3D2D002FDFDC /* LogicGate.app */,
+				2B3C6FE1195F3D2E002FDFDC /* LogicGateTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,7 +202,6 @@
 				2B097FF7195C7C7E00EBF2E6 /* Main_iPad.storyboard */,
 				2B097FFA195C7C7E00EBF2E6 /* ViewController.h */,
 				2B097FFB195C7C7E00EBF2E6 /* ViewController.m */,
-				2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */,
 				2B097FFD195C7C7E00EBF2E6 /* Images.xcassets */,
 				2B097FE9195C7C7E00EBF2E6 /* Supporting Files */,
 			);
@@ -181,8 +246,53 @@
 				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
 				2BFC7B0D195D9223007AD84E /* ECGridView.h */,
 				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
+				2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */,
 			);
 			name = Shared;
+			sourceTree = "<group>";
+		};
+		2B3C6FC6195F3D2D002FDFDC /* LogicGate */ = {
+			isa = PBXGroup;
+			children = (
+				2B3C6FCF195F3D2D002FDFDC /* AppDelegate.h */,
+				2B3C6FD0195F3D2D002FDFDC /* AppDelegate.m */,
+				2B3C6FD2195F3D2D002FDFDC /* Main_iPhone.storyboard */,
+				2B3C6FD5195F3D2D002FDFDC /* Main_iPad.storyboard */,
+				2B3C6FD8195F3D2D002FDFDC /* ViewController.h */,
+				2B3C6FD9195F3D2D002FDFDC /* ViewController.m */,
+				2B3C6FDB195F3D2D002FDFDC /* Images.xcassets */,
+				2B3C6FC7195F3D2D002FDFDC /* Supporting Files */,
+			);
+			path = LogicGate;
+			sourceTree = "<group>";
+		};
+		2B3C6FC7195F3D2D002FDFDC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2B3C6FC8195F3D2D002FDFDC /* LogicGate-Info.plist */,
+				2B3C6FC9195F3D2D002FDFDC /* InfoPlist.strings */,
+				2B3C6FCC195F3D2D002FDFDC /* main.m */,
+				2B3C6FCE195F3D2D002FDFDC /* LogicGate-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2B3C6FE7195F3D2E002FDFDC /* LogicGateTests */ = {
+			isa = PBXGroup;
+			children = (
+				2B3C6FED195F3D2E002FDFDC /* LogicGateTests.m */,
+				2B3C6FE8195F3D2E002FDFDC /* Supporting Files */,
+			);
+			path = LogicGateTests;
+			sourceTree = "<group>";
+		};
+		2B3C6FE8195F3D2E002FDFDC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2B3C6FE9195F3D2E002FDFDC /* LogicGateTests-Info.plist */,
+				2B3C6FEA195F3D2E002FDFDC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +333,41 @@
 			productReference = 2B098003195C7C7E00EBF2E6 /* CircuitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		2B3C6FC1195F3D2D002FDFDC /* LogicGate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B3C6FEF195F3D2E002FDFDC /* Build configuration list for PBXNativeTarget "LogicGate" */;
+			buildPhases = (
+				2B3C6FBE195F3D2D002FDFDC /* Sources */,
+				2B3C6FBF195F3D2D002FDFDC /* Frameworks */,
+				2B3C6FC0195F3D2D002FDFDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LogicGate;
+			productName = LogicGate;
+			productReference = 2B3C6FC2195F3D2D002FDFDC /* LogicGate.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2B3C6FE0195F3D2E002FDFDC /* LogicGateTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B3C6FF2195F3D2E002FDFDC /* Build configuration list for PBXNativeTarget "LogicGateTests" */;
+			buildPhases = (
+				2B3C6FDD195F3D2E002FDFDC /* Sources */,
+				2B3C6FDE195F3D2E002FDFDC /* Frameworks */,
+				2B3C6FDF195F3D2E002FDFDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2B3C6FE6195F3D2E002FDFDC /* PBXTargetDependency */,
+			);
+			name = LogicGateTests;
+			productName = LogicGateTests;
+			productReference = 2B3C6FE1195F3D2E002FDFDC /* LogicGateTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -234,6 +379,9 @@
 				ORGANIZATIONNAME = "Edward Peiliang Guo";
 				TargetAttributes = {
 					2B098002195C7C7E00EBF2E6 = {
+						TestTargetID = 2B097FDE195C7C7E00EBF2E6;
+					};
+					2B3C6FE0195F3D2E002FDFDC = {
 						TestTargetID = 2B097FDE195C7C7E00EBF2E6;
 					};
 				};
@@ -253,6 +401,8 @@
 			targets = (
 				2B097FDE195C7C7E00EBF2E6 /* Circuit */,
 				2B098002195C7C7E00EBF2E6 /* CircuitTests */,
+				2B3C6FC1195F3D2D002FDFDC /* LogicGate */,
+				2B3C6FE0195F3D2E002FDFDC /* LogicGateTests */,
 			);
 		};
 /* End PBXProject section */
@@ -275,6 +425,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B09800F195C7C7E00EBF2E6 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B3C6FC0195F3D2D002FDFDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B3C6FD7195F3D2D002FDFDC /* Main_iPad.storyboard in Resources */,
+				2B3C6FDC195F3D2D002FDFDC /* Images.xcassets in Resources */,
+				2B3C6FF8195F3EBE002FDFDC /* ButtonIcons.xcassets in Resources */,
+				2B3C6FD4195F3D2D002FDFDC /* Main_iPhone.storyboard in Resources */,
+				2B3C6FCB195F3D2D002FDFDC /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B3C6FDF195F3D2E002FDFDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B3C6FEC195F3D2E002FDFDC /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +472,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2B3C6FBE195F3D2D002FDFDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */,
+				2B3C6FDA195F3D2D002FDFDC /* ViewController.m in Sources */,
+				2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */,
+				2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */,
+				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,
+				2B3C6FCD195F3D2D002FDFDC /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B3C6FDD195F3D2E002FDFDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B3C6FEE195F3D2E002FDFDC /* LogicGateTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -309,6 +500,11 @@
 			isa = PBXTargetDependency;
 			target = 2B097FDE195C7C7E00EBF2E6 /* Circuit */;
 			targetProxy = 2B098008195C7C7E00EBF2E6 /* PBXContainerItemProxy */;
+		};
+		2B3C6FE6195F3D2E002FDFDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2B3C6FC1195F3D2D002FDFDC /* LogicGate */;
+			targetProxy = 2B3C6FE5195F3D2E002FDFDC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -341,6 +537,38 @@
 			isa = PBXVariantGroup;
 			children = (
 				2B09800E195C7C7E00EBF2E6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2B3C6FC9195F3D2D002FDFDC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2B3C6FCA195F3D2D002FDFDC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2B3C6FD2195F3D2D002FDFDC /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2B3C6FD3195F3D2D002FDFDC /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		2B3C6FD5195F3D2D002FDFDC /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2B3C6FD6195F3D2D002FDFDC /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		2B3C6FEA195F3D2E002FDFDC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2B3C6FEB195F3D2E002FDFDC /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -486,6 +714,76 @@
 			};
 			name = Release;
 		};
+		2B3C6FF0195F3D2E002FDFDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicGate/LogicGate-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LogicGate/LogicGate-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2B3C6FF1195F3D2E002FDFDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicGate/LogicGate-Prefix.pch";
+				INFOPLIST_FILE = "LogicGate/LogicGate-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		2B3C6FF3195F3D2E002FDFDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Circuit.app/Circuit";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicGate/LogicGate-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LogicGateTests/LogicGateTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		2B3C6FF4195F3D2E002FDFDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Circuit.app/Circuit";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LogicGate/LogicGate-Prefix.pch";
+				INFOPLIST_FILE = "LogicGateTests/LogicGateTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -512,6 +810,24 @@
 			buildConfigurations = (
 				2B098018195C7C7E00EBF2E6 /* Debug */,
 				2B098019195C7C7E00EBF2E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B3C6FEF195F3D2E002FDFDC /* Build configuration list for PBXNativeTarget "LogicGate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B3C6FF0195F3D2E002FDFDC /* Debug */,
+				2B3C6FF1195F3D2E002FDFDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B3C6FF2195F3D2E002FDFDC /* Build configuration list for PBXNativeTarget "LogicGateTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B3C6FF3195F3D2E002FDFDC /* Debug */,
+				2B3C6FF4195F3D2E002FDFDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

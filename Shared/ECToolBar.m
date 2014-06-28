@@ -13,6 +13,7 @@
     BOOL _selected;
     NSUInteger _selectedTool;
     NSArray* _buttonsArray;
+    UIView* _subMenu;
 }
 
 #pragma mark - Methods for tool bar initialization

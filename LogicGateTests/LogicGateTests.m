@@ -1,18 +1,18 @@
 //
-//  CircuitTests.m
-//  CircuitTests
+//  LogicGateTests.m
+//  LogicGateTests
 //
-//  Created by Edward Guo on 2014-06-26.
+//  Created by Edward Guo on 2014-06-28.
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface CircuitTests : XCTestCase
+@interface LogicGateTests : XCTestCase
 
 @end
 
-@implementation CircuitTests
+@implementation LogicGateTests
 
 - (void)setUp
 {
@@ -29,11 +29,6 @@
 - (void)testExample
 {
     XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
-
-- (void)testCheat
-{
-    XCTAssertTrue(true, @"Hello");
 }
 
 @end

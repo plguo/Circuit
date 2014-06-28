@@ -12,6 +12,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2B3C6FE0195F3D2E002FDFDC"
+               BuildableName = "LogicGateTests.xctest"
+               BlueprintName = "LogicGateTests"
+               ReferencedContainer = "container:Circuit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

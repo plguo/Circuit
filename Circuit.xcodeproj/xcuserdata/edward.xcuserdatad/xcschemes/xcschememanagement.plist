@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>LogicGate.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>2B098002195C7C7E00EBF2E6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2B3C6FC1195F3D2D002FDFDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2B3C6FE0195F3D2E002FDFDC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
