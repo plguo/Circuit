@@ -44,7 +44,7 @@
     [self.originalContentView insertSubview:_mainScrollView belowSubview:_toolBar];
     
     
-    ECGridView* gridView = [ECGridView generateGridWithNumberOfVerticalLines:24 HorizonLines:24];
+    ECGridView* gridView = [ECGridView generateGridWithNumberOfVerticalLines:30 HorizonLines:30];
     [_mainScrollView addSubview:gridView];
     
     _mainScrollView.contentSize = gridView.frame.size;
@@ -53,13 +53,15 @@
     _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
     [_showButton setImage:[UIImage imageNamed:@"ShowMenuIcon"] forState:UIControlStateNormal];
     [_showButton sizeToFit];
-    _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 5, 5, _showButton.frame.size.width, _showButton.frame.size.height);
+    _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 8, 8, _showButton.frame.size.width, _showButton.frame.size.height);
     _showButton.alpha = 0.8;
     _showButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
     [_showButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     
     //End of View Initialization
-    //Setup iAd
+}
+
+- (void)viewDidAppear:(BOOL)animated{
     self.canDisplayBannerAds = YES;
 }
 

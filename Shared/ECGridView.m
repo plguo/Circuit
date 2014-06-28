@@ -90,17 +90,21 @@
     }
     
     //Draw Border
-    CGContextMoveToPoint(context, +BorderWidth, BorderWidth);
-    CGContextAddLineToPoint(context, +BorderWidth, BorderWidth+(_height-1)*GridWidth);
+    //Left |
+    CGContextMoveToPoint(context, +BorderWidth, BorderWidth - 2);
+    CGContextAddLineToPoint(context, +BorderWidth, BorderWidth+(_height-1)*GridWidth + 2);
     
-    CGContextMoveToPoint(context, _width*GridWidth+BorderWidth, BorderWidth);
-    CGContextAddLineToPoint(context, _width*GridWidth+BorderWidth, BorderWidth+(_height-1)*GridWidth);
+    //Right |
+    CGContextMoveToPoint(context, (_width-1)*GridWidth+BorderWidth, BorderWidth - 2);
+    CGContextAddLineToPoint(context, (_width-1)*GridWidth+BorderWidth, BorderWidth+(_height-1)*GridWidth + 2);
     
+    //Top -
     CGContextMoveToPoint(context, BorderWidth, BorderWidth);
     CGContextAddLineToPoint(context, BorderWidth+(_width-1)*GridWidth, BorderWidth);
     
-    CGContextMoveToPoint(context, BorderWidth, _height*GridWidth+BorderWidth);
-    CGContextAddLineToPoint(context, BorderWidth+(_width-1)*GridWidth, _height*GridWidth+BorderWidth);
+    //Bottom -
+    CGContextMoveToPoint(context, BorderWidth, (_height-1)*GridWidth+BorderWidth);
+    CGContextAddLineToPoint(context, BorderWidth+(_width-1)*GridWidth, (_height-1)*GridWidth+BorderWidth);
     
     CGContextStrokePath(context);
 }
