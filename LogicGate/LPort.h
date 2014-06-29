@@ -15,12 +15,11 @@
 @class LGate;
 @class LWire;
 
-@interface LPort : UIView{
-    NSMutableSet* delegatesSet;
-}
+@interface LPort : UIView
 
--(id) initWithPortType:(PortType)type SuperGate:(LGate*)gate Position:(CGPoint)position;
--(void) connectToWire:(LWire*)newWire;
+-(id) initWithPortType:(PortType)type SuperGate:(LGate*)gate Center:(CGPoint)center;
+
+-(void) connectToInWire:(LWire*)inWire;
 
 -(void) removeAllWire;
 
@@ -35,12 +34,12 @@
 
 -(BOOL) allowToConnect;
 
-@property (nonatomic) PortType type;
+@property (nonatomic,readonly) PortType type;
 @property (nonatomic) BOOL realInput;
 @property (nonatomic) BOOL boolStatus;
 @property (nonatomic) BOOL wireConnectable;
 
-@property (nonatomic,weak) LGate* superGate;
+@property (nonatomic,weak,readonly) LGate* superGate;
 @property (nonatomic,weak) LWire* inWire;
 
 @end

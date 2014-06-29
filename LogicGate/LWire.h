@@ -8,6 +8,34 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LWire : UIView
+#import "LPortDelegate.h"
+#import "LObjectProtocol.h"
+
+#import "LPort.h"
+#import "LGate.h"
+
+@class LPort;
+
+@interface LWire : UIView<PortDelegate,LObjectProtocol>
+
+/*
+-(id)initWithAnyPort:(Port*)sPort andStartPosition:(CGPoint)sPos;
+-(id)initWithStartPort:(Port*)sPort EndPort:(Port*)ePort;
+*/
+- (instancetype)initWire;
+
+- (void)drawWire;
+- (void)drawWireWithPosition:(CGPoint)point;
+
+- (void)connectNewPort:(LPort*)port;
+//-(void) connectNewPort:(Port*)newPort withPosition:(CGPoint)point;
+
+- (BOOL)allowConnectToThisPort:(LPort*)port;
+
+@property(nonatomic, weak, readonly) LPort* startPort;
+@property(nonatomic, weak, readonly) LPort* endPort;
+
+@property(nonatomic) BOOL boolStatus;
+@property(nonatomic) BOOL realInput;
 
 @end
