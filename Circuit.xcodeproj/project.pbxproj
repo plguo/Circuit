@@ -45,6 +45,10 @@
 		2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 		2B3C6FF8195F3EBE002FDFDC /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
 		2B3C6FFA195F6B82002FDFDC /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
+		2BFA241319604BAE00D35073 /* LGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241219604BAE00D35073 /* LGate.m */; };
+		2BFA241619604D8700D35073 /* LPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241519604D8700D35073 /* LPort.m */; };
+		2BFA24191960523400D35073 /* GateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BFA24181960523400D35073 /* GateImages.xcassets */; };
+		2BFA241F1960654600D35073 /* LWire.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241E1960654600D35073 /* LWire.m */; };
 		2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */; };
 		2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 /* End PBXBuildFile section */
@@ -108,6 +112,16 @@
 		2B3C6FEB195F3D2E002FDFDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2B3C6FED195F3D2E002FDFDC /* LogicGateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicGateTests.m; sourceTree = "<group>"; };
 		2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECNavigationBarDelegate.h; sourceTree = "<group>"; };
+		2BFA241119604BAE00D35073 /* LGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGate.h; sourceTree = "<group>"; };
+		2BFA241219604BAE00D35073 /* LGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGate.m; sourceTree = "<group>"; };
+		2BFA241419604D8700D35073 /* LPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPort.h; sourceTree = "<group>"; };
+		2BFA241519604D8700D35073 /* LPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPort.m; sourceTree = "<group>"; };
+		2BFA24181960523400D35073 /* GateImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GateImages.xcassets; sourceTree = "<group>"; };
+		2BFA241A1960594600D35073 /* GateType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GateType.h; sourceTree = "<group>"; };
+		2BFA241B19605A4D00D35073 /* LObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LObjectProtocol.h; sourceTree = "<group>"; };
+		2BFA241C1960631D00D35073 /* LPortDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPortDelegate.h; sourceTree = "<group>"; };
+		2BFA241D1960654600D35073 /* LWire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWire.h; sourceTree = "<group>"; };
+		2BFA241E1960654600D35073 /* LWire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWire.m; sourceTree = "<group>"; };
 		2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECNavigationBar.h; path = Shared/ECNavigationBar.h; sourceTree = "<group>"; };
 		2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECNavigationBar.m; path = Shared/ECNavigationBar.m; sourceTree = "<group>"; };
 		2BFC7B0D195D9223007AD84E /* ECGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGridView.h; path = Shared/ECGridView.h; sourceTree = "<group>"; };
@@ -264,6 +278,7 @@
 				2B3C6FD5195F3D2D002FDFDC /* Main_iPad.storyboard */,
 				2B3C6FD8195F3D2D002FDFDC /* ViewController.h */,
 				2B3C6FD9195F3D2D002FDFDC /* ViewController.m */,
+				2BFA241719604D9400D35073 /* Gates */,
 				2B3C6FDB195F3D2D002FDFDC /* Images.xcassets */,
 				2B3C6FC7195F3D2D002FDFDC /* Supporting Files */,
 			);
@@ -297,6 +312,23 @@
 				2B3C6FEA195F3D2E002FDFDC /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2BFA241719604D9400D35073 /* Gates */ = {
+			isa = PBXGroup;
+			children = (
+				2BFA241419604D8700D35073 /* LPort.h */,
+				2BFA241519604D8700D35073 /* LPort.m */,
+				2BFA241119604BAE00D35073 /* LGate.h */,
+				2BFA241219604BAE00D35073 /* LGate.m */,
+				2BFA241D1960654600D35073 /* LWire.h */,
+				2BFA241E1960654600D35073 /* LWire.m */,
+				2BFA241C1960631D00D35073 /* LPortDelegate.h */,
+				2BFA241A1960594600D35073 /* GateType.h */,
+				2BFA241B19605A4D00D35073 /* LObjectProtocol.h */,
+				2BFA24181960523400D35073 /* GateImages.xcassets */,
+			);
+			name = Gates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,7 +410,7 @@
 		2B097FD7195C7C7E00EBF2E6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = EC;
+				CLASSPREFIX = L;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Edward Peiliang Guo";
 				TargetAttributes = {
@@ -440,6 +472,7 @@
 				2B3C6FDC195F3D2D002FDFDC /* Images.xcassets in Resources */,
 				2B3C6FF8195F3EBE002FDFDC /* ButtonIcons.xcassets in Resources */,
 				2B3C6FD4195F3D2D002FDFDC /* Main_iPhone.storyboard in Resources */,
+				2BFA24191960523400D35073 /* GateImages.xcassets in Resources */,
 				2B3C6FCB195F3D2D002FDFDC /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,11 +513,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BFA241F1960654600D35073 /* LWire.m in Sources */,
 				2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */,
 				2B3C6FDA195F3D2D002FDFDC /* ViewController.m in Sources */,
 				2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */,
+				2BFA241619604D8700D35073 /* LPort.m in Sources */,
 				2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */,
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,
+				2BFA241319604BAE00D35073 /* LGate.m in Sources */,
 				2B3C6FCD195F3D2D002FDFDC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "LGate.h"
 
 @interface ViewController ()
 
@@ -43,13 +44,20 @@
     _mainScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.originalContentView insertSubview:_mainScrollView belowSubview:_toolBar];
     
-    
-    ECGridView* gridView = [ECGridView generateGridWithNumberOfVerticalLines:30 HorizonLines:30];
+    //Setup grid view
+    ECGridView* gridView = [ECGridView generateGridWithNumberOfVerticalLines:31 HorizonLines:31];
     [_mainScrollView addSubview:gridView];
     
     _mainScrollView.contentSize = gridView.frame.size;
     [_mainScrollView setContentOffset:CGPointMake(_mainScrollView.contentSize.width/2 - _mainScrollView.bounds.size.width/2, _mainScrollView.contentSize.height/2 - _mainScrollView.bounds.size.height/2) animated:NO];
     
+    
+    LGate* gate = [[LGate alloc]initGate];
+    gate.center = CGPointMake(_mainScrollView.contentSize.width/2, _mainScrollView.contentSize.height/2);
+    [gridView addSubview:gate];
+    
+    
+    //Setup show/hide button
     _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
     [_showButton setImage:[UIImage imageNamed:@"ShowMenuIcon"] forState:UIControlStateNormal];
     [_showButton sizeToFit];
@@ -59,6 +67,7 @@
     [_showButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     
     //End of View Initialization
+    [UIViewController prepareInterstitialAds];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

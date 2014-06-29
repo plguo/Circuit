@@ -57,7 +57,7 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:0.8 alpha:1.0].CGColor);
     
     //Draw Vertical Lines Expect Border And Every 10 Lines
     for (NSUInteger i = 1; i < _width - 1; i ++) {
