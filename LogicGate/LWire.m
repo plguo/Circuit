@@ -8,8 +8,13 @@
 
 #import "LWire.h"
 
-@implementation LWire
+#define COLOR_NO_REAL_INPUT [UIColor redColor]
 
+@implementation LWire{
+    UIColor* _color;
+}
+
+#pragma mark - Initialization
 - (instancetype)initWire{
     self = [super init];
     if (self) {
@@ -18,11 +23,20 @@
         
         _realInput = NO;
         _boolStatus = NO;
+        
+        _color = COLOR_NO_REAL_INPUT;
+        
+        CAShapeLayer* shapeLayer = (CAShapeLayer*)self.layer;
+        shapeLayer.fillColor = nil;
+        shapeLayer.strokeColor = _color.CGColor;
+        shapeLayer.lineCap = kCALineCapRound;
+        shapeLayer.lineWidth = 4.0;
+        
     }
     return self;
 }
 
-
+#pragma mark - Port connection
 -(BOOL)allowConnectToThisPort:(LPort *)port{
     if (self.startPort && port.type == PortTypeOutput) {
         return NO;
@@ -49,21 +63,24 @@
             if ([port allowToConnect]) {
                 if (port.type == PortTypeOutput) {
                     _startPort = port;
+                    [_startPort addDelegate:self];
+                    self.realInput = _startPort.realInput;
+                    self.boolStatus = _startPort.boolStatus;
                 } else {
                     _endPort = port;
+                    [_endPort addDelegate:self];
+                    [_endPort connectToInWire:self];
                 }
-                [newPort connectToWire:self];
-                [self drawLine];
-                if (self.startPort && self.endPort) {
-                    [self didConnectBothSides];
+                if (_startPort && _endPort) {
+                    [self drawWire];
                 }
                 return;
             }
         }
     }
-    [self kill];
 }
 
+/*
 -(void)connectNewPort:(Port*)newPort withPosition:(CGPoint)point{
     if (newPort) {
         if ([self wantConnectThisPort:newPort]){
@@ -87,12 +104,13 @@
     [self kill];
     
 }
+*/
 
-
+#pragma mark - Update values
 -(void) setBoolStatus:(BOOL)value{
     if(_boolStatus != value){
         _boolStatus = value;
-        [self updateColor];
+        //[self updateColor];
         if (self.endPort) {
             [self.endPort inWireBoolStatusDidChange];
         }
@@ -102,7 +120,7 @@
 -(void) setRealInput:(BOOL)value{
     if(_realInput != value){
         _realInput = value;
-        [self updateColor];
+        //[self updateColor];
         if (self.endPort){
             [self.endPort inWireRealInputDidChange];
         }
@@ -110,6 +128,25 @@
     }
 }
 
+-(void)updateColor{
+    UIColor* newColor;
+    if (!self.realInput) {
+        newColor = [UIColor redColor];
+    } else {
+        if (self.boolStatus) {
+            newColor = [UIColor greenColor];
+        } else {
+            newColor = [UIColor blackColor];
+        }
+    }
+    if (![_color isEqual:newColor]) {
+        _color = newColor;
+        CAShapeLayer* layer = (CAShapeLayer*)self.layer;
+        layer.strokeColor = _color.CGColor;
+    }
+}
+
+#pragma mark - LPortDelegate
 -(void)portBoolStatusDidChange:(PortType)portType{
     if (self.startPort && portType == PortTypeOutput) {
         self.boolStatus = self.startPort.boolStatus;
@@ -117,7 +154,7 @@
 }
 
 -(void)portPositionDidChange{
-    [self performSelectorInBackground:@selector(drawLine) withObject:nil];
+    //[self performSelectorInBackground:@selector(drawLine) withObject:nil];
 }
 
 -(void)portRealInputDidChange:(PortType)portType{
@@ -134,23 +171,11 @@
         [self.endPort inWireWillRemove];
         [self.endPort removeDelegate:self];
     }
-    [self removeAllActions];
-    [self removeFromParent];
+    [self removeFromSuperview];
 }
 
--(void)updateColor{
-    if (!self.realInput) {
-        self.color = [SKColor redColor];
-    } else {
-        if (self.boolStatus) {
-            self.color = [SKColor greenColor];
-        } else {
-            self.color = [SKColor blackColor];
-        }
-    }
-}
-
--(void)kill{
+#pragma mark - LObjectProtocol
+-(void)remove{
     if (self.startPort) {
         [self.startPort removeDelegate:self];
     }
@@ -158,75 +183,59 @@
         [self.endPort inWireWillRemove];
         [self.endPort removeDelegate:self];
     }
-    [self removeAllActions];
-    [self removeFromParent];
+    [self removeFromSuperview];
 }
 
--(void)didConnectBothSides{
-    [self.startPort addDelegate:self];
-    [self.endPort addDelegate:self];
-    
-    self.realInput = self.startPort.realInput;
-    self.boolStatus = self.startPort.boolStatus;
-    
-    [self.startPort finishedConnectProcess];
-    [self.endPort finishedConnectProcess];
+#pragma mark - Graphic Logic
++ (Class)layerClass{
+    return [CAShapeLayer class];
 }
 
--(void)drawLine{
-    if (self.startPort && self.endPort) {
-        CGPoint startPos = [self.startPort mapPosition];
-        CGPoint endPos = [self.endPort mapPosition];
+-(void)drawWire{
+    if (self.startPort && self.endPort && self.superview) {
+        CGPoint startPos = [self.superview convertPoint:self.startPort.center fromView:self.startPort.superview];
+        CGPoint endPos = [self.superview convertPoint:self.endPort.center fromView:self.endPort.superview];
         [self drawPathWithStartPosition:startPos andEndPosition:endPos];
     }
 }
 
--(void)drawLineWithPosition:(CGPoint)point{
-    CGPoint startPos;
-    CGPoint endPos;
-    if (self.startPort && self.endPort) {
-        startPos = [self.startPort mapPosition];
-        endPos = [self.endPort mapPosition];
-    } else if (self.startPort) {
-        startPos = [self.startPort mapPosition];
-        endPos = point;
-    } else if (self.endPort) {
-        endPos = [self.endPort mapPosition];
-        startPos = point;
-    } else {
-        //Wire should have one or more port
-        [self kill];
-        return;
+-(void)drawWireWithPosition:(CGPoint)point{
+    if (self.superview) {
+        CGPoint startPos;
+        CGPoint endPos;
+        if (self.startPort) {
+            startPos = [self.superview convertPoint:CGPointZero fromView:self.startPort];
+            endPos = point;
+        } else if (self.endPort) {
+            endPos = [self.superview convertPoint:CGPointZero fromView:self.endPort];
+            startPos = point;
+        } else {
+            //Wire should have one or more port
+            //[self kill];
+            return;
+        }
+        [self drawPathWithStartPosition:startPos andEndPosition:endPos];
     }
-    [self drawPathWithStartPosition:startPos andEndPosition:endPos];
 }
 
--(void)drawPathWithStartPosition:(CGPoint)startPos andEndPosition:(CGPoint)endPos{
-    CGFloat length = (CGFloat)sqrt(pow(startPos.x-endPos.x, 2)+pow(startPos.y-endPos.y, 2));
-    self.size = CGSizeMake(length, 4);
-    CGFloat x = endPos.x - startPos.x;
-    CGFloat y = endPos.y - startPos.y;
-    CGFloat rotation;
-    if (x == 0.0) {
-        rotation = M_PI_2;
-    } else{
-        rotation = atan(y/x);
-        if (x<0.0) {
-            rotation += M_PI;
-        }else{
-            rotation += M_PI*2;
-        }
-    }
-    self.zRotation = rotation;
-    self.position = CGPointMake((endPos.x + startPos.x)/2, (endPos.y + startPos.y)/2);
+#pragma mark - Graphic Draw
+-(void)drawPathWithStartPosition:(CGPoint)startPosition andEndPosition:(CGPoint)endPosition{
+    CGPoint minPos = CGPointMake(MIN(startPosition.x, endPosition.x), MIN(startPosition.y, endPosition.y));
     
-    /*
-     CGMutablePathRef drawPath = CGPathCreateMutable();
-     CGPathMoveToPoint(drawPath, NULL, startPos.x, startPos.y);
-     CGPathAddLineToPoint(drawPath, NULL, endPos.x, endPos.y);
-     self.path = drawPath;
-     CGPathRelease(drawPath);
-     */
+    startPosition.x -= minPos.x;
+    startPosition.y -= minPos.y;
+    endPosition.x -= minPos.x;
+    endPosition.y -= minPos.y;
+    
+    UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+    [bezierPath moveToPoint:startPosition];
+    [bezierPath addLineToPoint:endPosition];
+    
+    CAShapeLayer* layer = (CAShapeLayer*)self.layer;
+    layer.path = bezierPath.CGPath;
+    
+    self.frame = CGRectMake(minPos.x, minPos.y, self.frame.size.width, self.frame.size.height);
 }
+
 
 @end

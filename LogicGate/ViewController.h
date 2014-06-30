@@ -13,6 +13,6 @@
 #import "ECNavigationBar.h"
 #import "ECGridView.h"
 
-@interface ViewController : UIViewController<ECNavigationBarDelegate>
+@interface ViewController : UIViewController<ECNavigationBarDelegate,UIGestureRecognizerDelegate>
 
 @end

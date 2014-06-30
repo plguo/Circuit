@@ -36,8 +36,13 @@
         
         //Initialize ports
         [self initPorts];
+        
     }
     return self;
+}
+
++ (instancetype)gate{
+    return [[self alloc] initGate];
 }
 
 
@@ -109,5 +114,8 @@
 - (NSString*)booleanFormula{
     return @"DEFULT_GATE";
 }
+
+#pragma mark - Handle touch events
+
 
 @end

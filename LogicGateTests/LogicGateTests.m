@@ -7,6 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "LGate.h"
+#import "LWire.h"
 
 @interface LogicGateTests : XCTestCase
 
@@ -26,9 +28,15 @@
     [super tearDown];
 }
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
+
+//- (void)testBasicConnection
+//{
+//    LGate* gate1 = [[LGate alloc] initGate];
+//    LGate* gate2 = [[LGate alloc] initGate];
+//    LWire* wire1 = [[LWire alloc] initWire];
+//    [wire1 connectNewPort:gate1.outPorts[0]];
+//    [wire1 connectNewPort:gate2.inPorts[0]];
+//    
+//}
 
 @end

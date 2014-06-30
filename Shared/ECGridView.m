@@ -52,7 +52,6 @@
 #pragma mark - Draw Rect
 - (void)drawRect:(CGRect)rect
 {
-    [super drawRect:rect];
     // Drawing code
     
     CGContextRef context = UIGraphicsGetCurrentContext();

@@ -17,20 +17,20 @@
 
 @interface LPort : UIView
 
--(id) initWithPortType:(PortType)type SuperGate:(LGate*)gate Center:(CGPoint)center;
+- (id)initWithPortType:(PortType)type SuperGate:(LGate*)gate Center:(CGPoint)center;
 
--(void) connectToInWire:(LWire*)inWire;
+- (void)connectToInWire:(LWire*)inWire;
 
--(void) removeAllWire;
+- (void)removeAllWire;
 
--(void) gatePositionDidChange;
+- (void)gatePositionDidChange;
 
--(void) inWireWillRemove;
--(void) inWireBoolStatusDidChange;
--(void) inWireRealInputDidChange;
+- (void)inWireWillRemove;
+- (void)inWireBoolStatusDidChange;
+- (void)inWireRealInputDidChange;
 
--(void) addDelegate:(id<PortDelegate>)delegate;
--(void) removeDelegate:(id<PortDelegate>)delegate;
+- (void)addDelegate:(id<PortDelegate>)delegate;
+- (void)removeDelegate:(id<PortDelegate>)delegate;
 
 -(BOOL) allowToConnect;
 

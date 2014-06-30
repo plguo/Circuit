@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECOverlayView.h"
 
-@interface ECGridView : UIView
+@interface ECGridView : ECOverlayView
 + (instancetype)generateGridWithNumberOfVerticalLines:(NSUInteger)width HorizonLines:(NSUInteger)height;
 @end

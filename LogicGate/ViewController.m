@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "LGate.h"
+#import "LNotGate.h"
 
 @interface ViewController ()
 
@@ -18,6 +19,9 @@
     UIScrollView* _mainScrollView;
     ECToolBar* _toolBar;
     UIButton* _showButton;
+    
+    UIView* _gateView;
+    UIView* _wireView;
 }
 
 #pragma mark - View Loading
@@ -49,13 +53,29 @@
     [_mainScrollView addSubview:gridView];
     
     _mainScrollView.contentSize = gridView.frame.size;
+    
+    _gateView = [[UIView alloc] initWithFrame:gridView.frame];
+    _wireView = [[UIView alloc] initWithFrame:gridView.frame];
+    
+    [_mainScrollView addSubview:_wireView];
+    [_mainScrollView addSubview:_gateView];
+    
     [_mainScrollView setContentOffset:CGPointMake(_mainScrollView.contentSize.width/2 - _mainScrollView.bounds.size.width/2, _mainScrollView.contentSize.height/2 - _mainScrollView.bounds.size.height/2) animated:NO];
     
     
-    LGate* gate = [[LGate alloc]initGate];
+    LNotGate* gate = (LNotGate*)[self addGate:GateTypeNOT];
     gate.center = CGPointMake(_mainScrollView.contentSize.width/2, _mainScrollView.contentSize.height/2);
-    [gridView addSubview:gate];
+    [_gateView addSubview:gate];
     
+    LNotGate* gate2= (LNotGate*)[self addGate:GateTypeNOT];
+    gate2.center = CGPointMake(_mainScrollView.contentSize.width/2 + 80, _mainScrollView.contentSize.height/2);
+    [_gateView addSubview:gate2];
+    
+    LWire* w1 = [[LWire alloc] initWire];
+    [_wireView addSubview:w1];
+    
+    [w1 connectNewPort:gate.outPorts[0]];
+    [w1 connectNewPort:gate2.inPorts[0]];
     
     //Setup show/hide button
     _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
@@ -112,4 +132,67 @@
         [_showButton removeFromSuperview];
     }];
 }
+#pragma mark - Handle Gesture Recognizers
+-(void)handlePanFrom:(UIPanGestureRecognizer *)recognizer{
+    UIView* gate = recognizer.view;
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            gate.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            gate.center = [recognizer locationInView:gate.superview];
+            gate.alpha = 0.7;
+        }];
+        
+    }else if (recognizer.state == UIGestureRecognizerStateChanged){
+        
+        gate.center = [recognizer locationInView:gate.superview];
+        
+    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed){
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            gate.transform = CGAffineTransformIdentity;
+            gate.center = [recognizer locationInView:gate.superview];
+            gate.alpha = 1.0;
+        }];
+        
+    }
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    if ([otherGestureRecognizer isEqual:_mainScrollView.panGestureRecognizer]) {
+        return NO;
+    }
+    return YES;
+}
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    if ([otherGestureRecognizer isEqual:_mainScrollView.panGestureRecognizer]) {
+        return YES;
+    }
+    return NO;
+}
+
+
+
+#pragma mark - Add gate
+- (LGate*)addGate:(GateType)type{
+    LGate* gate;
+    switch (type) {
+        case GateTypeNOT:
+            gate = [LNotGate gate];
+            break;
+            
+        default:
+            break;
+    }
+    if (gate) {
+        UIPanGestureRecognizer* panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePanFrom:)];
+        [gate addGestureRecognizer:panGestureRecognizer];
+        panGestureRecognizer.delegate = self;
+        
+    }
+    return gate;
+}
+
+
 @end

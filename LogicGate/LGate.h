@@ -11,9 +11,9 @@
 #import "GateType.h"
 #import "LObjectProtocol.h"
 
-@interface LGate : UIImageView<LObjectProtocol>
-
+@interface LGate : UIImageView<LObjectProtocol,UIGestureRecognizerDelegate>
 - (instancetype)initGate;
++ (instancetype)gate;
 
 - (void)initPorts;
 
@@ -31,6 +31,6 @@
 @property (nonatomic, readonly) GateType gateType;
 @property (nonatomic, readonly) BOOL realInput;
 
-@property (nonatomic, readonly) NSArray* inPorts;
-@property (nonatomic, readonly) NSArray* outPorts;
+@property (nonatomic) NSArray* inPorts;
+@property (nonatomic) NSArray* outPorts;
 @end

@@ -14,9 +14,10 @@
 }
 
 #pragma mark - Initialization
--(id)initWithPortType:(PortType)type SuperGate:(LGate *)gate Center:(CGPoint)center{
+- (id)initWithPortType:(PortType)type SuperGate:(LGate *)gate Center:(CGPoint)center{
     self = [super initWithFrame:CGRectMake(center.x - RADIUS, center.y - RADIUS, RADIUS*2, RADIUS*2)];
     if (self) {
+        self.backgroundColor = [UIColor greenColor];
         self.layer.cornerRadius = RADIUS;
         
         self.boolStatus = NO;
@@ -34,7 +35,7 @@
 }
 
 #pragma mark - Handle commands and messages
--(void)removeAllWire{
+- (void)removeAllWire{
     for (id<PortDelegate> pointer in _delegatesSet){
         if ([pointer respondsToSelector:@selector(portWillRemoveWires:)]) {
             [pointer portWillRemoveWires:self.type];
@@ -42,7 +43,7 @@
     }
 }
 
--(BOOL)allowToConnect{
+- (BOOL)allowToConnect{
     if (!self.wireConnectable) {
         return NO;
     }
@@ -61,28 +62,30 @@
 }
 
 #pragma mark - Handle notifications from inWire
--(void)connectToInWire:(LWire *)inWire{
+- (void)connectToInWire:(LWire *)inWire{
     if (self.type == PortTypeInput){
         _inWire = inWire;
+        self.realInput = _inWire.realInput;
+        self.boolStatus = _inWire.boolStatus;
     }
 }
 
--(void)inWireWillRemove{
+- (void)inWireWillRemove{
     self.boolStatus = NO;
     self.realInput = NO;
     self.inWire = nil;
 }
 
--(void) inWireBoolStatusDidChange{
+- (void)inWireBoolStatusDidChange{
     self.boolStatus = self.inWire.boolStatus;
 }
 
--(void) inWireRealInputDidChange{
+- (void)inWireRealInputDidChange{
     self.realInput = self.inWire.realInput;
 }
 
 #pragma mark - Notifications of delegates
--(void)gatePositionDidChange{
+- (void)gatePositionDidChange{
     for (id<PortDelegate> pointer in _delegatesSet){
         if ([pointer respondsToSelector:@selector(portPositionDidChange)]) {
             [pointer portPositionDidChange];
@@ -90,7 +93,7 @@
     }
 }
 
--(void) setBoolStatus:(BOOL)value{
+- (void)setBoolStatus:(BOOL)value{
     if(_boolStatus != value){
         _boolStatus = value;
         for (id<PortDelegate> pointer in _delegatesSet){
@@ -102,7 +105,7 @@
     }
 }
 
--(void) setRealInput:(BOOL)value{
+- (void)setRealInput:(BOOL)value{
     if(_realInput != value){
         _realInput = value;
         for (id<PortDelegate> pointer in _delegatesSet){
@@ -115,11 +118,11 @@
 }
 
 #pragma mark - Add/Remove delegate
--(void) addDelegate:(id<PortDelegate>)delegate{
+- (void)addDelegate:(id<PortDelegate>)delegate{
     [_delegatesSet addObject:delegate];
 }
 
--(void) removeDelegate:(id<PortDelegate>)delegate{
+- (void)removeDelegate:(id<PortDelegate>)delegate{
     [_delegatesSet removeObject:delegate];
 }
 
