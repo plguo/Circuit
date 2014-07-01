@@ -24,7 +24,9 @@
     ECOverlayView* _gateView;
     ECOverlayView* _wireView;
     
+    ECScreenEdgeScrollController* _screenEdgeScrollController;
     CGRect _scrollViewEdge;
+    
 }
 
 #pragma mark - View Loading
@@ -91,6 +93,8 @@
     _showButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
     [_showButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     
+    _screenEdgeScrollController = [[ECScreenEdgeScrollController alloc] init];
+    _screenEdgeScrollController.scrollView = _mainScrollView;
     //End of View Initialization
     [UIViewController prepareInterstitialAds];
 }
@@ -100,7 +104,7 @@
 }
 
 - (void)viewDidLayoutSubviews{
-    _scrollViewEdge = CGRectInset(_mainScrollView.bounds, 6, 6);
+    _scrollViewEdge = CGRectInset(CGRectMake(0, 0, _mainScrollView.bounds.size.width, _mainScrollView.bounds.size.height) , 15, 15);
 }
 
 #pragma mark - Memory Mangement
@@ -157,13 +161,22 @@
         
     }else if (recognizer.state == UIGestureRecognizerStateChanged){
         gate.center = [recognizer locationInView:gate.superview];
-        if (!CGRectContainsPoint(_scrollViewEdge, [recognizer locationInView:_mainScrollView])) {
-            NSLog(@"Y");
+        if (!_screenEdgeScrollController.tracking) {
+            CGPoint location = [recognizer locationInView:_mainScrollView];
+            location.x -= _mainScrollView.contentOffset.x;
+            location.y -= _mainScrollView.contentOffset.y;
+            if (!CGRectContainsPoint(_scrollViewEdge, location)) {
+                [_screenEdgeScrollController trackGestureRecognizer:recognizer Bounds:_scrollViewEdge Location:location];
+            }
         }
         
     }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded){
         
         CGPoint snapPoint = [_gridView closestPointInGridView:[recognizer locationInView:gate.superview]];
+        CGSize gateSize = CGSizeMake(CGRectGetWidth(gate.bounds), CGRectGetHeight(gate.bounds));
+        CGRect snapRect = CGRectMake(snapPoint.x - gateSize.width/2 , snapPoint.y - gateSize.height/2, gateSize.width, gateSize.height);
+        snapRect = CGRectInset(snapRect, - 5.0, - 5.0);
+        [_mainScrollView scrollRectToVisible:snapRect animated:YES];
         [UIView animateWithDuration:0.2 animations:^{
             gate.transform = CGAffineTransformIdentity;
             gate.center = snapPoint;

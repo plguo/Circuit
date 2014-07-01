@@ -12,6 +12,7 @@
 #import "ECToolBar.h"
 #import "ECNavigationBar.h"
 #import "ECGridView.h"
+#import "ECScreenEdgeScrollController.h"
 
 
 @interface ViewController : UIViewController<ECNavigationBarDelegate>
