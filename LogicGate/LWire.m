@@ -80,32 +80,6 @@
     }
 }
 
-/*
--(void)connectNewPort:(Port*)newPort withPosition:(CGPoint)point{
-    if (newPort) {
-        if ([self wantConnectThisPort:newPort]){
-            if ([newPort isAbleToConnect]) {
-                if (newPort.type == PortTypeOutput) {
-                    self.startPort = newPort;
-                    self.startGate = newPort.ownerGate;
-                } else {
-                    self.endPort = newPort;
-                    self.endGate = newPort.ownerGate;
-                }
-                [newPort connectToWire:self];
-                [self drawLineWithPosition:point];
-                if (self.startPort && self.endPort) {
-                    [self didConnectBothSides];
-                }
-                return;
-            }
-        }
-    }
-    [self kill];
-    
-}
-*/
-
 #pragma mark - Update values
 -(void) setBoolStatus:(BOOL)value{
     if(_boolStatus != value){

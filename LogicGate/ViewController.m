@@ -19,9 +19,10 @@
     UIScrollView* _mainScrollView;
     ECToolBar* _toolBar;
     UIButton* _showButton;
+    ECGridView* _gridView;
     
-    UIView* _gateView;
-    UIView* _wireView;
+    ECOverlayView* _gateView;
+    ECOverlayView* _wireView;
 }
 
 #pragma mark - View Loading
@@ -46,16 +47,17 @@
 
     _mainScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
     _mainScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    _mainScrollView.canCancelContentTouches = NO;
     [self.originalContentView insertSubview:_mainScrollView belowSubview:_toolBar];
     
     //Setup grid view
-    ECGridView* gridView = [ECGridView generateGridWithNumberOfVerticalLines:31 HorizonLines:31];
-    [_mainScrollView addSubview:gridView];
+    _gridView = [ECGridView generateGridWithNumberOfVerticalLines:31 HorizonLines:31];
+    [_mainScrollView addSubview:_gridView];
     
-    _mainScrollView.contentSize = gridView.frame.size;
+    _mainScrollView.contentSize = _gridView.frame.size;
     
-    _gateView = [[UIView alloc] initWithFrame:gridView.frame];
-    _wireView = [[UIView alloc] initWithFrame:gridView.frame];
+    _gateView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
+    _wireView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
     
     [_mainScrollView addSubview:_wireView];
     [_mainScrollView addSubview:_gateView];
@@ -67,6 +69,7 @@
     gate.center = CGPointMake(_mainScrollView.contentSize.width/2, _mainScrollView.contentSize.height/2);
     [_gateView addSubview:gate];
     
+    /*
     LNotGate* gate2= (LNotGate*)[self addGate:GateTypeNOT];
     gate2.center = CGPointMake(_mainScrollView.contentSize.width/2 + 80, _mainScrollView.contentSize.height/2);
     [_gateView addSubview:gate2];
@@ -76,7 +79,7 @@
     
     [w1 connectNewPort:gate.outPorts[0]];
     [w1 connectNewPort:gate2.inPorts[0]];
-    
+    */
     //Setup show/hide button
     _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
     [_showButton setImage:[UIImage imageNamed:@"ShowMenuIcon"] forState:UIControlStateNormal];
@@ -132,6 +135,9 @@
         [_showButton removeFromSuperview];
     }];
 }
+
+
+
 #pragma mark - Handle Gesture Recognizers
 -(void)handlePanFrom:(UIPanGestureRecognizer *)recognizer{
     UIView* gate = recognizer.view;
@@ -147,7 +153,7 @@
         
         gate.center = [recognizer locationInView:gate.superview];
         
-    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed){
+    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded){
         
         [UIView animateWithDuration:0.2 animations:^{
             gate.transform = CGAffineTransformIdentity;
@@ -158,6 +164,7 @@
     }
 }
 
+/*
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     if ([otherGestureRecognizer isEqual:_mainScrollView.panGestureRecognizer]) {
         return NO;
@@ -171,7 +178,7 @@
     }
     return NO;
 }
-
+*/
 
 
 #pragma mark - Add gate

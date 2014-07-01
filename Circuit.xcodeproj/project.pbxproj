@@ -30,6 +30,8 @@
 		2B2CAEED1961CE670000B7ED /* LNotGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEEC1961CE670000B7ED /* LNotGate.m */; };
 		2B2CAEF31961F73C0000B7ED /* ECOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */; };
 		2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */; };
+		2B2CAEFB196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */; };
+		2B2CAEFC196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */; };
 		2B3805CE195F0F76004E7FC2 /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
 		2B3C6FC3195F3D2D002FDFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */; };
 		2B3C6FC4195F3D2D002FDFDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */; };
@@ -104,6 +106,8 @@
 		2B2CAEEC1961CE670000B7ED /* LNotGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNotGate.m; sourceTree = "<group>"; };
 		2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECOverlayView.h; path = Shared/ECOverlayView.h; sourceTree = "<group>"; };
 		2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECOverlayView.m; path = Shared/ECOverlayView.m; sourceTree = "<group>"; };
+		2B2CAEF9196202AE0000B7ED /* ECFailureGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECFailureGestureRecognizer.h; path = Shared/ECFailureGestureRecognizer.h; sourceTree = "<group>"; };
+		2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECFailureGestureRecognizer.m; path = Shared/ECFailureGestureRecognizer.m; sourceTree = "<group>"; };
 		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ButtonIcons.xcassets; path = Shared/ButtonIcons.xcassets; sourceTree = "<group>"; };
 		2B3C6FC2195F3D2D002FDFDC /* LogicGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LogicGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B3C6FC8195F3D2D002FDFDC /* LogicGate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGate-Info.plist"; sourceTree = "<group>"; };
@@ -276,6 +280,8 @@
 				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
 				2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */,
 				2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */,
+				2B2CAEF9196202AE0000B7ED /* ECFailureGestureRecognizer.h */,
+				2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */,
 				2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */,
 			);
 			name = Shared;
@@ -512,6 +518,7 @@
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
+				2B2CAEFB196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */,
 				2B097FEF195C7C7E00EBF2E6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,6 +541,7 @@
 				2B3C6FDA195F3D2D002FDFDC /* ViewController.m in Sources */,
 				2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */,
 				2BFA241619604D8700D35073 /* LPort.m in Sources */,
+				2B2CAEFC196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */,
 				2B2CAEED1961CE670000B7ED /* LNotGate.m in Sources */,
 				2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */,
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,

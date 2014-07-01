@@ -37,6 +37,7 @@
         //Initialize ports
         [self initPorts];
         
+        self.userInteractionEnabled = YES;
     }
     return self;
 }
