@@ -30,16 +30,14 @@
 		2B2CAEED1961CE670000B7ED /* LNotGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEEC1961CE670000B7ED /* LNotGate.m */; };
 		2B2CAEF31961F73C0000B7ED /* ECOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */; };
 		2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */; };
-		2B2CAEFB196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */; };
-		2B2CAEFC196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */; };
 		2B325F151962E67600F29100 /* ECGridViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F141962E67600F29100 /* ECGridViewTests.m */; };
 		2B325F161962E67600F29100 /* ECGridViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F141962E67600F29100 /* ECGridViewTests.m */; };
 		2B325F171962EBE500F29100 /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 		2B325F181962EBE500F29100 /* ECGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC7B0E195D9223007AD84E /* ECGridView.m */; };
 		2B325F191962EC4F00F29100 /* ECOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */; };
 		2B325F1A1962EC5000F29100 /* ECOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */; };
-		2B325F1D1962F10D00F29100 /* ECGateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F1C1962F10D00F29100 /* ECGateView.m */; };
-		2B325F1E1962F10D00F29100 /* ECGateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F1C1962F10D00F29100 /* ECGateView.m */; };
+		2B325F211962FDE300F29100 /* ECScreenEdgeScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F201962FDE300F29100 /* ECScreenEdgeScrollController.m */; };
+		2B325F221962FDE300F29100 /* ECScreenEdgeScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F201962FDE300F29100 /* ECScreenEdgeScrollController.m */; };
 		2B3805CE195F0F76004E7FC2 /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
 		2B3C6FC3195F3D2D002FDFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */; };
 		2B3C6FC4195F3D2D002FDFDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */; };
@@ -115,10 +113,9 @@
 		2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECOverlayView.h; path = Shared/ECOverlayView.h; sourceTree = "<group>"; };
 		2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECOverlayView.m; path = Shared/ECOverlayView.m; sourceTree = "<group>"; };
 		2B2CAEF9196202AE0000B7ED /* ECFailureGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECFailureGestureRecognizer.h; path = Shared/ECFailureGestureRecognizer.h; sourceTree = "<group>"; };
-		2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECFailureGestureRecognizer.m; path = Shared/ECFailureGestureRecognizer.m; sourceTree = "<group>"; };
 		2B325F141962E67600F29100 /* ECGridViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECGridViewTests.m; sourceTree = "<group>"; };
-		2B325F1B1962F10D00F29100 /* ECGateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECGateView.h; path = Shared/ECGateView.h; sourceTree = "<group>"; };
-		2B325F1C1962F10D00F29100 /* ECGateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECGateView.m; path = Shared/ECGateView.m; sourceTree = "<group>"; };
+		2B325F1F1962FDE300F29100 /* ECScreenEdgeScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECScreenEdgeScrollController.h; path = Shared/ECScreenEdgeScrollController.h; sourceTree = "<group>"; };
+		2B325F201962FDE300F29100 /* ECScreenEdgeScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECScreenEdgeScrollController.m; path = Shared/ECScreenEdgeScrollController.m; sourceTree = "<group>"; };
 		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ButtonIcons.xcassets; path = Shared/ButtonIcons.xcassets; sourceTree = "<group>"; };
 		2B3C6FC2195F3D2D002FDFDC /* LogicGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LogicGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B3C6FC8195F3D2D002FDFDC /* LogicGate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGate-Info.plist"; sourceTree = "<group>"; };
@@ -136,7 +133,7 @@
 		2B3C6FE9195F3D2E002FDFDC /* LogicGateTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGateTests-Info.plist"; sourceTree = "<group>"; };
 		2B3C6FEB195F3D2E002FDFDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2B3C6FED195F3D2E002FDFDC /* LogicGateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogicGateTests.m; sourceTree = "<group>"; };
-		2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECNavigationBarDelegate.h; sourceTree = "<group>"; };
+		2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECNavigationBarDelegate.h; path = Shared/ECNavigationBarDelegate.h; sourceTree = "<group>"; };
 		2BFA241119604BAE00D35073 /* LGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGate.h; sourceTree = "<group>"; };
 		2BFA241219604BAE00D35073 /* LGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGate.m; sourceTree = "<group>"; };
 		2BFA241419604D8700D35073 /* LPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPort.h; sourceTree = "<group>"; };
@@ -291,10 +288,9 @@
 				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
 				2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */,
 				2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */,
-				2B325F1B1962F10D00F29100 /* ECGateView.h */,
-				2B325F1C1962F10D00F29100 /* ECGateView.m */,
 				2B2CAEF9196202AE0000B7ED /* ECFailureGestureRecognizer.h */,
-				2B2CAEFA196202AE0000B7ED /* ECFailureGestureRecognizer.m */,
+				2B325F1F1962FDE300F29100 /* ECScreenEdgeScrollController.h */,
+				2B325F201962FDE300F29100 /* ECScreenEdgeScrollController.m */,
 				2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */,
 			);
 			name = Shared;
@@ -528,13 +524,12 @@
 			files = (
 				2B2CAEF31961F73C0000B7ED /* ECOverlayView.m in Sources */,
 				2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */,
+				2B325F211962FDE300F29100 /* ECScreenEdgeScrollController.m in Sources */,
 				2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */,
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
-				2B2CAEFB196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */,
 				2B097FEF195C7C7E00EBF2E6 /* main.m in Sources */,
-				2B325F1D1962F10D00F29100 /* ECGateView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,13 +549,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */,
-				2B325F1E1962F10D00F29100 /* ECGateView.m in Sources */,
 				2BFA241F1960654600D35073 /* LWire.m in Sources */,
 				2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */,
 				2B3C6FDA195F3D2D002FDFDC /* ViewController.m in Sources */,
 				2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */,
+				2B325F221962FDE300F29100 /* ECScreenEdgeScrollController.m in Sources */,
 				2BFA241619604D8700D35073 /* LPort.m in Sources */,
-				2B2CAEFC196202AE0000B7ED /* ECFailureGestureRecognizer.m in Sources */,
 				2B2CAEED1961CE670000B7ED /* LNotGate.m in Sources */,
 				2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */,
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,

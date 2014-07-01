@@ -10,9 +10,8 @@
 #import "LPort.h"
 #import "GateType.h"
 #import "LObjectProtocol.h"
-#import "ECGateView.h"
 
-@interface LGate : UIImageView<LObjectProtocol,UIGestureRecognizerDelegate>
+@interface LGate : UIImageView<LObjectProtocol>
 - (instancetype)initGate;
 + (instancetype)gate;
 

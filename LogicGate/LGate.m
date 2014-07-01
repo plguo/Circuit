@@ -38,9 +38,6 @@
         [self initPorts];
         
         self.userInteractionEnabled = YES;
-        
-        UIPanGestureRecognizer* panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePanFrom:)];
-        [self addGestureRecognizer:panGestureRecognizer];
     }
     return self;
 }
@@ -117,33 +114,6 @@
 
 - (NSString*)booleanFormula{
     return @"DEFULT_GATE";
-}
-
-#pragma mark - Handle touch events
--(void)handlePanFrom:(UIPanGestureRecognizer *)recognizer{
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-            self.center = [recognizer locationInView:self.superview];
-            self.alpha = 0.7;
-        }];
-        
-    }else if (recognizer.state == UIGestureRecognizerStateChanged){
-        
-        self.center = [recognizer locationInView:self.superview];
-        
-    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded){
-        
-        ECGateView* gateView = (ECGateView*)self.superview;
-        CGPoint snapPoint = [gateView closestPointToSnap:[recognizer locationInView:self.superview]];
-        [UIView animateWithDuration:0.2 animations:^{
-            self.transform = CGAffineTransformIdentity;
-            self.center = snapPoint;
-            self.alpha = 1.0;
-        }];
-        
-    }
 }
 
 @end
