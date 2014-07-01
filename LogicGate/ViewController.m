@@ -21,7 +21,7 @@
     UIButton* _showButton;
     ECGridView* _gridView;
     
-    ECOverlayView* _gateView;
+    ECGateView* _gateView;
     ECOverlayView* _wireView;
 }
 
@@ -56,7 +56,8 @@
     
     _mainScrollView.contentSize = _gridView.frame.size;
     
-    _gateView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
+    _gateView = [[ECGateView alloc] initWithFrame:_gridView.frame];
+    _gateView.delegate = self;
     _wireView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
     
     [_mainScrollView addSubview:_wireView];
@@ -139,46 +140,7 @@
 
 
 #pragma mark - Handle Gesture Recognizers
--(void)handlePanFrom:(UIPanGestureRecognizer *)recognizer{
-    UIView* gate = recognizer.view;
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            gate.transform = CGAffineTransformMakeScale(1.2, 1.2);
-            gate.center = [recognizer locationInView:gate.superview];
-            gate.alpha = 0.7;
-        }];
-        
-    }else if (recognizer.state == UIGestureRecognizerStateChanged){
-        
-        gate.center = [recognizer locationInView:gate.superview];
-        
-    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded){
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            gate.transform = CGAffineTransformIdentity;
-            gate.center = [recognizer locationInView:gate.superview];
-            gate.alpha = 1.0;
-        }];
-        
-    }
-}
 
-/*
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    if ([otherGestureRecognizer isEqual:_mainScrollView.panGestureRecognizer]) {
-        return NO;
-    }
-    return YES;
-}
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    if ([otherGestureRecognizer isEqual:_mainScrollView.panGestureRecognizer]) {
-        return YES;
-    }
-    return NO;
-}
-*/
 
 
 #pragma mark - Add gate
@@ -193,13 +155,14 @@
             break;
     }
     if (gate) {
-        UIPanGestureRecognizer* panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePanFrom:)];
-        [gate addGestureRecognizer:panGestureRecognizer];
-        panGestureRecognizer.delegate = self;
         
     }
     return gate;
 }
 
+#pragma mark - ECGateViewDelegate
+- (CGPoint)gateViewClosestPointToSnap:(CGPoint)point{
+    return [_gridView closestPointInGridView:point];
+}
 
 @end

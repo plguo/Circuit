@@ -11,4 +11,8 @@
 
 @interface ECGridView : ECOverlayView
 + (instancetype)generateGridWithNumberOfVerticalLines:(NSUInteger)width HorizonLines:(NSUInteger)height;
+- (CGPoint)closestPointInGridView:(CGPoint)point;
+
+@property(nonatomic, readonly) CGFloat gridWidth;
+@property(nonatomic, readonly) CGFloat marginWidth;
 @end

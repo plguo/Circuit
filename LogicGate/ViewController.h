@@ -12,7 +12,8 @@
 #import "ECToolBar.h"
 #import "ECNavigationBar.h"
 #import "ECGridView.h"
+#import "ECGateView.h"
 
-@interface ViewController : UIViewController<ECNavigationBarDelegate,UIGestureRecognizerDelegate>
+@interface ViewController : UIViewController<ECNavigationBarDelegate,ECGateViewDelegate>
 
 @end
