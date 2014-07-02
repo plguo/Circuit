@@ -13,7 +13,7 @@
     BOOL _selected;
     NSUInteger _selectedTool;
     NSArray* _buttonsArray;
-    UIView* _subMenu;
+    //UIView* _subMenu;
 }
 
 #pragma mark - Methods for tool bar initialization
@@ -109,6 +109,18 @@
 #pragma mark - Show Menus
 - (void)showComponentsMenu{
     [self selectButtonAtIndex:0];
+    if (self.delegate) {
+        ECTComponentsMenu* menu = [ECTComponentsMenu autosizeComponentsMenuForView:self];
+        menu.alpha = 0.0;
+        menu.frame = CGRectMake(0, 10, menu.frame.size.width, menu.frame.size.height);
+        [self insertSubview:menu belowSubview:(UIView*)_buttonsArray[0]];
+        menu.menuDelegate = self.delegate;
+        CGRect rect = CGRectMake(0, self.frame.origin.x - 10 - menu.frame.size.height, self.frame.size.width, self.frame.size.height + 10 + menu.frame.size.height);
+        [UIView animateWithDuration:0.3 animations:^{
+            self.frame = rect;
+            menu.alpha = 1.0;
+        }];
+    }
 }
 
 - (void)showAdjustmentMenu{

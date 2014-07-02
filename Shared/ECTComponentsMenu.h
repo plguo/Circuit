@@ -6,8 +6,15 @@
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
 
-#import "ECToolBarSubview.h"
-
-@interface ECTComponentsMenu : ECToolBarSubview
-
+#import <UIKit/UIKit.h>
+@class ECTComponentsMenu;
+@protocol ECTComponentsMenuDelegate<NSObject>
+- (void)handleViewFromComponentsMenu:(UIView*)view PanGestureRecognizer:(UIGestureRecognizer*)recognizer;
+- (UIView*)componentsMenuViewAtIndex:(NSUInteger)index;
+- (NSString*)componentsMenuTitleAtIndex:(NSUInteger)index;
+- (NSUInteger)componentsMenuNumberOfViews;
+@end
+@interface ECTComponentsMenu : UIScrollView
++(instancetype)autosizeComponentsMenuForView:(UIView*)view;
+@property(nonatomic, weak) id<ECTComponentsMenuDelegate> menuDelegate;
 @end

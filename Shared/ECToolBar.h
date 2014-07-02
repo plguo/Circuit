@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECTComponentsMenu.h"
 
 @interface ECToolBar : UIView
 +(instancetype)autosizeToolBarForView:(UIView*)view;
 - (void)startHideAnimation;
 - (void)startShowAnimation;
+@property(nonatomic,weak) id<ECTComponentsMenuDelegate> delegate;
 @end

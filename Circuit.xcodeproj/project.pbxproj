@@ -38,8 +38,6 @@
 		2B325F1A1962EC5000F29100 /* ECOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2CAEF21961F73C0000B7ED /* ECOverlayView.m */; };
 		2B325F251963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F241963001B00F29100 /* ECScreenEdgeScrollController.m */; };
 		2B325F261963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F241963001B00F29100 /* ECScreenEdgeScrollController.m */; };
-		2B325F29196349D200F29100 /* ECToolBarSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F28196349D200F29100 /* ECToolBarSubview.m */; };
-		2B325F2A196349D200F29100 /* ECToolBarSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F28196349D200F29100 /* ECToolBarSubview.m */; };
 		2B325F2D19634A9500F29100 /* ECTComponentsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */; };
 		2B325F2E19634A9500F29100 /* ECTComponentsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */; };
 		2B3805CE195F0F76004E7FC2 /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
@@ -119,8 +117,6 @@
 		2B325F141962E67600F29100 /* ECGridViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECGridViewTests.m; sourceTree = "<group>"; };
 		2B325F231963001B00F29100 /* ECScreenEdgeScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECScreenEdgeScrollController.h; path = Shared/ECScreenEdgeScrollController.h; sourceTree = "<group>"; };
 		2B325F241963001B00F29100 /* ECScreenEdgeScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECScreenEdgeScrollController.m; path = Shared/ECScreenEdgeScrollController.m; sourceTree = "<group>"; };
-		2B325F27196349D200F29100 /* ECToolBarSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECToolBarSubview.h; path = Shared/ECToolBarSubview.h; sourceTree = "<group>"; };
-		2B325F28196349D200F29100 /* ECToolBarSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECToolBarSubview.m; path = Shared/ECToolBarSubview.m; sourceTree = "<group>"; };
 		2B325F2B19634A9500F29100 /* ECTComponentsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTComponentsMenu.h; path = Shared/ECTComponentsMenu.h; sourceTree = "<group>"; };
 		2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTComponentsMenu.m; path = Shared/ECTComponentsMenu.m; sourceTree = "<group>"; };
 		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ButtonIcons.xcassets; path = Shared/ButtonIcons.xcassets; sourceTree = "<group>"; };
@@ -293,8 +289,6 @@
 				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
 				2B325F2B19634A9500F29100 /* ECTComponentsMenu.h */,
 				2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */,
-				2B325F27196349D200F29100 /* ECToolBarSubview.h */,
-				2B325F28196349D200F29100 /* ECToolBarSubview.m */,
 				2BFC7B0D195D9223007AD84E /* ECGridView.h */,
 				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
 				2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */,
@@ -540,7 +534,6 @@
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
 				2B325F2D19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
-				2B325F29196349D200F29100 /* ECToolBarSubview.m in Sources */,
 				2B097FEF195C7C7E00EBF2E6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,7 +565,6 @@
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,
 				2BFA241319604BAE00D35073 /* LGate.m in Sources */,
 				2B325F2E19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
-				2B325F2A196349D200F29100 /* ECToolBarSubview.m in Sources */,
 				2B3C6FCD195F3D2D002FDFDC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
