@@ -14,7 +14,8 @@
 - (NSString*)componentsMenuTitleAtIndex:(NSUInteger)index;
 - (NSUInteger)componentsMenuNumberOfViews;
 @end
-@interface ECTComponentsMenu : UIScrollView
+
+@interface ECTComponentsMenu : UIScrollView<UIGestureRecognizerDelegate>
 +(instancetype)autosizeComponentsMenuForView:(UIView*)view;
 @property(nonatomic, weak) id<ECTComponentsMenuDelegate> menuDelegate;
 @end
