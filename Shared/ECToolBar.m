@@ -13,7 +13,7 @@
     BOOL _selected;
     NSUInteger _selectedTool;
     NSArray* _buttonsArray;
-    //UIView* _subMenu;
+    UIView* _subMenu;
 }
 
 #pragma mark - Methods for tool bar initialization
@@ -48,7 +48,7 @@
     //Components Menu Button
     UIButton* componentsMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [componentsMenuButton addTarget:self action:@selector(showComponentsMenu) forControlEvents:UIControlEventTouchUpInside];
+    [componentsMenuButton addTarget:self action:@selector(tapComponentsMenuButton) forControlEvents:UIControlEventTouchUpInside];
     
     [componentsMenuButton setImage:[UIImage imageNamed:@"AddIcon"] forState:UIControlStateNormal];
     [componentsMenuButton setImage:[UIImage imageNamed:@"AddIconDark"] forState:UIControlStateSelected];
@@ -59,7 +59,7 @@
     //Adjust Menu Button
     UIButton* adjustmentMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [adjustmentMenuButton addTarget:self action:@selector(showAdjustmentMenu) forControlEvents:UIControlEventTouchUpInside];
+    [adjustmentMenuButton addTarget:self action:@selector(tapAdjustmentMenuButton) forControlEvents:UIControlEventTouchUpInside];
     
     [adjustmentMenuButton setImage:[UIImage imageNamed:@"AdjustIcon"] forState:UIControlStateNormal];
     [adjustmentMenuButton setImage:[UIImage imageNamed:@"AdjustIconDark"] forState:UIControlStateSelected];
@@ -70,7 +70,7 @@
     //Files Menu Button
     UIButton* filesMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [filesMenuButton addTarget:self action:@selector(showFilesMenu) forControlEvents:UIControlEventTouchUpInside];
+    [filesMenuButton addTarget:self action:@selector(tapFilesMenuButton) forControlEvents:UIControlEventTouchUpInside];
     
     [filesMenuButton setImage:[UIImage imageNamed:@"FileIcon"] forState:UIControlStateNormal];
     [filesMenuButton setImage:[UIImage imageNamed:@"FileIconDark"] forState:UIControlStateSelected];
@@ -81,7 +81,7 @@
     //Delete Menu Button
     UIButton* deleteModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [deleteModeButton addTarget:self action:@selector(showDeleteMode) forControlEvents:UIControlEventTouchUpInside];
+    [deleteModeButton addTarget:self action:@selector(tapDeleteModeButton) forControlEvents:UIControlEventTouchUpInside];
     
     [deleteModeButton setImage:[UIImage imageNamed:@"DeleteIcon"] forState:UIControlStateNormal];
     [deleteModeButton setImage:[UIImage imageNamed:@"DeleteIconDark"] forState:UIControlStateSelected];
@@ -103,36 +103,50 @@
     }
 }
 
+#pragma mark - Tap buttons
+- (void)tapComponentsMenuButton{
+    [self selectButtonAtIndex:0];
+}
+
+- (void)tapAdjustmentMenuButton{
+    [self selectButtonAtIndex:1];
+}
+
+- (void)tapFilesMenuButton{
+    [self selectButtonAtIndex:2];
+}
+
+- (void)tapDeleteModeButton{
+    [self selectButtonAtIndex:3];
+}
 
 
 
 #pragma mark - Show Menus
 - (void)showComponentsMenu{
-    [self selectButtonAtIndex:0];
     if (self.delegate) {
         ECTComponentsMenu* menu = [ECTComponentsMenu autosizeComponentsMenuForView:self];
-        menu.alpha = 0.0;
-        menu.frame = CGRectMake(0, 10, menu.frame.size.width, menu.frame.size.height);
-        [self insertSubview:menu belowSubview:(UIView*)_buttonsArray[0]];
+        menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
+        [self.superview insertSubview:menu belowSubview:self];
         menu.menuDelegate = self.delegate;
-        CGRect rect = CGRectMake(0, self.frame.origin.y - 10 - menu.frame.size.height, self.frame.size.width, self.frame.size.height + 10 + menu.frame.size.height);
+        CGPoint newCenter = CGPointMake(menu.center.x, menu.center.y - CGRectGetHeight(menu.frame));
         [UIView animateWithDuration:0.3 animations:^{
-            self.frame = rect;
-            menu.alpha = 1.0;
+            menu.center = newCenter;
         }];
+        _subMenu = menu;
     }
 }
 
 - (void)showAdjustmentMenu{
-    [self selectButtonAtIndex:1];
+    
 }
 
 - (void)showFilesMenu{
-    [self selectButtonAtIndex:2];
+    
 }
 
 - (void)showDeleteMode{
-    [self selectButtonAtIndex:3];
+    
 }
 
 
@@ -159,10 +173,41 @@
             break;
     }
 }
+
+- (void)showMenu:(NSUInteger)index{
+    switch (index) {
+        case 0:
+            [self showComponentsMenu];
+            break;
+            
+        case 1:
+            [self showAdjustmentMenu];
+            break;
+            
+        case 2:
+            [self showFilesMenu];
+            break;
+            
+        case 3:
+            [self showDeleteMode];
+            break;
+            
+        default:
+            break;
+    }
+}
     
 - (void)hideComponentsMenu{
     UIButton* button =  _buttonsArray[0];
     button.selected = NO;
+    CGPoint center = CGPointMake(_subMenu.center.x, _subMenu.center.y + CGRectGetHeight(_subMenu.frame));
+    [UIView animateWithDuration:0.3 animations:^{
+        _subMenu.center = center;
+    } completion:^(BOOL finished) {
+        [_subMenu.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [_subMenu removeFromSuperview];
+    }];
+    _subMenu = nil;
 }
 
 - (void)hideAdjustmentMenu{
@@ -195,6 +240,7 @@
     _selectedTool = index;
     UIButton* button =  _buttonsArray[index];
     button.selected = YES;
+    [self showMenu:index];
 }
 
 #pragma mark - Animation

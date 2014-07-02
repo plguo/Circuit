@@ -7,12 +7,11 @@
 //
 
 #import "ECTComponentsMenu.h"
-//#define COMPACT_HEIGHT 42.0
 #define SPACE 10.0
 
 @implementation ECTComponentsMenu{
     NSMutableArray* _viewsArray;
-    
+    NSMutableArray* _infoArray;
     CGFloat _maxImageHeight;
 }
 
@@ -22,7 +21,7 @@
     if (self) {
         _maxImageHeight = frame.size.height - 22.0;
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.8];
         self.alwaysBounceHorizontal = YES;
         self.showsHorizontalScrollIndicator = YES;
         self.showsVerticalScrollIndicator = NO;
@@ -30,23 +29,9 @@
     return self;
 }
 
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    if ([otherGestureRecognizer isEqual:self.panGestureRecognizer]) {
-        if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-            UIPanGestureRecognizer* panGestureRecognizer = (UIPanGestureRecognizer*)gestureRecognizer;
-            CGPoint translation = [panGestureRecognizer translationInView:self];
-            if (fabs((double)translation.y)> 6.0) {
-                return NO;
-            }
-        }
-        
-    }
-    return YES;
-}
-
 +(instancetype)autosizeComponentsMenuForView:(UIView*)view{
-    CGFloat height = 60;
-    ECTComponentsMenu* menu = [[self alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(view.bounds), height)];
+    ECTComponentsMenu* menu = [[self alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(view.bounds), 60)];
+    menu.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     return menu;
 }
 
@@ -61,6 +46,7 @@
         self.contentSize = CGSizeMake(SPACE, self.frame.size.height);
         NSUInteger number = [_menuDelegate componentsMenuNumberOfViews];
         _viewsArray = [NSMutableArray arrayWithCapacity:number];
+        _infoArray = [NSMutableArray arrayWithCapacity:number];
         for (NSUInteger i = 0; i < number; i ++) {
             [self addComponentsAtIndex:i];
         }
@@ -73,7 +59,7 @@
         UIView* view = [self.menuDelegate componentsMenuViewAtIndex:index];
         NSString* title = [self.menuDelegate componentsMenuTitleAtIndex:index];
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
-        panRecognizer.delegate = self;
+        //panRecognizer.delegate = self;
         panRecognizer.delaysTouchesBegan = YES;
         [view addGestureRecognizer:panRecognizer];
         
@@ -98,10 +84,82 @@
         [label sizeToFit];
         label.center  = CGPointMake(view.center.x, self.frame.size.height - 10.0);
         [self addSubview:label];
+        
+        NSDictionary* info = @{@"centerX":[NSNumber numberWithDouble:(double)view.center.x],
+                               @"centerY":[NSNumber numberWithDouble:(double)view.center.y],
+                               @"ratio":[NSNumber numberWithDouble:(double)ratio]};
+        
+        [_infoArray setObject:info atIndexedSubscript:index];
     }
 }
 
--(void)handlePanFrom:(UIPanGestureRecognizer*)panGestureRecognizer{
+-(void)recreateComponentsAtIndex:(NSUInteger)index{
+    UIView* view = [self.menuDelegate componentsMenuViewAtIndex:index];
+    NSDictionary* info = [_infoArray objectAtIndex:index];
     
+    NSNumber* centerNumX = info[@"centerX"];
+    NSNumber* centerNumY = info[@"centerY"];
+    CGFloat ratio = (double)[(NSNumber*)info[@"ratio"] doubleValue];
+    view.transform = CGAffineTransformMakeScale(ratio, ratio);
+    view.center = CGPointMake((CGFloat)[centerNumX doubleValue], (CGFloat)[centerNumY doubleValue]);
+    view.alpha = 0.0;
+    [self addSubview:view];
+    [UIView animateWithDuration:0.2 animations:^{
+        view.alpha = 1.0;
+    }];
+    
+    UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
+    //panRecognizer.delegate = self;
+    panRecognizer.delaysTouchesBegan = YES;
+    [view addGestureRecognizer:panRecognizer];
+    
+    [_viewsArray replaceObjectAtIndex:index withObject:view];
+}
+
+-(void)handlePanFrom:(UIPanGestureRecognizer*)recognizer{
+    UIView* view = recognizer.view;
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        view.center = [self convertPoint:view.center toView:self.superview];
+        [self.superview addSubview:view];
+        [UIView animateWithDuration:0.2 animations:^{
+            view.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            view.center = [recognizer locationInView:view.superview];
+            view.alpha = 0.7;
+        } completion:^(BOOL finished) {
+            if (!finished) {
+                view.transform = CGAffineTransformMakeScale(1.2, 1.2);
+                view.alpha = 0.7;
+            }
+        }];
+    }else if (recognizer.state == UIGestureRecognizerStateChanged){
+        view.center = [recognizer locationInView:view.superview];
+        if (!CGRectContainsPoint(self.frame,
+                                 CGPointMake(CGRectGetMidX(view.frame), CGRectGetMaxY(view.frame))))
+        {
+            [recognizer removeTarget:self action:@selector(handlePanFrom:)];
+            [view.layer removeAllAnimations];
+            [self.menuDelegate handleViewFromComponentsMenu:view PanGestureRecognizer:recognizer];
+            NSUInteger index = [_viewsArray indexOfObject:view];
+            [_viewsArray replaceObjectAtIndex:index withObject:[NSNull null]];
+            [self recreateComponentsAtIndex:index];
+        }
+    }else{
+        NSDictionary* info = [_infoArray objectAtIndex:[_viewsArray indexOfObject:view]];
+        NSNumber* centerNumX = info[@"centerX"];
+        NSNumber* centerNumY = info[@"centerY"];
+        CGFloat ratio = (double)[(NSNumber*)info[@"ratio"] doubleValue];
+        CGPoint oldCenter = CGPointMake((CGFloat)[centerNumX doubleValue], (CGFloat)[centerNumY doubleValue]);
+        
+        CGPoint viewCenter = [self convertPoint:oldCenter toView:self.superview.superview];
+        [UIView animateWithDuration:0.2 animations:^{
+            view.transform = CGAffineTransformMakeScale(ratio, ratio);
+            view.center = viewCenter;
+            view.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            [self addSubview:view];
+            view.center = oldCenter;
+        }];
+        
+    }
 }
 @end

@@ -19,5 +19,6 @@ typedef NS_ENUM(NSUInteger, GateType) {
     GateTypeNOT,
     GateTypeSwitch,
     GateTypeLightBulb,
+    GateTypeTrueOutput
 };
 #endif

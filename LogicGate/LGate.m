@@ -36,8 +36,12 @@
         
         //Initialize ports
         [self initPorts];
+        [self updateRealIntput];
+        [self updateOutput];
         
         self.userInteractionEnabled = YES;
+        
+        [self.layer addObserver:self forKeyPath:@"position" options:0 context:nil];
     }
     return self;
 }
@@ -51,6 +55,17 @@
     /* Initialization of Ports*/
 }
 
+#pragma mark - Initialize User Interaction
+- (void)initUserInteractionWithTarget:(id)target action:(SEL)sector{
+    for (LPort *aPort in _inPorts){
+        UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:target action:sector];
+        [aPort addGestureRecognizer:recognizer];
+    }
+    for (LPort *aPort in _outPorts){
+        UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:target action:sector];
+        [aPort addGestureRecognizer:recognizer];
+    }
+}
 
 #pragma mark - Update gate status
 - (void)updateOutput{
@@ -90,12 +105,8 @@
 
 #pragma mark - LObjectProtocol
 - (void)remove{
-    for (LPort *aPort in _inPorts){
-        [aPort removeAllWire];
-    }
-    for (LPort *aPort in _outPorts){
-        [aPort removeAllWire];
-    }
+    [_inPorts makeObjectsPerformSelector:@selector(removeAllWire)];
+    [_outPorts makeObjectsPerformSelector:@selector(removeAllWire)];
 }
 
 
@@ -116,4 +127,12 @@
     return @"DEFULT_GATE";
 }
 
+#pragma mark - KVO
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    //NSLog(@"y");
+}
+
+-(void)dealloc{
+    [self.layer removeObserver:self forKeyPath:@"position"];
+}
 @end

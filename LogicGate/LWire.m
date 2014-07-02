@@ -36,6 +36,14 @@
     return self;
 }
 
++ (instancetype)wireWithPortGestureRecognizer:(UIPanGestureRecognizer*)recognizer{
+    LWire* wire = [[self alloc] initWire];
+    [wire connectNewPort:(LPort*)recognizer.view];
+    [wire drawWireWithPosition:[recognizer locationInView:recognizer.view.superview]];
+    [recognizer addTarget:wire action:@selector(handlePanFrom:)];
+    return wire;
+}
+
 #pragma mark - Port connection
 -(BOOL)allowConnectToThisPort:(LPort *)port{
     if (self.startPort && port.type == PortTypeOutput) {
@@ -81,7 +89,7 @@
 }
 
 #pragma mark - Update values
--(void) setBoolStatus:(BOOL)value{
+-(void)setBoolStatus:(BOOL)value{
     if(_boolStatus != value){
         _boolStatus = value;
         //[self updateColor];
@@ -91,7 +99,7 @@
     }
 }
 
--(void) setRealInput:(BOOL)value{
+-(void)setRealInput:(BOOL)value{
     if(_realInput != value){
         _realInput = value;
         //[self updateColor];
@@ -117,6 +125,25 @@
         _color = newColor;
         CAShapeLayer* layer = (CAShapeLayer*)self.layer;
         layer.strokeColor = _color.CGColor;
+    }
+}
+
+#pragma mark - Handle Drag
+-(void)handlePanFrom:(UIPanGestureRecognizer *)recognizer{
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        [self drawWireWithPosition:[recognizer locationInView:recognizer.view.superview.superview]];
+    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded){
+        UIView* view = [recognizer.view.superview.superview hitTest:[recognizer locationInView:recognizer.view.superview.superview]
+                                                withEvent:nil];
+        if (view) {
+            if ([view isKindOfClass:[LPort class]]) {
+                [self connectNewPort:(LPort *)view];
+            }
+        }
+        [recognizer removeTarget:self action:@selector(handlePanFrom:)];
+        if (!(_startPort && _endPort)) {
+            [self remove];
+        }
     }
 }
 
@@ -178,14 +205,13 @@
         CGPoint startPos;
         CGPoint endPos;
         if (self.startPort) {
-            startPos = [self.superview convertPoint:CGPointZero fromView:self.startPort];
+            startPos = [self.superview convertPoint:self.startPort.center fromView:self.startPort.superview];
             endPos = point;
         } else if (self.endPort) {
-            endPos = [self.superview convertPoint:CGPointZero fromView:self.endPort];
+            endPos = [self.superview convertPoint:self.endPort.center fromView:self.endPort.superview];
             startPos = point;
         } else {
             //Wire should have one or more port
-            //[self kill];
             return;
         }
         [self drawPathWithStartPosition:startPos andEndPosition:endPos];

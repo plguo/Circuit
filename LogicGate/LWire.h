@@ -23,13 +23,14 @@
 -(id)initWithStartPort:(Port*)sPort EndPort:(Port*)ePort;
 */
 - (instancetype)initWire;
++ (instancetype)wireWithPortGestureRecognizer:(UIPanGestureRecognizer*)recognizer;
 
 - (void)drawWire;
 - (void)drawWireWithPosition:(CGPoint)point;
 
 - (void)connectNewPort:(LPort*)port;
 //-(void) connectNewPort:(Port*)newPort withPosition:(CGPoint)point;
-
+-(void)handlePanFrom:(UIPanGestureRecognizer *)recognizer;
 - (BOOL)allowConnectToThisPort:(LPort*)port;
 
 @property(nonatomic, weak, readonly) LPort* startPort;

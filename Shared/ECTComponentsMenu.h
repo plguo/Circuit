@@ -15,7 +15,7 @@
 - (NSUInteger)componentsMenuNumberOfViews;
 @end
 
-@interface ECTComponentsMenu : UIScrollView<UIGestureRecognizerDelegate>
+@interface ECTComponentsMenu : UIScrollView
 +(instancetype)autosizeComponentsMenuForView:(UIView*)view;
 @property(nonatomic, weak) id<ECTComponentsMenuDelegate> menuDelegate;
 @end

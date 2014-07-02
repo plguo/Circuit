@@ -29,7 +29,6 @@
         
         self.inWire = nil;
         _delegatesSet = [NSMutableSet set];
-        
     }
     return self;
 }
