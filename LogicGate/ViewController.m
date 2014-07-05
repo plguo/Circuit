@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "LGate.h"
+#import "LAndGate.h"
 #import "LNotGate.h"
 #import "LTrueOutput.h"
 
@@ -194,10 +195,14 @@
 - (UIView*)componentsMenuViewAtIndex:(NSUInteger)index{
     switch (index) {
         case 0:
+            return [LAndGate gate];
+            break;
+            
+        case 1:
             return [LNotGate gate];
             break;
         
-        case 1:
+        case 2:
             return [LTrueOutput gate];
             break;
             
@@ -208,11 +213,27 @@
 }
 
 - (NSString*)componentsMenuTitleAtIndex:(NSUInteger)index{
-    return @"TESTING";
+    switch (index) {
+        case 0:
+            return [LAndGate gateName];
+            break;
+            
+        case 1:
+            return [LNotGate gateName];
+            break;
+            
+        case 2:
+            return [LTrueOutput gateName];
+            break;
+            
+        default:
+            break;
+    }
+    return [LGate gateName];
 }
 
 - (NSUInteger)componentsMenuNumberOfViews{
-    return 2;
+    return 3;
 }
 
 

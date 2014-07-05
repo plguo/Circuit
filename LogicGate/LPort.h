@@ -18,6 +18,7 @@
 @interface LPort : UIView
 
 - (id)initWithPortType:(PortType)type SuperGate:(LGate*)gate Center:(CGPoint)center;
++ (instancetype)portType:(PortType)type SuperGate:(LGate *)gate Center:(CGPoint)center;
 
 - (void)connectToInWire:(LWire*)inWire;
 

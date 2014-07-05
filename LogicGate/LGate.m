@@ -121,7 +121,7 @@ static NSString*const kPositionKeyPath = @"position";
     return NO;
 }
 
-- (NSString*)gateName{
++ (NSString*)gateName{
     return @"GATE";
 }
 

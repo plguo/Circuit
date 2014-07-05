@@ -37,7 +37,7 @@
     return @"TRUE";
 }
 
--(NSString*)gateName{
++(NSString*)gateName{
     return @"True Output";
 }
 

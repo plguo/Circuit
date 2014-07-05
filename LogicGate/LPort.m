@@ -33,6 +33,10 @@
     return self;
 }
 
++ (instancetype)portType:(PortType)type SuperGate:(LGate *)gate Center:(CGPoint)center{
+    return [[self alloc] initWithPortType:type SuperGate:gate Center:center];
+}
+
 #pragma mark - Handle commands and messages
 - (void)removeAllWire{
     for (id<LPortDelegate> pointer in _delegatesSet){

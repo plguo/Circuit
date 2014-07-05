@@ -56,13 +56,16 @@
 
 -(void)addComponentsAtIndex:(NSUInteger)index{
     if (self.menuDelegate) {
-        UIView* view = [self.menuDelegate componentsMenuViewAtIndex:index];
-        NSString* title = [self.menuDelegate componentsMenuTitleAtIndex:index];
+        UIView* view = [self.menuDelegate componentsMenuViewAtIndex:index];//Get the view
+        NSString* title = [self.menuDelegate componentsMenuTitleAtIndex:index];//Get the title
+        
+        //Add UIPanGestureRecognizer to Subview
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
-        //panRecognizer.delegate = self;
         panRecognizer.delaysTouchesBegan = YES;
         [view addGestureRecognizer:panRecognizer];
         
+        
+        //Resize view to fit the height
         CGFloat viewWidth;
         
         CGFloat ratio = 1.0;
@@ -73,17 +76,27 @@
         }
         viewWidth = view.frame.size.width*ratio;
         
-        view.center = CGPointMake(self.contentSize.width + viewWidth/2,_maxImageHeight/2 + 2.0);
-        self.contentSize = CGSizeMake(self.contentSize.width + viewWidth + SPACE, self.contentSize.height);
-        [self addSubview:view];
-        [_viewsArray setObject:view atIndexedSubscript:index];
-        
+        //Set the label/title
         UILabel* label = [[UILabel alloc]init];
         label.font = [UIFont systemFontOfSize:10];
         label.text = title;
         [label sizeToFit];
+        
+        //Choose the largest width for the width
+        viewWidth = MAX(viewWidth, label.frame.size.width);
+        
+        //Set the center
+        view.center = CGPointMake(self.contentSize.width + viewWidth/2,_maxImageHeight/2 + 2.0);
         label.center  = CGPointMake(view.center.x, self.frame.size.height - 10.0);
+        
+        //Resize scroll view content size
+        self.contentSize = CGSizeMake(self.contentSize.width + viewWidth + SPACE, self.contentSize.height);
+        
+        [self addSubview:view];
         [self addSubview:label];
+        
+        //Store reuseable information
+        [_viewsArray setObject:view atIndexedSubscript:index];
         
         NSDictionary* info = @{@"centerX":[NSNumber numberWithDouble:(double)view.center.x],
                                @"centerY":[NSNumber numberWithDouble:(double)view.center.y],

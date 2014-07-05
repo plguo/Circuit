@@ -49,7 +49,7 @@
     return @"ERROR";
 }
 
--(NSString*)gateName{
++(NSString*)gateName{
     return @"NOT Gate";
 }
 
