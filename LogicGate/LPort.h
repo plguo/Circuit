@@ -29,8 +29,8 @@
 - (void)inWireBoolStatusDidChange;
 - (void)inWireRealInputDidChange;
 
-- (void)addDelegate:(id<PortDelegate>)delegate;
-- (void)removeDelegate:(id<PortDelegate>)delegate;
+- (void)addDelegate:(id<LPortDelegate>)delegate;
+- (void)removeDelegate:(id<LPortDelegate>)delegate;
 
 -(BOOL) allowToConnect;
 

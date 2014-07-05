@@ -11,7 +11,7 @@
 #import "GateType.h"
 #import "LObjectProtocol.h"
 
-@interface LGate : UIImageView<LObjectProtocol>
+@interface LGate : UIImageView<LObjectProtocol, LPortDelegate>
 - (instancetype)initGate;
 + (instancetype)gate;
 

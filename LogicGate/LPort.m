@@ -17,7 +17,7 @@
 - (id)initWithPortType:(PortType)type SuperGate:(LGate *)gate Center:(CGPoint)center{
     self = [super initWithFrame:CGRectMake(center.x - RADIUS, center.y - RADIUS, RADIUS*2, RADIUS*2)];
     if (self) {
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor blackColor];
         self.layer.cornerRadius = RADIUS;
         
         self.boolStatus = NO;
@@ -35,7 +35,7 @@
 
 #pragma mark - Handle commands and messages
 - (void)removeAllWire{
-    for (id<PortDelegate> pointer in _delegatesSet){
+    for (id<LPortDelegate> pointer in _delegatesSet){
         if ([pointer respondsToSelector:@selector(portWillRemoveWires:)]) {
             [pointer portWillRemoveWires:self.type];
         }
@@ -65,7 +65,13 @@
     if (self.type == PortTypeInput){
         _inWire = inWire;
         self.realInput = _inWire.realInput;
-        self.boolStatus = _inWire.boolStatus;
+        
+        _boolStatus = _inWire.boolStatus;
+        for (id<LPortDelegate> pointer in _delegatesSet){
+            if ([pointer respondsToSelector:@selector(portBoolStatusDidChange:)]) {
+                [pointer portBoolStatusDidChange:self.type];
+            }
+        }
     }
 }
 
@@ -85,7 +91,7 @@
 
 #pragma mark - Notifications of delegates
 - (void)gatePositionDidChange{
-    for (id<PortDelegate> pointer in _delegatesSet){
+    for (id<LPortDelegate> pointer in _delegatesSet){
         if ([pointer respondsToSelector:@selector(portPositionDidChange)]) {
             [pointer portPositionDidChange];
         }
@@ -95,7 +101,7 @@
 - (void)setBoolStatus:(BOOL)value{
     if(_boolStatus != value){
         _boolStatus = value;
-        for (id<PortDelegate> pointer in _delegatesSet){
+        for (id<LPortDelegate> pointer in _delegatesSet){
             if ([pointer respondsToSelector:@selector(portBoolStatusDidChange:)]) {
                 [pointer portBoolStatusDidChange:self.type];
             }
@@ -107,7 +113,7 @@
 - (void)setRealInput:(BOOL)value{
     if(_realInput != value){
         _realInput = value;
-        for (id<PortDelegate> pointer in _delegatesSet){
+        for (id<LPortDelegate> pointer in _delegatesSet){
             if ([pointer respondsToSelector:@selector(portRealInputDidChange:)]) {
                 [pointer portRealInputDidChange:self.type];
             }
@@ -117,11 +123,11 @@
 }
 
 #pragma mark - Add/Remove delegate
-- (void)addDelegate:(id<PortDelegate>)delegate{
+- (void)addDelegate:(id<LPortDelegate>)delegate{
     [_delegatesSet addObject:delegate];
 }
 
-- (void)removeDelegate:(id<PortDelegate>)delegate{
+- (void)removeDelegate:(id<LPortDelegate>)delegate{
     [_delegatesSet removeObject:delegate];
 }
 

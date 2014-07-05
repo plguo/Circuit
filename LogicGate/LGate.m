@@ -8,7 +8,10 @@
 
 #import "LGate.h"
 
-@implementation LGate
+static NSString*const kPositionKeyPath = @"position";
+@implementation LGate{
+    BOOL _initializedUserInteraction;
+}
 
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -39,7 +42,10 @@
         [self updateRealIntput];
         [self updateOutput];
         
+        [self setInPortDelegate];
+        
         self.userInteractionEnabled = YES;
+        _initializedUserInteraction = NO;
         
         [self.layer addObserver:self forKeyPath:@"position" options:0 context:nil];
     }
@@ -57,13 +63,16 @@
 
 #pragma mark - Initialize User Interaction
 - (void)initUserInteractionWithTarget:(id)target action:(SEL)sector{
-    for (LPort *aPort in _inPorts){
-        UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:target action:sector];
-        [aPort addGestureRecognizer:recognizer];
-    }
-    for (LPort *aPort in _outPorts){
-        UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:target action:sector];
-        [aPort addGestureRecognizer:recognizer];
+    if (!_initializedUserInteraction) {
+        _initializedUserInteraction = YES;
+        for (LPort *aPort in _inPorts){
+            UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:target action:sector];
+            [aPort addGestureRecognizer:recognizer];
+        }
+        for (LPort *aPort in _outPorts){
+            UIPanGestureRecognizer* recognizer = [[UIPanGestureRecognizer alloc]initWithTarget:target action:sector];
+            [aPort addGestureRecognizer:recognizer];
+        }
     }
 }
 
@@ -103,13 +112,6 @@
     }
 }
 
-#pragma mark - LObjectProtocol
-- (void)remove{
-    [_inPorts makeObjectsPerformSelector:@selector(removeAllWire)];
-    [_outPorts makeObjectsPerformSelector:@selector(removeAllWire)];
-}
-
-
 #pragma mark - Gate info for subclasses
 - (NSString*)imageName{
     return @"and_gate";
@@ -127,12 +129,41 @@
     return @"DEFULT_GATE";
 }
 
+#pragma mark - LObjectProtocol
+- (void)remove{
+    [_inPorts makeObjectsPerformSelector:@selector(removeAllWire)];
+    [_outPorts makeObjectsPerformSelector:@selector(removeAllWire)];
+}
+
+#pragma mark - LPortDelegate
+-(void)setInPortDelegate{
+    for (LPort* port in _inPorts){
+        [port addDelegate:self];
+    }
+}
+
+- (void)portRealInputDidChange:(PortType)portType{
+    [self updateRealIntput];
+}
+
+- (void)portBoolStatusDidChange:(PortType)portType{
+    [self updateOutput];
+}
+
+
 #pragma mark - KVO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    //NSLog(@"y");
+    if ([keyPath isEqualToString:kPositionKeyPath] && _initializedUserInteraction) {
+        for (LPort *aPort in _inPorts){
+            [aPort gatePositionDidChange];
+        }
+        for (LPort *aPort in _outPorts){
+            [aPort gatePositionDidChange];
+        }
+    }
 }
 
 -(void)dealloc{
-    [self.layer removeObserver:self forKeyPath:@"position"];
+    [self.layer removeObserver:self forKeyPath:kPositionKeyPath];
 }
 @end

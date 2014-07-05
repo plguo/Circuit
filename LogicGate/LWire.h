@@ -16,7 +16,7 @@
 
 @class LPort;
 
-@interface LWire : UIView<PortDelegate,LObjectProtocol>
+@interface LWire : UIView<LPortDelegate,LObjectProtocol>
 
 /*
 -(id)initWithAnyPort:(Port*)sPort andStartPosition:(CGPoint)sPos;

@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, PortType){
     PortTypeOutput
 };
 
-@protocol PortDelegate <NSObject>
+@protocol LPortDelegate <NSObject>
 @optional
 -(void)portRealInputDidChange:(PortType)portType;
 -(void)portBoolStatusDidChange:(PortType)portType;

@@ -92,7 +92,7 @@
 -(void)setBoolStatus:(BOOL)value{
     if(_boolStatus != value){
         _boolStatus = value;
-        //[self updateColor];
+        [self updateColor];
         if (self.endPort) {
             [self.endPort inWireBoolStatusDidChange];
         }
@@ -102,7 +102,7 @@
 -(void)setRealInput:(BOOL)value{
     if(_realInput != value){
         _realInput = value;
-        //[self updateColor];
+        [self updateColor];
         if (self.endPort){
             [self.endPort inWireRealInputDidChange];
         }
@@ -155,7 +155,7 @@
 }
 
 -(void)portPositionDidChange{
-    //[self performSelectorInBackground:@selector(drawLine) withObject:nil];
+    [self drawWire];
 }
 
 -(void)portRealInputDidChange:(PortType)portType{
