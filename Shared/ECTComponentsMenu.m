@@ -7,19 +7,24 @@
 //
 
 #import "ECTComponentsMenu.h"
+#import "ECTCMGestureHandler.h"
 #define SPACE 10.0
 
 @implementation ECTComponentsMenu{
     NSMutableArray* _viewsArray;
     NSMutableArray* _infoArray;
     CGFloat _maxImageHeight;
+    
+    ECTCMGestureHandler* _gestureHandler;
 }
 
+#pragma mark - Methods for initialization
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         _maxImageHeight = frame.size.height - 22.0;
+        _gestureHandler = [[ECTCMGestureHandler alloc] init];
         
         self.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.8];
         self.alwaysBounceHorizontal = YES;
@@ -35,6 +40,7 @@
     return menu;
 }
 
+#pragma mark - Set ECTComponentsMenuDelegate
 - (void)setMenuDelegate:(id<ECTComponentsMenuDelegate>)menuDelegate{
     if (menuDelegate) {
         _menuDelegate = menuDelegate;
@@ -54,6 +60,7 @@
     }
 }
 
+#pragma mark - Add new component
 -(void)addComponentsAtIndex:(NSUInteger)index{
     if (self.menuDelegate) {
         UIView* view = [self.menuDelegate componentsMenuViewAtIndex:index];//Get the view
@@ -61,6 +68,7 @@
         
         //Add UIPanGestureRecognizer to Subview
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
+        panRecognizer.delegate = _gestureHandler;
         panRecognizer.delaysTouchesBegan = YES;
         [view addGestureRecognizer:panRecognizer];
         
@@ -106,6 +114,7 @@
     }
 }
 
+#pragma mark - Fill empty component
 -(void)recreateComponentsAtIndex:(NSUInteger)index{
     UIView* view = [self.menuDelegate componentsMenuViewAtIndex:index];
     NSDictionary* info = [_infoArray objectAtIndex:index];
@@ -122,13 +131,14 @@
     }];
     
     UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
-    //panRecognizer.delegate = self;
+    panRecognizer.delegate = _gestureHandler;
     panRecognizer.delaysTouchesBegan = YES;
     [view addGestureRecognizer:panRecognizer];
     
     [_viewsArray replaceObjectAtIndex:index withObject:view];
 }
 
+#pragma mark - Handle UIPanGestureRecognizer
 -(void)handlePanFrom:(UIPanGestureRecognizer*)recognizer{
     UIView* view = recognizer.view;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -150,6 +160,8 @@
                                  CGPointMake(CGRectGetMidX(view.frame), CGRectGetMaxY(view.frame))))
         {
             [recognizer removeTarget:self action:@selector(handlePanFrom:)];
+            recognizer.delegate = nil;
+            recognizer.delaysTouchesBegan = NO;
             [view.layer removeAllAnimations];
             [self.menuDelegate handleViewFromComponentsMenu:view PanGestureRecognizer:recognizer];
             NSUInteger index = [_viewsArray indexOfObject:view];
@@ -175,4 +187,9 @@
         
     }
 }
+-(void)dealloc{
+    [_viewsArray removeAllObjects];
+    [_infoArray removeAllObjects];
+}
+
 @end

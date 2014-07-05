@@ -9,11 +9,22 @@
 #import "ECToolBar.h"
 #define toolBarHeight 44.0
 
+static NSString*const kSubMemuAppealing = @"A";
+static NSString*const kSubMemuShowing = @"S";
+static NSString*const kSubMemuDisappealing = @"D";
+static NSString*const kSubMemuHiding = @"H";
+
+
 @implementation ECToolBar{
     BOOL _selected;
     NSUInteger _selectedTool;
     NSArray* _buttonsArray;
-    UIView* _subMenu;
+    NSMutableArray* _menuStateArray;
+    
+    UIView* _componentsMenu;
+    UIView* _adjustmentMenu;
+    UIView* _filesMenu;
+    UIView* _deleteMode;
 }
 
 #pragma mark - Methods for tool bar initialization
@@ -25,6 +36,9 @@
         self.backgroundColor = [UIColor blackColor];
         
         [self addButtons];
+        
+        _menuStateArray = [NSMutableArray arrayWithObjects:kSubMemuHiding,kSubMemuHiding,kSubMemuHiding,kSubMemuHiding,nil];
+        
     }
     return self;
 }
@@ -124,7 +138,8 @@
 
 #pragma mark - Show Menus
 - (void)showComponentsMenu{
-    if (self.delegate) {
+    if (self.delegate && !_adjustmentMenu) {
+        _menuStateArray[0] = kSubMemuAppealing;
         ECTComponentsMenu* menu = [ECTComponentsMenu autosizeComponentsMenuForView:self];
         menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
         [self.superview insertSubview:menu belowSubview:self];
@@ -132,8 +147,10 @@
         CGPoint newCenter = CGPointMake(menu.center.x, menu.center.y - CGRectGetHeight(menu.frame));
         [UIView animateWithDuration:0.3 animations:^{
             menu.center = newCenter;
+        }completion:^(BOOL finished) {
+            _menuStateArray[0] = kSubMemuShowing;
         }];
-        _subMenu = menu;
+        _adjustmentMenu = menu;
     }
 }
 
@@ -198,16 +215,19 @@
 }
     
 - (void)hideComponentsMenu{
+    _menuStateArray[0] = kSubMemuDisappealing;
     UIButton* button =  _buttonsArray[0];
     button.selected = NO;
-    CGPoint center = CGPointMake(_subMenu.center.x, _subMenu.center.y + CGRectGetHeight(_subMenu.frame));
+    CGPoint center = CGPointMake(_adjustmentMenu.center.x, _adjustmentMenu.center.y + CGRectGetHeight(_adjustmentMenu.frame));
     [UIView animateWithDuration:0.3 animations:^{
-        _subMenu.center = center;
+        _adjustmentMenu.center = center;
     } completion:^(BOOL finished) {
-        [_subMenu.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        [_subMenu removeFromSuperview];
+        [_adjustmentMenu.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [_adjustmentMenu removeFromSuperview];
+        _adjustmentMenu = nil;
+        _menuStateArray[0] = kSubMemuHiding;
     }];
-    _subMenu = nil;
+    
 }
 
 - (void)hideAdjustmentMenu{
@@ -225,8 +245,15 @@
     button.selected = NO;
 }
 
+
 #pragma mark - Selected New Image
 - (void)selectButtonAtIndex:(NSUInteger)index{
+    NSString* state = _menuStateArray[index];
+    
+    if ([state isEqualToString:kSubMemuAppealing] || [state isEqualToString:kSubMemuDisappealing]) {
+        return;
+    }
+    
     if (_selected) {
         //Deseclect pervious button and peform other hiding actions
         [self hideTool:_selectedTool];
@@ -236,11 +263,14 @@
             return;
         }
     }
-    _selected = YES;
-    _selectedTool = index;
-    UIButton* button =  _buttonsArray[index];
-    button.selected = YES;
-    [self showMenu:index];
+    
+    if (state == kSubMemuHiding) {
+        _selected = YES;
+        _selectedTool = index;
+        UIButton* button =  _buttonsArray[index];
+        button.selected = YES;
+        [self showMenu:index];
+    }
 }
 
 #pragma mark - Animation
