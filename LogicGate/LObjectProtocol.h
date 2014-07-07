@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @protocol LObjectProtocol <NSObject>
-- (void)remove;
+- (void)objectRemove;
 @end

@@ -174,7 +174,25 @@ static NSString*const kSubMemuHiding = @"H";
 }
 
 - (void)showDeleteMode{
-    
+    UIView* deleteMode = (UIView*)[_menuArray pointerAtIndex:3];
+    if (!deleteMode) {
+        _menuStateArray[3] = kSubMemuAppealing;
+        
+        ECTDeleteMode* menu = [ECTDeleteMode autosizeDeleteModeForView:self];
+        menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
+        
+        [self.superview insertSubview:menu belowSubview:self];
+        CGPoint newCenter = CGPointMake(menu.center.x, menu.center.y - CGRectGetHeight(menu.frame));
+        [UIView animateWithDuration:0.3 animations:^{
+            menu.center = newCenter;
+        }completion:^(BOOL finished) {
+            _menuStateArray[3] = kSubMemuShowing;
+        }];
+        [_menuArray replacePointerAtIndex:3 withPointer:(__bridge void *)(menu)];
+        if (self.delegate) {
+            [self.delegate deleteModeChangeTo:YES];
+        }
+    }
 }
 
 
@@ -256,7 +274,23 @@ static NSString*const kSubMemuHiding = @"H";
 }
 
 - (void)hideDeleteModeBehideBar:(BOOL)behideBar{
-
+    _menuStateArray[3] = kSubMemuDisappealing;
+    UIView* deleteMode = (UIView*)[_menuArray pointerAtIndex:3];
+    if (deleteMode) {
+        CGPoint center = CGPointMake(deleteMode.center.x, deleteMode.center.y + CGRectGetHeight(deleteMode.frame));
+        if (!behideBar) {
+            center.y = self.superview.frame.size.height + deleteMode.frame.size.height/2;
+        }
+        [UIView animateWithDuration:0.3 animations:^{
+            deleteMode.center = center;
+        } completion:^(BOOL finished) {
+            [deleteMode removeFromSuperview];
+            _menuStateArray[3] = kSubMemuHiding;
+        }];
+        if (self.delegate) {
+            [self.delegate deleteModeChangeTo:NO];
+        }
+    }
 }
 
 

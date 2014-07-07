@@ -142,7 +142,7 @@
         }
         [recognizer removeTarget:self action:@selector(handlePanFrom:)];
         if (!(_startPort && _endPort)) {
-            [self remove];
+            [self objectRemove];
         }
     }
 }
@@ -176,7 +176,7 @@
 }
 
 #pragma mark - LObjectProtocol
--(void)remove{
+-(void)objectRemove{
     if (self.startPort) {
         [self.startPort removeDelegate:self];
     }

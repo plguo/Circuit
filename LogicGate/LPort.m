@@ -175,4 +175,9 @@
     }
 }
 
+#pragma mark - LObject
+- (void)objectRemove{
+    [self removeAllWire];
+}
+
 @end

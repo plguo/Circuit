@@ -15,7 +15,7 @@
 @class LGate;
 @class LWire;
 
-@interface LPort : UIView
+@interface LPort : UIView<LObjectProtocol>
 
 - (id)initWithPortType:(PortType)type SuperGate:(LGate*)gate Center:(CGPoint)center;
 + (instancetype)portType:(PortType)type SuperGate:(LGate *)gate Center:(CGPoint)center;

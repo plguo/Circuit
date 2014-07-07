@@ -30,6 +30,8 @@
 		2B12D48D196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D48B196832FD009E3C72 /* ECTCMGestureHandler.m */; };
 		2B26D962196B470A00FD9F74 /* ECTCMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D961196B470A00FD9F74 /* ECTCMScrollView.m */; };
 		2B26D963196B470A00FD9F74 /* ECTCMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D961196B470A00FD9F74 /* ECTCMScrollView.m */; };
+		2B26D96A196B515D00FD9F74 /* ECTDeleteMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D969196B515D00FD9F74 /* ECTDeleteMode.m */; };
+		2B26D96B196B515D00FD9F74 /* ECTDeleteMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D969196B515D00FD9F74 /* ECTDeleteMode.m */; };
 		2B2CAEE81961CCB50000B7ED /* LWire.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241E1960654600D35073 /* LWire.m */; };
 		2B2CAEE91961CCBA0000B7ED /* LGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241219604BAE00D35073 /* LGate.m */; };
 		2B2CAEEA1961CCBE0000B7ED /* LPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241519604D8700D35073 /* LPort.m */; };
@@ -125,6 +127,8 @@
 		2B12D48B196832FD009E3C72 /* ECTCMGestureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTCMGestureHandler.m; path = Shared/ECTCMGestureHandler.m; sourceTree = "<group>"; };
 		2B26D960196B470A00FD9F74 /* ECTCMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTCMScrollView.h; path = Shared/ECTCMScrollView.h; sourceTree = "<group>"; };
 		2B26D961196B470A00FD9F74 /* ECTCMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTCMScrollView.m; path = Shared/ECTCMScrollView.m; sourceTree = "<group>"; };
+		2B26D968196B515D00FD9F74 /* ECTDeleteMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTDeleteMode.h; path = Shared/ECTDeleteMode.h; sourceTree = "<group>"; };
+		2B26D969196B515D00FD9F74 /* ECTDeleteMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTDeleteMode.m; path = Shared/ECTDeleteMode.m; sourceTree = "<group>"; };
 		2B2CAEEB1961CE670000B7ED /* LNotGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNotGate.h; sourceTree = "<group>"; };
 		2B2CAEEC1961CE670000B7ED /* LNotGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNotGate.m; sourceTree = "<group>"; };
 		2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECOverlayView.h; path = Shared/ECOverlayView.h; sourceTree = "<group>"; };
@@ -319,20 +323,46 @@
 			name = "Standard Gates";
 			sourceTree = "<group>";
 		};
+		2B26D964196B50D100FD9F74 /* ECToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
+				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
+				2B26D967196B510000FD9F74 /* ECTDeleteMode */,
+				2B26D965196B50EC00FD9F74 /* ECTComponentsMenu */,
+			);
+			name = ECToolBar;
+			sourceTree = "<group>";
+		};
+		2B26D965196B50EC00FD9F74 /* ECTComponentsMenu */ = {
+			isa = PBXGroup;
+			children = (
+				2B325F2B19634A9500F29100 /* ECTComponentsMenu.h */,
+				2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */,
+				2B26D960196B470A00FD9F74 /* ECTCMScrollView.h */,
+				2B26D961196B470A00FD9F74 /* ECTCMScrollView.m */,
+				2B12D48A196832FD009E3C72 /* ECTCMGestureHandler.h */,
+				2B12D48B196832FD009E3C72 /* ECTCMGestureHandler.m */,
+			);
+			name = ECTComponentsMenu;
+			sourceTree = "<group>";
+		};
+		2B26D967196B510000FD9F74 /* ECTDeleteMode */ = {
+			isa = PBXGroup;
+			children = (
+				2B26D968196B515D00FD9F74 /* ECTDeleteMode.h */,
+				2B26D969196B515D00FD9F74 /* ECTDeleteMode.m */,
+			);
+			name = ECTDeleteMode;
+			sourceTree = "<group>";
+		};
 		2B3C6FBD195F377C002FDFDC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2B26D964196B50D100FD9F74 /* ECToolBar */,
 				2BFC7B07195D8B2D007AD84E /* ECNavigationBar.h */,
 				2BFC7B08195D8B2D007AD84E /* ECNavigationBar.m */,
 				2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */,
-				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
-				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
-				2B26D960196B470A00FD9F74 /* ECTCMScrollView.h */,
-				2B26D961196B470A00FD9F74 /* ECTCMScrollView.m */,
-				2B325F2B19634A9500F29100 /* ECTComponentsMenu.h */,
-				2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */,
-				2B12D48A196832FD009E3C72 /* ECTCMGestureHandler.h */,
-				2B12D48B196832FD009E3C72 /* ECTCMGestureHandler.m */,
 				2BFC7B0D195D9223007AD84E /* ECGridView.h */,
 				2BFC7B0E195D9223007AD84E /* ECGridView.m */,
 				2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */,
@@ -575,6 +605,7 @@
 				2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */,
 				2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */,
 				2B26D962196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
+				2B26D96A196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
@@ -606,6 +637,7 @@
 				2B12D489196827D0009E3C72 /* LAndGate.m in Sources */,
 				2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */,
 				2B325F261963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */,
+				2B26D96B196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
 				2B26D963196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
 				2BFA241619604D8700D35073 /* LPort.m in Sources */,
 				2B2CAEED1961CE670000B7ED /* LNotGate.m in Sources */,

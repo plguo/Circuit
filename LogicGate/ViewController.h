@@ -15,6 +15,6 @@
 #import "ECScreenEdgeScrollController.h"
 
 
-@interface ViewController : UIViewController<ECNavigationBarDelegate,ECTComponentsMenuDelegate>
+@interface ViewController : UIViewController<ECNavigationBarDelegate,ECTComponentsMenuDelegate,ECTDeleteModeDelegate>
 
 @end

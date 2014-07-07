@@ -29,6 +29,7 @@
     ECScreenEdgeScrollController* _screenEdgeScrollController;
     CGRect _scrollViewEdge;
     
+    BOOL _deleteMode;
 }
 
 #pragma mark - View Loading
@@ -50,7 +51,7 @@
     
     
     //Setup scroll view
-    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), self.originalContentView.frame.size.width, CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
+    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), CGRectGetWidth(self.originalContentView.bounds), CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
     
     _mainScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
     _mainScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
@@ -71,6 +72,8 @@
     
     [_mainScrollView setContentOffset:CGPointMake(_mainScrollView.contentSize.width/2 - _mainScrollView.bounds.size.width/2, _mainScrollView.contentSize.height/2 - _mainScrollView.bounds.size.height/2) animated:NO];
     
+    UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
+    [_mainScrollView addGestureRecognizer:tapGestureRecognizer];
     
     //Setup show/hide button
     _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
@@ -85,6 +88,7 @@
     _screenEdgeScrollController.scrollView = _mainScrollView;
     //End of View Initialization
     //[UIViewController prepareInterstitialAds];
+    _deleteMode = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -115,7 +119,7 @@
     _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 5, 5, _showButton.frame.size.width, _showButton.frame.size.height);
     [self.originalContentView insertSubview:_showButton belowSubview:_navBar];
     [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
-        _mainScrollView.frame = self.originalContentView.frame;
+        _mainScrollView.frame = self.originalContentView.bounds;
         _showButton.alpha = 0.8;
     } completion:^(BOOL finished) {
         
@@ -126,7 +130,7 @@
 - (void)showMenu{
     [_navBar startShowAnimation];
     [_toolBar startShowAnimation];
-    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), self.originalContentView.frame.size.width, CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
+    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), CGRectGetWidth(self.originalContentView.bounds), CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
     [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
         _mainScrollView.frame = scrollViewFrame;
         _showButton.alpha = 0.0;
@@ -179,6 +183,20 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         LWire* wire = [LWire wireWithPortGestureRecognizer:recognizer];
         [_wireView addSubview:wire];
+    }
+}
+
+-(void)handleTapFrom:(UITapGestureRecognizer *)recognizer{
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        if (_deleteMode) {
+            id viewID = [recognizer.view hitTest:[recognizer locationInView:recognizer.view] withEvent:nil];
+            if (viewID) {
+                if ([viewID conformsToProtocol:@protocol(LObjectProtocol)]) {
+                    id<LObjectProtocol> lObject = viewID;
+                    [lObject objectRemove];
+                }
+            }
+        }
     }
 }
 
@@ -237,5 +255,9 @@
     return 3;
 }
 
+#pragma mark - ECTDeleteModeDelegate
+- (void)deleteModeChangeTo:(BOOL)allowDelete{
+    _deleteMode = allowDelete;
+}
 
 @end

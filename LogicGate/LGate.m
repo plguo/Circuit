@@ -131,9 +131,10 @@
 }
 
 #pragma mark - LObjectProtocol
-- (void)remove{
+- (void)objectRemove{
     [_inPorts makeObjectsPerformSelector:@selector(removeAllWire)];
     [_outPorts makeObjectsPerformSelector:@selector(removeAllWire)];
+    [self removeFromSuperview];
 }
 
 #pragma mark - LPortDelegate
