@@ -7,16 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECTCMScrollView.h"
 
-@class ECTComponentsMenu;
-@protocol ECTComponentsMenuDelegate<NSObject>
-- (void)handleViewFromComponentsMenu:(UIView*)view PanGestureRecognizer:(UIGestureRecognizer*)recognizer;
-- (UIView*)componentsMenuViewAtIndex:(NSUInteger)index;
-- (NSString*)componentsMenuTitleAtIndex:(NSUInteger)index;
-- (NSUInteger)componentsMenuNumberOfViews;
-@end
 
-@interface ECTComponentsMenu : UIScrollView<UIGestureRecognizerDelegate>
+@interface ECTComponentsMenu : UIView
+
 +(instancetype)autosizeComponentsMenuForView:(UIView*)view;
-@property(nonatomic, weak) id<ECTComponentsMenuDelegate> menuDelegate;
+@property(readonly,nonatomic) ECTCMScrollView* scrollView;
 @end

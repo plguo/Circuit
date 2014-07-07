@@ -84,11 +84,12 @@
     _screenEdgeScrollController = [[ECScreenEdgeScrollController alloc] init];
     _screenEdgeScrollController.scrollView = _mainScrollView;
     //End of View Initialization
-    [UIViewController prepareInterstitialAds];
+    //[UIViewController prepareInterstitialAds];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    self.canDisplayBannerAds = YES;
+    [super viewDidAppear:animated];
+    //self.canDisplayBannerAds = YES;
 }
 
 - (void)viewDidLayoutSubviews{

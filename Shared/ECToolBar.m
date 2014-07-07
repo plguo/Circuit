@@ -21,10 +21,14 @@ static NSString*const kSubMemuHiding = @"H";
     NSArray* _buttonsArray;
     NSMutableArray* _menuStateArray;
     
+    NSPointerArray* _menuArray;
+    
+    /*
     UIView* _componentsMenu;
     UIView* _adjustmentMenu;
     UIView* _filesMenu;
     UIView* _deleteMode;
+     */
 }
 
 #pragma mark - Methods for tool bar initialization
@@ -38,7 +42,13 @@ static NSString*const kSubMemuHiding = @"H";
         [self addButtons];
         
         _menuStateArray = [NSMutableArray arrayWithObjects:kSubMemuHiding,kSubMemuHiding,kSubMemuHiding,kSubMemuHiding,nil];
+        _menuArray = [NSPointerArray weakObjectsPointerArray];
         
+        //Add four nil Pointers
+        [_menuArray addPointer:nil];
+        [_menuArray addPointer:nil];
+        [_menuArray addPointer:nil];
+        [_menuArray addPointer:nil];
     }
     return self;
 }
@@ -138,19 +148,20 @@ static NSString*const kSubMemuHiding = @"H";
 
 #pragma mark - Show Menus
 - (void)showComponentsMenu{
-    if (self.delegate && !_adjustmentMenu) {
+    UIView* adjustmentMenu = (UIView*)[_menuArray pointerAtIndex:0];
+    if (self.delegate && !adjustmentMenu) {
         _menuStateArray[0] = kSubMemuAppealing;
         ECTComponentsMenu* menu = [ECTComponentsMenu autosizeComponentsMenuForView:self];
         menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
         [self.superview insertSubview:menu belowSubview:self];
-        menu.menuDelegate = self.delegate;
+        menu.scrollView.menuDelegate = self.delegate;
         CGPoint newCenter = CGPointMake(menu.center.x, menu.center.y - CGRectGetHeight(menu.frame));
         [UIView animateWithDuration:0.3 animations:^{
             menu.center = newCenter;
         }completion:^(BOOL finished) {
             _menuStateArray[0] = kSubMemuShowing;
         }];
-        _adjustmentMenu = menu;
+        [_menuArray replacePointerAtIndex:0 withPointer:(__bridge void *)(menu)];
     }
 }
 
@@ -168,22 +179,26 @@ static NSString*const kSubMemuHiding = @"H";
 
 
 #pragma mark - Hide Menus
-- (void)hideTool:(NSUInteger)index{
+- (void)hideTool:(NSUInteger)index BehideBar:(BOOL)behideBar{
+    
+    UIButton* button =  _buttonsArray[index];
+    button.selected = NO;
+
     switch (index) {
         case 0:
-            [self hideComponentsMenu];
+            [self hideComponentsMenuBehideBar:behideBar];
             break;
         
         case 1:
-            [self hideAdjustmentMenu];
+            [self hideAdjustmentMenuBehideBar:behideBar];
             break;
         
         case 2:
-            [self hideFilesMenu];
+            [self hideFilesMenuBehideBar:behideBar];
             break;
             
         case 3:
-            [self hideDeleteMode];
+            [self hideDeleteModeBehideBar:behideBar];
             break;
             
         default:
@@ -214,35 +229,34 @@ static NSString*const kSubMemuHiding = @"H";
     }
 }
     
-- (void)hideComponentsMenu{
+- (void)hideComponentsMenuBehideBar:(BOOL)behideBar{
     _menuStateArray[0] = kSubMemuDisappealing;
-    UIButton* button =  _buttonsArray[0];
-    button.selected = NO;
-    CGPoint center = CGPointMake(_adjustmentMenu.center.x, _adjustmentMenu.center.y + CGRectGetHeight(_adjustmentMenu.frame));
-    [UIView animateWithDuration:0.3 animations:^{
-        _adjustmentMenu.center = center;
-    } completion:^(BOOL finished) {
-        [_adjustmentMenu.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        [_adjustmentMenu removeFromSuperview];
-        _adjustmentMenu = nil;
-        _menuStateArray[0] = kSubMemuHiding;
-    }];
+    UIView* adjustmentMenu = (UIView*)[_menuArray pointerAtIndex:0];
+    if (adjustmentMenu) {
+        CGPoint center = CGPointMake(adjustmentMenu.center.x, adjustmentMenu.center.y + CGRectGetHeight(adjustmentMenu.frame));
+        if (!behideBar) {
+            center.y = self.superview.frame.size.height + adjustmentMenu.frame.size.height/2;
+        }
+        [UIView animateWithDuration:0.3 animations:^{
+            adjustmentMenu.center = center;
+        } completion:^(BOOL finished) {
+            [adjustmentMenu removeFromSuperview];
+            _menuStateArray[0] = kSubMemuHiding;
+        }];
+    }
     
 }
 
-- (void)hideAdjustmentMenu{
-    UIButton* button =  _buttonsArray[1];
-    button.selected = NO;
+- (void)hideAdjustmentMenuBehideBar:(BOOL)behideBar{
+
 }
 
-- (void)hideFilesMenu{
-    UIButton* button =  _buttonsArray[2];
-    button.selected = NO;
+- (void)hideFilesMenuBehideBar:(BOOL)behideBar{
+
 }
 
-- (void)hideDeleteMode{
-    UIButton* button =  _buttonsArray[3];
-    button.selected = NO;
+- (void)hideDeleteModeBehideBar:(BOOL)behideBar{
+
 }
 
 
@@ -256,7 +270,7 @@ static NSString*const kSubMemuHiding = @"H";
     
     if (_selected) {
         //Deseclect pervious button and peform other hiding actions
-        [self hideTool:_selectedTool];
+        [self hideTool:_selectedTool BehideBar:YES];
         //If itself is pervious button, then cancel and no select any buttons
         if (_selectedTool == index) {
             _selected = NO;
@@ -273,8 +287,23 @@ static NSString*const kSubMemuHiding = @"H";
     }
 }
 
+- (void)immediatelyHideAllMenu{
+    for (NSUInteger i = 0; i < [_menuArray count]; i ++) {
+        NSString* state = _menuStateArray[i];
+        if (![state isEqualToString:kSubMemuHiding]) {
+            UIView* view = (UIView*)[_menuArray pointerAtIndex:i];
+            if (view) {
+                [view.layer removeAllAnimations];
+            }
+            [self hideTool:i BehideBar:NO];
+        }
+    }
+    _selected = NO;
+}
+
 #pragma mark - Animation
 - (void)startHideAnimation{
+    [self immediatelyHideAllMenu];
     [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
         self.center = CGPointMake(self.center.x, self.center.y + self.frame.size.height);
     } completion:^(BOOL finished) {

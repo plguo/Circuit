@@ -8,7 +8,8 @@
 
 #import "LGate.h"
 
-static NSString*const kPositionKeyPath = @"position";
+#define kPositionKeyPath @"position"
+
 @implementation LGate{
     BOOL _initializedUserInteraction;
 }
@@ -47,7 +48,7 @@ static NSString*const kPositionKeyPath = @"position";
         self.userInteractionEnabled = YES;
         _initializedUserInteraction = NO;
         
-        [self.layer addObserver:self forKeyPath:@"position" options:0 context:nil];
+        [self.layer addObserver:self forKeyPath:kPositionKeyPath options:0 context:nil];
     }
     return self;
 }
