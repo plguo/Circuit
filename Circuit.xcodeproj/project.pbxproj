@@ -32,6 +32,7 @@
 		2B26D963196B470A00FD9F74 /* ECTCMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D961196B470A00FD9F74 /* ECTCMScrollView.m */; };
 		2B26D96A196B515D00FD9F74 /* ECTDeleteMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D969196B515D00FD9F74 /* ECTDeleteMode.m */; };
 		2B26D96B196B515D00FD9F74 /* ECTDeleteMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D969196B515D00FD9F74 /* ECTDeleteMode.m */; };
+		2B26D96E196B700A00FD9F74 /* LLight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B26D96D196B700A00FD9F74 /* LLight.m */; };
 		2B2CAEE81961CCB50000B7ED /* LWire.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241E1960654600D35073 /* LWire.m */; };
 		2B2CAEE91961CCBA0000B7ED /* LGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241219604BAE00D35073 /* LGate.m */; };
 		2B2CAEEA1961CCBE0000B7ED /* LPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241519604D8700D35073 /* LPort.m */; };
@@ -129,6 +130,8 @@
 		2B26D961196B470A00FD9F74 /* ECTCMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTCMScrollView.m; path = Shared/ECTCMScrollView.m; sourceTree = "<group>"; };
 		2B26D968196B515D00FD9F74 /* ECTDeleteMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTDeleteMode.h; path = Shared/ECTDeleteMode.h; sourceTree = "<group>"; };
 		2B26D969196B515D00FD9F74 /* ECTDeleteMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTDeleteMode.m; path = Shared/ECTDeleteMode.m; sourceTree = "<group>"; };
+		2B26D96C196B700A00FD9F74 /* LLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLight.h; sourceTree = "<group>"; };
+		2B26D96D196B700A00FD9F74 /* LLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLight.m; sourceTree = "<group>"; };
 		2B2CAEEB1961CE670000B7ED /* LNotGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNotGate.h; sourceTree = "<group>"; };
 		2B2CAEEC1961CE670000B7ED /* LNotGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNotGate.m; sourceTree = "<group>"; };
 		2B2CAEF11961F73C0000B7ED /* ECOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECOverlayView.h; path = Shared/ECOverlayView.h; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				2B2CAEEC1961CE670000B7ED /* LNotGate.m */,
 				2B8BA5C91964984A0028627B /* LTrueOutput.h */,
 				2B8BA5CA1964984A0028627B /* LTrueOutput.m */,
+				2B26D96C196B700A00FD9F74 /* LLight.h */,
+				2B26D96D196B700A00FD9F74 /* LLight.m */,
 			);
 			name = "Sub Gates";
 			sourceTree = "<group>";
@@ -632,6 +637,7 @@
 				2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */,
 				2BFA241F1960654600D35073 /* LWire.m in Sources */,
 				2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */,
+				2B26D96E196B700A00FD9F74 /* LLight.m in Sources */,
 				2B3C6FDA195F3D2D002FDFDC /* ViewController.m in Sources */,
 				2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */,
 				2B12D489196827D0009E3C72 /* LAndGate.m in Sources */,

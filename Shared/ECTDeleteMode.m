@@ -8,7 +8,9 @@
 
 #import "ECTDeleteMode.h"
 
-@implementation ECTDeleteMode
+@implementation ECTDeleteMode{
+    UILabel* _label;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -16,16 +18,16 @@
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:0.902344 green:0.296875 blue:0.234375 alpha:1.0];
         
-        UILabel* label = [[UILabel alloc]init];
-        label.text = @"tap any object to delete";
-        label.textColor = [UIColor whiteColor];
-        CGSize size = [label sizeThatFits:CGSizeMake(frame.size.width-4, 40)];
-        label.frame = CGRectMake(0, 0, size.width, size.height);
+        _label = [[UILabel alloc]init];
+        _label.text = @"tap any object to delete";
+        _label.textColor = [UIColor whiteColor];
+        CGSize size = [_label sizeThatFits:CGSizeMake(frame.size.width-4, 40)];
+        _label.frame = CGRectMake(0, 0, size.width, size.height);
         
         self.frame = CGRectMake(0, 10, frame.size.width, size.height+4);
         
-        label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-        [self addSubview:label];
+        _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        [self addSubview:_label];
     }
     return self;
 }
@@ -36,4 +38,7 @@
     return deleteMode;
 }
 
+- (void)layoutSubviews{
+    _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+}
 @end

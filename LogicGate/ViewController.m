@@ -11,6 +11,7 @@
 #import "LAndGate.h"
 #import "LNotGate.h"
 #import "LTrueOutput.h"
+#import "LLight.h"
 
 @interface ViewController ()
 
@@ -87,13 +88,13 @@
     _screenEdgeScrollController = [[ECScreenEdgeScrollController alloc] init];
     _screenEdgeScrollController.scrollView = _mainScrollView;
     //End of View Initialization
-    //[UIViewController prepareInterstitialAds];
+    [UIViewController prepareInterstitialAds];
     _deleteMode = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    //self.canDisplayBannerAds = YES;
+    self.canDisplayBannerAds = YES;
 }
 
 - (void)viewDidLayoutSubviews{
@@ -224,6 +225,10 @@
         case 2:
             return [LTrueOutput gate];
             break;
+        
+        case 3:
+            return [LLight gate];
+            break;
             
         default:
             break;
@@ -244,6 +249,11 @@
         case 2:
             return [LTrueOutput gateName];
             break;
+        
+        case 3:
+            return [LLight gateName];
+            break;
+
             
         default:
             break;
@@ -252,7 +262,7 @@
 }
 
 - (NSUInteger)componentsMenuNumberOfViews{
-    return 3;
+    return 4;
 }
 
 #pragma mark - ECTDeleteModeDelegate
