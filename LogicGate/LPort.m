@@ -10,7 +10,7 @@
 #define RADIUS 5
 
 @implementation LPort{
-     NSMutableSet* _delegatesSet;
+     NSPointerArray* _delegatesArray;
 }
 
 #pragma mark - Initialization
@@ -28,7 +28,7 @@
         _superGate = gate;
         
         self.inWire = nil;
-        _delegatesSet = [NSMutableSet set];
+        _delegatesArray = [NSPointerArray weakObjectsPointerArray];
     }
     return self;
 }
@@ -39,14 +39,10 @@
 
 #pragma mark - Handle commands and messages
 - (void)removeAllWire{
-    for (NSValue* value in _delegatesSet){
-        id<LPortDelegate> pointer = [value nonretainedObjectValue];
-        if (pointer) {
-            if ([pointer respondsToSelector:@selector(portWillRemoveWires:)]) {
-                [pointer portWillRemoveWires:self.type];
-            }
-        } else {
-            NSLog(@"NIL DELEGATE IN LPort, _delegatesSet size:%lu",(unsigned long)_delegatesSet.count);
+    [_delegatesArray compact];
+    for (id<LPortDelegate> pointer in _delegatesArray){
+        if ([pointer respondsToSelector:@selector(portWillRemoveWires:)]) {
+            [pointer portWillRemoveWires:self.type];
         }
     }
 }
@@ -76,14 +72,10 @@
         self.realInput = _inWire.realInput;
         
         _boolStatus = _inWire.boolStatus;
-        for (NSValue* value in _delegatesSet){
-            id<LPortDelegate> pointer = [value nonretainedObjectValue];
-            if (pointer) {
-                if ([pointer respondsToSelector:@selector(portBoolStatusDidChange:)]) {
-                    [pointer portBoolStatusDidChange:self.type];
-                }
-            } else {
-                NSLog(@"NIL DELEGATE IN LPort, _delegatesSet size:%lu",(unsigned long)_delegatesSet.count);
+        [_delegatesArray compact];
+        for (id<LPortDelegate> pointer in _delegatesArray){
+            if ([pointer respondsToSelector:@selector(portBoolStatusDidChange:)]) {
+                [pointer portBoolStatusDidChange:self.type];
             }
         }
     }
@@ -105,14 +97,10 @@
 
 #pragma mark - Notifications of delegates
 - (void)gatePositionDidChange{
-    for (NSValue* value in _delegatesSet){
-        id<LPortDelegate> pointer = [value nonretainedObjectValue];
-        if (pointer) {
-            if ([pointer respondsToSelector:@selector(portPositionDidChange)]) {
-                [pointer portPositionDidChange];
-            }
-        } else {
-            NSLog(@"NIL DELEGATE IN LPort, _delegatesSet size:%lu",(unsigned long)_delegatesSet.count);
+    [_delegatesArray compact];
+    for (id<LPortDelegate> pointer in _delegatesArray){
+        if ([pointer respondsToSelector:@selector(portPositionDidChange)]) {
+            [pointer portPositionDidChange];
         }
     }
 }
@@ -120,15 +108,12 @@
 - (void)setBoolStatus:(BOOL)value{
     if(_boolStatus != value){
         _boolStatus = value;
-        for (NSValue* value in _delegatesSet){
-            id<LPortDelegate> pointer = [value nonretainedObjectValue];
-            if (pointer) {
-                if ([pointer respondsToSelector:@selector(portBoolStatusDidChange:)]) {
-                    [pointer portBoolStatusDidChange:self.type];
-                }
-            } else {
-                NSLog(@"NIL DELEGATE IN LPort, _delegatesSet size:%lu",(unsigned long)_delegatesSet.count);
+        [_delegatesArray compact];
+        for (id<LPortDelegate> pointer in _delegatesArray){
+            if ([pointer respondsToSelector:@selector(portBoolStatusDidChange:)]) {
+                [pointer portBoolStatusDidChange:self.type];
             }
+            
         }
         
     }
@@ -137,41 +122,26 @@
 - (void)setRealInput:(BOOL)value{
     if(_realInput != value){
         _realInput = value;
-        for (NSValue* value in _delegatesSet){
-            id<LPortDelegate> pointer = [value nonretainedObjectValue];
-            if (pointer) {
-                if ([pointer respondsToSelector:@selector(portRealInputDidChange:)]) {
-                    [pointer portRealInputDidChange:self.type];
-                }
-            } else {
-                NSLog(@"NIL DELEGATE IN LPort, _delegatesSet size:%lu",(unsigned long)_delegatesSet.count);
+        [_delegatesArray compact];
+        for (id<LPortDelegate> pointer in _delegatesArray){
+            if ([pointer respondsToSelector:@selector(portRealInputDidChange:)]) {
+                [pointer portRealInputDidChange:self.type];
             }
         }
-        
     }
 }
 
 #pragma mark - Add/Remove delegate
 - (void)addDelegate:(id<LPortDelegate>)delegate{
-    NSValue* value = [NSValue valueWithNonretainedObject:delegate];
-    [_delegatesSet addObject:value];
+    [_delegatesArray addPointer:(__bridge void *)(delegate)];
 }
 
 - (void)removeDelegate:(id<LPortDelegate>)delegate{
-    NSValue* value = [NSValue valueWithNonretainedObject:delegate];
-    [_delegatesSet removeObject:value];
-}
-
-- (void)compactDelegatesSet{
-    NSMutableArray* removeArray = [NSMutableArray array];
-    for (NSValue* value in _delegatesSet){
-        id<LPortDelegate> pointer = [value nonretainedObjectValue];
-        if (!pointer) {
-            [removeArray addObject:value];
+    for (NSUInteger i = 0; i < _delegatesArray.count; i++) {
+        if ([delegate isEqual:[_delegatesArray pointerAtIndex:i]]) {
+            [_delegatesArray removePointerAtIndex:i];
+            i -= 1;
         }
-    }
-    for (NSValue* removeValue in removeArray) {
-        [_delegatesSet removeObject:removeValue];
     }
 }
 

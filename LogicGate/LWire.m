@@ -187,6 +187,7 @@
     [self removeFromSuperview];
 }
 
+
 #pragma mark - Graphic Logic
 + (Class)layerClass{
     return [CAShapeLayer class];
@@ -236,6 +237,5 @@
     
     self.frame = CGRectMake(minPos.x, minPos.y, self.frame.size.width, self.frame.size.height);
 }
-
 
 @end
