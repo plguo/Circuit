@@ -23,6 +23,10 @@
 		2B098007195C7C7E00EBF2E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE6195C7C7E00EBF2E6 /* UIKit.framework */; };
 		2B09800F195C7C7E00EBF2E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B09800D195C7C7E00EBF2E6 /* InfoPlist.strings */; };
 		2B098011195C7C7E00EBF2E6 /* CircuitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B098010195C7C7E00EBF2E6 /* CircuitTests.m */; };
+		2B0C3F8D196CAC820026300F /* ECTAdjustmentMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */; };
+		2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */; };
+		2B0C3F92196CAF7D0026300F /* ECTASubScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F91196CAF7D0026300F /* ECTASubScrollView.m */; };
+		2B0C3F93196CAF7D0026300F /* ECTASubScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F91196CAF7D0026300F /* ECTASubScrollView.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2B12D486196826B1009E3C72 /* LStandardGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D485196826B1009E3C72 /* LStandardGate.m */; };
 		2B12D489196827D0009E3C72 /* LAndGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D488196827D0009E3C72 /* LAndGate.m */; };
@@ -119,6 +123,10 @@
 		2B09800C195C7C7E00EBF2E6 /* CircuitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CircuitTests-Info.plist"; sourceTree = "<group>"; };
 		2B09800E195C7C7E00EBF2E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2B098010195C7C7E00EBF2E6 /* CircuitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircuitTests.m; sourceTree = "<group>"; };
+		2B0C3F8B196CAC820026300F /* ECTAdjustmentMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTAdjustmentMenu.h; path = Shared/ECTAdjustmentMenu.h; sourceTree = "<group>"; };
+		2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTAdjustmentMenu.m; path = Shared/ECTAdjustmentMenu.m; sourceTree = "<group>"; };
+		2B0C3F90196CAF7D0026300F /* ECTASubScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTASubScrollView.h; path = Shared/ECTASubScrollView.h; sourceTree = "<group>"; };
+		2B0C3F91196CAF7D0026300F /* ECTASubScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTASubScrollView.m; path = Shared/ECTASubScrollView.m; sourceTree = "<group>"; };
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2B12D484196826B1009E3C72 /* LStandardGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LStandardGate.h; sourceTree = "<group>"; };
 		2B12D485196826B1009E3C72 /* LStandardGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LStandardGate.m; sourceTree = "<group>"; };
@@ -303,6 +311,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		2B0C3F8A196CAA530026300F /* ECTAdjustmentMenu */ = {
+			isa = PBXGroup;
+			children = (
+				2B0C3F8B196CAC820026300F /* ECTAdjustmentMenu.h */,
+				2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */,
+				2B0C3F90196CAF7D0026300F /* ECTASubScrollView.h */,
+				2B0C3F91196CAF7D0026300F /* ECTASubScrollView.m */,
+			);
+			name = ECTAdjustmentMenu;
+			sourceTree = "<group>";
+		};
 		2B12D4821968259B009E3C72 /* Sub Gates */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +352,7 @@
 			children = (
 				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
 				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
+				2B0C3F8A196CAA530026300F /* ECTAdjustmentMenu */,
 				2B26D967196B510000FD9F74 /* ECTDeleteMode */,
 				2B26D965196B50EC00FD9F74 /* ECTComponentsMenu */,
 			);
@@ -605,11 +625,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B2CAEF31961F73C0000B7ED /* ECOverlayView.m in Sources */,
+				2B0C3F92196CAF7D0026300F /* ECTASubScrollView.m in Sources */,
 				2B12D48C196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */,
 				2B325F251963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */,
 				2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */,
 				2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */,
 				2B26D962196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
+				2B0C3F8D196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,
 				2B26D96A196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
@@ -643,6 +665,7 @@
 				2B12D489196827D0009E3C72 /* LAndGate.m in Sources */,
 				2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */,
 				2B325F261963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */,
+				2B0C3F93196CAF7D0026300F /* ECTASubScrollView.m in Sources */,
 				2B26D96B196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
 				2B26D963196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
 				2BFA241619604D8700D35073 /* LPort.m in Sources */,
@@ -652,6 +675,7 @@
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,
 				2B12D48D196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */,
 				2BFA241319604BAE00D35073 /* LGate.m in Sources */,
+				2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,
 				2B325F2E19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
 				2B3C6FCD195F3D2D002FDFDC /* main.m in Sources */,
 			);
