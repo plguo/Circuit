@@ -42,11 +42,11 @@
         if (inP1.inWire) {
             LGate* startGate = inP1.inWire.startPort.superGate;
             if (startGate) {
-                return [NSString stringWithFormat:@"NOT %@",[startGate booleanFormula]];
+                return [NSString stringWithFormat:@"NOT(%@)",[startGate booleanFormula]];
             }
         }
     }
-    return @"ERROR";
+    return [super booleanFormula];
 }
 
 +(NSString*)gateName{

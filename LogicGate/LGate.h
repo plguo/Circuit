@@ -31,6 +31,8 @@
 
 - (void)initUserInteractionWithTarget:(id)target action:(SEL)sector;
 
+@property (nonatomic) BOOL selected;
+
 @property (nonatomic, readonly) GateType gateType;
 @property (nonatomic, readonly) BOOL realInput;
 

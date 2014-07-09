@@ -12,6 +12,8 @@
 
 @implementation LGate{
     BOOL _initializedUserInteraction;
+    
+    CALayer* _selectedLayer;
 }
 
 #pragma mark - NSCoding
@@ -116,7 +118,7 @@
 }
 
 - (NSString*)booleanFormula{
-    return @"DEFULT_GATE";
+    return @"NO_BOOLEAN_FORMULA";
 }
 
 #pragma mark - LObjectProtocol
@@ -139,6 +141,29 @@
 
 - (void)portBoolStatusDidChange:(PortType)portType{
     [self updateOutput];
+}
+
+#pragma mark - Selected Layer
+- (void)setSelected:(BOOL)selected{
+    if (selected != _selected) {
+        _selected = selected;
+        if (_selected) {
+            if (_selectedLayer) {
+                _selectedLayer = [CALayer layer];
+                _selectedLayer.zPosition = -1.0;
+                _selectedLayer.backgroundColor = [UIColor blueColor].CGColor;
+                _selectedLayer.frame = CGRectInset(self.frame, 5, 5);
+                _selectedLayer.cornerRadius = 5;
+                _selectedLayer.borderWidth = 2;
+                [self.layer addSublayer:_selectedLayer];
+            }
+        }else{
+            if (_selectedLayer) {
+                [_selectedLayer removeFromSuperlayer];
+                _selectedLayer = nil;
+            }
+        }
+    }
 }
 
 

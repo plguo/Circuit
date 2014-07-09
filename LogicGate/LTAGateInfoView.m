@@ -16,10 +16,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor clearColor];
         
         UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [button setTitle:@"Change Form" forState:UIControlStateNormal];
+        [button setTitle:@"Format" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button sizeToFit];
         CGSize buttonSize = button.frame.size;
@@ -30,7 +30,7 @@
         CGFloat space = 2.0;
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, buttonSize.height + space, boundsSize.width, boundsSize.height - (buttonSize.height + space))];
         _textView.editable = NO;
-        _textView.backgroundColor = [UIColor blackColor];
+        _textView.backgroundColor = [UIColor clearColor];
         _textView.textColor = [UIColor whiteColor];
         _textView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         [self addSubview:_textView];

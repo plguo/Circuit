@@ -20,7 +20,7 @@
     if (self) {
         _displayTapTitle = YES;
     
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         
         _label = [[UILabel alloc]init];
         _label.text = @"tap any object to get info";
@@ -43,7 +43,7 @@
 }
 
 -(CGRect)subMenuFrame{
-    return CGRectInset(CGRectMake(0.0, 0.0,CGRectGetWidth(self.bounds), 80.0), MARGIN, MARGIN);
+    return CGRectInset(CGRectMake(0.0, 0.0,CGRectGetWidth(self.bounds), 120.0), MARGIN, MARGIN);
 }
 
 - (void)layoutSubviews{

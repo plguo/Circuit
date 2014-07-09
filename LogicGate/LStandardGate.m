@@ -32,14 +32,14 @@
         LPort*inP2 = self.inPorts[1];
         if (inP1.inWire && inP2.inWire) {
             if (inP1.inWire.startPort && inP2.inWire.startPort) {
-                return [NSString stringWithFormat:@"(%@ %@ %@)",
+                return [NSString stringWithFormat:@"(%@) %@ (%@)",
                         [inP1.inWire.startPort.superGate booleanFormula],
                         [self gateComponentInBooleanFormula],
                         [inP2.inWire.startPort.superGate booleanFormula]];
             }
         }
     }
-    return @"Error";
+    return [super booleanFormula];
 }
 
 @end
