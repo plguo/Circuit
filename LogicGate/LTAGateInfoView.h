@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LTAGateInfoViewDelegate.h"
 
 @interface LTAGateInfoView : UIView
-
+@property(nonatomic, weak) id<LTAGateInfoViewDelegate> delegate;
 @end

@@ -169,6 +169,7 @@
 		2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECNavigationBarDelegate.h; path = Shared/ECNavigationBarDelegate.h; sourceTree = "<group>"; };
 		2B8BA5C91964984A0028627B /* LTrueOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTrueOutput.h; sourceTree = "<group>"; };
 		2B8BA5CA1964984A0028627B /* LTrueOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTrueOutput.m; sourceTree = "<group>"; };
+		2BED42DA196DEDBB001ADC8F /* LTAGateInfoViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAGateInfoViewDelegate.h; sourceTree = "<group>"; };
 		2BFA241119604BAE00D35073 /* LGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGate.h; sourceTree = "<group>"; };
 		2BFA241219604BAE00D35073 /* LGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGate.m; sourceTree = "<group>"; };
 		2BFA241419604D8700D35073 /* LPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPort.h; sourceTree = "<group>"; };
@@ -325,6 +326,7 @@
 			children = (
 				2B0C3F99196CC33D0026300F /* LTAGateInfoView.h */,
 				2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */,
+				2BED42DA196DEDBB001ADC8F /* LTAGateInfoViewDelegate.h */,
 			);
 			name = "Info View";
 			sourceTree = "<group>";

@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 @class ECTAdjustmentMenu;
+@protocol ECTAdjustmentMenuDelegate <NSObject>
+-(void)adjustmentMenuModeChangeTo:(BOOL)adjustmentMenuMode;
+@end
+
 @interface ECTAdjustmentMenu : UIView
-@property(nonatomic,readonly) CGRect submenuFrame;
 @property(nonatomic) BOOL displayTapTitle;
 
 +(instancetype)autosizeAdjustmentMenuForView:(UIView*)view;
-
+-(CGRect)subMenuFrame;
+-(void)addSubMenu:(UIView*)view;
 @end

@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "ECTComponentsMenu.h"
 #import "ECTDeleteMode.h"
+#import "ECTAdjustmentMenu.h"
+
+@protocol ECToolBarDelegate <ECTComponentsMenuDelegate,ECTDeleteModeDelegate,ECTAdjustmentMenuDelegate>
+
+@end
 
 @interface ECToolBar : UIView
 +(instancetype)autosizeToolBarForView:(UIView*)view;
 - (void)startHideAnimation;
 - (void)startShowAnimation;
-@property(nonatomic,weak) id<ECTComponentsMenuDelegate,ECTDeleteModeDelegate> delegate;
+- (void)showSubAdjustmentMenu:(UIView*)view;
+- (CGRect)subAdjustmentMenuFrame;
+@property(nonatomic,weak) id<ECToolBarDelegate> delegate;
 @end

@@ -30,7 +30,10 @@
     ECScreenEdgeScrollController* _screenEdgeScrollController;
     CGRect _scrollViewEdge;
     
-    BOOL _deleteMode;
+    TapMode _tapMode;
+    MenuState _menuState;
+    
+    __weak id<LObjectProtocol> _menuControlLObject;
 }
 
 #pragma mark - View Loading
@@ -76,6 +79,9 @@
     UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
     [_mainScrollView addGestureRecognizer:tapGestureRecognizer];
     
+    UILongPressGestureRecognizer* longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressFrom:)];
+    [_mainScrollView addGestureRecognizer:longPressGestureRecognizer];
+    
     //Setup show/hide button
     _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
     [_showButton setImage:[UIImage imageNamed:@"ShowMenuIcon"] forState:UIControlStateNormal];
@@ -89,12 +95,13 @@
     _screenEdgeScrollController.scrollView = _mainScrollView;
     //End of View Initialization
     [UIViewController prepareInterstitialAds];
-    _deleteMode = NO;
+    
+    _tapMode = TapModeNone;
+    _menuState = MenuNormalState;
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    self.canDisplayBannerAds = YES;
+- (BOOL)canDisplayBannerAds{
+    return YES;
 }
 
 - (void)viewDidLayoutSubviews{
@@ -115,6 +122,7 @@
 
 #pragma mark - Hide Menu
 - (void)hideMenu{
+    _menuState = MenuDisappealingState;
     [_navBar startHideAnimation];
     [_toolBar startHideAnimation];
     _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 5, 5, _showButton.frame.size.width, _showButton.frame.size.height);
@@ -123,12 +131,13 @@
         _mainScrollView.frame = self.originalContentView.bounds;
         _showButton.alpha = 0.8;
     } completion:^(BOOL finished) {
-        
+        _menuState = MenuHidenState;
     }];
 }
 
 #pragma mark - Show Menu
 - (void)showMenu{
+    _menuState = MenuAppealingState;
     [_navBar startShowAnimation];
     [_toolBar startShowAnimation];
     CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), CGRectGetWidth(self.originalContentView.bounds), CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
@@ -137,6 +146,7 @@
         _showButton.alpha = 0.0;
     } completion:^(BOOL finished) {
         [_showButton removeFromSuperview];
+        _menuState = MenuNormalState;
     }];
 }
 
@@ -189,16 +199,82 @@
 
 -(void)handleTapFrom:(UITapGestureRecognizer *)recognizer{
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        if (_deleteMode) {
+        if (_tapMode != TapModeNone) {
             id viewID = [recognizer.view hitTest:[recognizer locationInView:recognizer.view] withEvent:nil];
             if (viewID) {
-                if ([viewID conformsToProtocol:@protocol(LObjectProtocol)]) {
-                    id<LObjectProtocol> lObject = viewID;
-                    [lObject objectRemove];
+                if (_tapMode == TapModeRemove) {
+                    if ([viewID conformsToProtocol:@protocol(LObjectProtocol)]) {
+                        id<LObjectProtocol> lObject = viewID;
+                        [lObject objectRemove];
+                    }
+                }else if (_tapMode == TapModeAdjust){
+                    if ([viewID conformsToProtocol:@protocol(LTAGateInfoViewDelegate)]) {
+                        [self openGateInfoViewWithDelegate:(id<LTAGateInfoViewDelegate>)viewID];
+                    }
                 }
+                
             }
         }
     }
+}
+
+-(void)handleLongPressFrom:(UILongPressGestureRecognizer *)recognizer{
+    if (recognizer.state == UIGestureRecognizerStateBegan){
+        UIView* view = [recognizer.view hitTest:[recognizer locationInView:recognizer.view] withEvent:nil];
+        if ([view conformsToProtocol:@protocol(LObjectProtocol)]) {
+            id<LObjectProtocol> lObject = (id)view;
+            UIMenuItem* ItemRemove = [[UIMenuItem alloc] initWithTitle:@"remove" action:@selector(removeSelecedLObject)];
+            NSMutableArray* items = [NSMutableArray arrayWithObject:ItemRemove];
+            
+            if ([view isKindOfClass:[LGate class]]) {
+                UIMenuItem* ItemInfo = [[UIMenuItem alloc] initWithTitle:@"info" action:@selector(getInfoFromSelecedLObject)];
+                [items insertObject:ItemInfo atIndex:0];
+            }
+            _menuControlLObject= lObject;
+            [recognizer.view becomeFirstResponder];
+            UIMenuController* menuController = [UIMenuController sharedMenuController];
+            [menuController setTargetRect:[recognizer.view convertRect:view.frame fromView:view.superview]
+                                   inView:recognizer.view];
+            
+            menuController.menuItems = items;
+            [menuController update];
+            [menuController setMenuVisible:YES animated:YES];
+        }
+    }
+}
+
+-(void)getInfoFromSelecedLObject{
+    if ([_menuControlLObject conformsToProtocol:@protocol(LTAGateInfoViewDelegate) ]) {
+        [self openGateInfoViewWithDelegate:(id<LTAGateInfoViewDelegate>)_menuControlLObject];
+    }
+}
+
+-(void)openGateInfoViewWithDelegate:(id<LTAGateInfoViewDelegate>)gate{
+    if (gate && _menuState != MenuAppealingState && _menuState != MenuDisappealingState) {
+        CGRect frame = [_toolBar subAdjustmentMenuFrame];
+        if (!CGRectIsNull(frame)) {
+            LTAGateInfoView* menu = [[LTAGateInfoView alloc]initWithFrame:frame];
+            menu.delegate = gate;
+            if (_menuState == MenuNormalState) {
+                [_toolBar showSubAdjustmentMenu:menu];
+            }else{
+                [self showMenu];
+                [_toolBar performSelector:@selector(showSubAdjustmentMenu:) withObject:menu afterDelay:0.6];
+            }
+            
+        }
+    }
+}
+
+-(void)removeSelecedLObject{
+    if (_menuControlLObject){
+        [_menuControlLObject objectRemove];
+        _menuControlLObject = nil;
+    }
+}
+
+-(BOOL)canBecomeFirstResponder{
+    return YES;
 }
 
 
@@ -267,7 +343,24 @@
 
 #pragma mark - ECTDeleteModeDelegate
 - (void)deleteModeChangeTo:(BOOL)allowDelete{
-    _deleteMode = allowDelete;
+    if (allowDelete) {
+        _tapMode = TapModeRemove;
+    }else{
+        if (_tapMode == TapModeRemove) {
+            _tapMode = TapModeNone;
+        }
+    }
+}
+
+#pragma mark - ECTAdjustmentMenuDelegate
+- (void)adjustmentMenuModeChangeTo:(BOOL)adjustmentMenuMode{
+    if (adjustmentMenuMode) {
+        _tapMode = TapModeAdjust;
+    }else{
+        if (_tapMode == TapModeAdjust) {
+            _tapMode = TapModeNone;
+        }
+    }
 }
 
 @end

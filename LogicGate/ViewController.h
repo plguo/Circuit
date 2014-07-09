@@ -13,8 +13,21 @@
 #import "ECNavigationBar.h"
 #import "ECGridView.h"
 #import "ECScreenEdgeScrollController.h"
+#import "LTAGateInfoView.h"
 
+typedef NS_ENUM(NSUInteger, TapMode){
+    TapModeNone,
+    TapModeRemove,
+    TapModeAdjust
+};
 
-@interface ViewController : UIViewController<ECNavigationBarDelegate,ECTComponentsMenuDelegate,ECTDeleteModeDelegate>
+typedef NS_ENUM(NSUInteger, MenuState){
+    MenuNormalState,
+    MenuHidenState,
+    MenuAppealingState,
+    MenuDisappealingState
+};
+
+@interface ViewController : UIViewController<ECNavigationBarDelegate,ECToolBarDelegate>
 
 @end

@@ -7,9 +7,11 @@
 //
 
 #import "ECTAdjustmentMenu.h"
+#define MARGIN 5.0
 
 @implementation ECTAdjustmentMenu{
     UILabel* _label;
+    UIView* _subMenu;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -17,8 +19,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _displayTapTitle = YES;
-        
-        _submenuFrame = CGRectInset(self.bounds, 5, 5);
+    
         self.backgroundColor = [UIColor blackColor];
         
         _label = [[UILabel alloc]init];
@@ -41,6 +42,10 @@
     return menu;
 }
 
+-(CGRect)subMenuFrame{
+    return CGRectInset(CGRectMake(0.0, 0.0,CGRectGetWidth(self.bounds), 80.0), MARGIN, MARGIN);
+}
+
 - (void)layoutSubviews{
     if (_label) {
         _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
@@ -51,22 +56,32 @@
     if (_displayTapTitle != displayTapTitle) {
         _displayTapTitle = displayTapTitle;
         if (_displayTapTitle) {
-            _label = [[UILabel alloc]init];
-            _label.text = @"tap any object to get info";
-            _label.textColor = [UIColor whiteColor];
-            CGSize size = [_label sizeThatFits:CGSizeMake(self.bounds.size.width-4, 40)];
-            _label.frame = CGRectMake(0, 0, size.width, size.height);
-            
-            self.frame = CGRectMake(0, 10, self.frame.size.width, size.height+4);
-            
+            self.frame = CGRectMake(0, 10, self.frame.size.width, _label.frame.size.height+4);
             _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
             [self addSubview:_label];
         }else{
             if (_label) {
                 [_label removeFromSuperview];
-                _label = nil;
             }
         }
+    }
+}
+
+-(void)addSubMenu:(UIView *)view{
+    if (view) {
+        self.displayTapTitle = NO;
+        CGFloat viewHeight = CGRectGetHeight(view.frame)+ MARGIN * 2;
+        CGRect frame = CGRectMake(0,self.frame.origin.y - (viewHeight - CGRectGetHeight(self.frame)), CGRectGetWidth(self.frame), viewHeight);
+        [UIView animateWithDuration:0.3 animations:^{
+            self.frame = frame;
+        }];
+        if (_subMenu) {
+            [_subMenu removeFromSuperview];
+            _subMenu = nil;
+        }
+        _subMenu = view;
+        [self addSubview:view];
+        
     }
 }
 @end

@@ -72,7 +72,8 @@ static NSString*const kSubMemuHiding = @"H";
     //Components Menu Button
     UIButton* componentsMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [componentsMenuButton addTarget:self action:@selector(tapComponentsMenuButton) forControlEvents:UIControlEventTouchUpInside];
+    [componentsMenuButton addTarget:self action:@selector(tapComponentsMenuButton)
+                   forControlEvents:UIControlEventTouchUpInside];
     
     [componentsMenuButton setImage:[UIImage imageNamed:@"AddIcon"] forState:UIControlStateNormal];
     [componentsMenuButton setImage:[UIImage imageNamed:@"AddIconDark"] forState:UIControlStateSelected];
@@ -83,33 +84,33 @@ static NSString*const kSubMemuHiding = @"H";
     //Adjust Menu Button
     UIButton* adjustmentMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [adjustmentMenuButton addTarget:self action:@selector(tapAdjustmentMenuButton) forControlEvents:UIControlEventTouchUpInside];
+    [adjustmentMenuButton addTarget:self action:@selector(tapAdjustmentMenuButton)
+                   forControlEvents:UIControlEventTouchUpInside];
     
     [adjustmentMenuButton setImage:[UIImage imageNamed:@"AdjustIcon"] forState:UIControlStateNormal];
     [adjustmentMenuButton setImage:[UIImage imageNamed:@"AdjustIconDark"] forState:UIControlStateSelected];
-    [adjustmentMenuButton sizeToFit];
     
     [mutableButtonsArray addObject:adjustmentMenuButton];
     
     //Files Menu Button
     UIButton* filesMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [filesMenuButton addTarget:self action:@selector(tapFilesMenuButton) forControlEvents:UIControlEventTouchUpInside];
+    [filesMenuButton addTarget:self action:@selector(tapFilesMenuButton)
+              forControlEvents:UIControlEventTouchUpInside];
     
     [filesMenuButton setImage:[UIImage imageNamed:@"FileIcon"] forState:UIControlStateNormal];
     [filesMenuButton setImage:[UIImage imageNamed:@"FileIconDark"] forState:UIControlStateSelected];
-    [filesMenuButton sizeToFit];
     
     [mutableButtonsArray addObject:filesMenuButton];
     
     //Delete Menu Button
     UIButton* deleteModeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [deleteModeButton addTarget:self action:@selector(tapDeleteModeButton) forControlEvents:UIControlEventTouchUpInside];
+    [deleteModeButton addTarget:self action:@selector(tapDeleteModeButton)
+               forControlEvents:UIControlEventTouchUpInside];
     
     [deleteModeButton setImage:[UIImage imageNamed:@"DeleteIcon"] forState:UIControlStateNormal];
     [deleteModeButton setImage:[UIImage imageNamed:@"DeleteIconDark"] forState:UIControlStateSelected];
-    [deleteModeButton sizeToFit];
     
     [mutableButtonsArray addObject:deleteModeButton];
     
@@ -148,8 +149,8 @@ static NSString*const kSubMemuHiding = @"H";
 
 #pragma mark - Show Menus
 - (void)showComponentsMenu{
-    UIView* adjustmentMenu = (UIView*)[_menuArray pointerAtIndex:0];
-    if (self.delegate && !adjustmentMenu) {
+    UIView* componentsMenu = (UIView*)[_menuArray pointerAtIndex:0];
+    if (self.delegate && !componentsMenu) {
         _menuStateArray[0] = kSubMemuAppealing;
         ECTComponentsMenu* menu = [ECTComponentsMenu autosizeComponentsMenuForView:self];
         menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
@@ -166,7 +167,25 @@ static NSString*const kSubMemuHiding = @"H";
 }
 
 - (void)showAdjustmentMenu{
-    
+    UIView* adjustmentMenu = (UIView*)[_menuArray pointerAtIndex:1];
+    if (self.delegate && !adjustmentMenu) {
+        _menuStateArray[1] = kSubMemuAppealing;
+        ECTAdjustmentMenu* menu = [ECTAdjustmentMenu autosizeAdjustmentMenuForView:self];
+        
+        menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
+        [self.superview insertSubview:menu belowSubview:self];
+        
+        CGPoint newCenter = CGPointMake(menu.center.x, menu.center.y - CGRectGetHeight(menu.frame));
+        [UIView animateWithDuration:0.3 animations:^{
+            menu.center = newCenter;
+        }completion:^(BOOL finished) {
+            _menuStateArray[1] = kSubMemuShowing;
+            if (self.delegate) {
+                [self.delegate adjustmentMenuModeChangeTo:YES];
+            }
+        }];
+        [_menuArray replacePointerAtIndex:1 withPointer:(__bridge void *)(menu)];
+    }
 }
 
 - (void)showFilesMenu{
@@ -249,8 +268,29 @@ static NSString*const kSubMemuHiding = @"H";
     
 - (void)hideComponentsMenuBehideBar:(BOOL)behideBar{
     _menuStateArray[0] = kSubMemuDisappealing;
-    UIView* adjustmentMenu = (UIView*)[_menuArray pointerAtIndex:0];
+    UIView* componentsMenu = (UIView*)[_menuArray pointerAtIndex:0];
+    if (componentsMenu) {
+        CGPoint center = CGPointMake(componentsMenu.center.x, componentsMenu.center.y + CGRectGetHeight(componentsMenu.frame));
+        if (!behideBar) {
+            center.y = self.superview.frame.size.height + componentsMenu.frame.size.height/2;
+        }
+        [UIView animateWithDuration:0.3 animations:^{
+            componentsMenu.center = center;
+        } completion:^(BOOL finished) {
+            [componentsMenu removeFromSuperview];
+            _menuStateArray[0] = kSubMemuHiding;
+        }];
+    }
+    
+}
+
+- (void)hideAdjustmentMenuBehideBar:(BOOL)behideBar{
+    _menuStateArray[1] = kSubMemuDisappealing;
+    UIView* adjustmentMenu = (UIView*)[_menuArray pointerAtIndex:1];
     if (adjustmentMenu) {
+        if (self.delegate) {
+            [self.delegate adjustmentMenuModeChangeTo:NO];
+        }
         CGPoint center = CGPointMake(adjustmentMenu.center.x, adjustmentMenu.center.y + CGRectGetHeight(adjustmentMenu.frame));
         if (!behideBar) {
             center.y = self.superview.frame.size.height + adjustmentMenu.frame.size.height/2;
@@ -259,14 +299,9 @@ static NSString*const kSubMemuHiding = @"H";
             adjustmentMenu.center = center;
         } completion:^(BOOL finished) {
             [adjustmentMenu removeFromSuperview];
-            _menuStateArray[0] = kSubMemuHiding;
+            _menuStateArray[1] = kSubMemuHiding;
         }];
     }
-    
-}
-
-- (void)hideAdjustmentMenuBehideBar:(BOOL)behideBar{
-
 }
 
 - (void)hideFilesMenuBehideBar:(BOOL)behideBar{
@@ -333,6 +368,21 @@ static NSString*const kSubMemuHiding = @"H";
         }
     }
     _selected = NO;
+}
+
+- (void)showSubAdjustmentMenu:(UIView*)view{
+    ECTAdjustmentMenu* menu = (ECTAdjustmentMenu*)[_menuArray pointerAtIndex:1];
+    if (menu) {
+        [menu addSubMenu:view];
+    }
+}
+
+- (CGRect)subAdjustmentMenuFrame{
+    ECTAdjustmentMenu* menu = (ECTAdjustmentMenu*)[_menuArray pointerAtIndex:1];
+    if (menu) {
+        return [menu subMenuFrame];
+    }
+    return CGRectNull;
 }
 
 #pragma mark - Animation

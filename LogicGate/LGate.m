@@ -102,17 +102,6 @@
     }
 }
 
-#pragma mark - Notify ports and their wires to update position
--(void)setCenter:(CGPoint)center{
-    [super setCenter:(CGPoint)center];
-    for (LPort *aPort in _inPorts){
-        [aPort gatePositionDidChange];
-    }
-    for (LPort *aPort in _outPorts){
-        [aPort gatePositionDidChange];
-    }
-}
-
 #pragma mark - Gate info for subclasses
 - (NSString*)imageName{
     return @"and_gate";
