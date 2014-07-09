@@ -1,5 +1,5 @@
 //
-//  ECTAGateInfoView.h
+//  LTAGateInfoView.h
 //  Circuit
 //
 //  Created by Edward Guo on 2014-07-08.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ECTAGateInfoView : UIView
+@interface LTAGateInfoView : UIView
 
 @end

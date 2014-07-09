@@ -25,8 +25,8 @@
 		2B098011195C7C7E00EBF2E6 /* CircuitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B098010195C7C7E00EBF2E6 /* CircuitTests.m */; };
 		2B0C3F8D196CAC820026300F /* ECTAdjustmentMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */; };
 		2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */; };
-		2B0C3F96196CBAFF0026300F /* ECTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F95196CBAFF0026300F /* ECTAGateInfoView.m */; };
-		2B0C3F97196CBAFF0026300F /* ECTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F95196CBAFF0026300F /* ECTAGateInfoView.m */; };
+		2B0C3F9B196CC33D0026300F /* LTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */; };
+		2B0C3F9C196CC33D0026300F /* LTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2B12D486196826B1009E3C72 /* LStandardGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D485196826B1009E3C72 /* LStandardGate.m */; };
 		2B12D489196827D0009E3C72 /* LAndGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D488196827D0009E3C72 /* LAndGate.m */; };
@@ -125,8 +125,8 @@
 		2B098010195C7C7E00EBF2E6 /* CircuitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircuitTests.m; sourceTree = "<group>"; };
 		2B0C3F8B196CAC820026300F /* ECTAdjustmentMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTAdjustmentMenu.h; path = Shared/ECTAdjustmentMenu.h; sourceTree = "<group>"; };
 		2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTAdjustmentMenu.m; path = Shared/ECTAdjustmentMenu.m; sourceTree = "<group>"; };
-		2B0C3F94196CBAFF0026300F /* ECTAGateInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTAGateInfoView.h; path = Shared/ECTAGateInfoView.h; sourceTree = "<group>"; };
-		2B0C3F95196CBAFF0026300F /* ECTAGateInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTAGateInfoView.m; path = Shared/ECTAGateInfoView.m; sourceTree = "<group>"; };
+		2B0C3F99196CC33D0026300F /* LTAGateInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAGateInfoView.h; sourceTree = "<group>"; };
+		2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTAGateInfoView.m; sourceTree = "<group>"; };
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2B12D484196826B1009E3C72 /* LStandardGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LStandardGate.h; sourceTree = "<group>"; };
 		2B12D485196826B1009E3C72 /* LStandardGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LStandardGate.m; sourceTree = "<group>"; };
@@ -316,10 +316,17 @@
 			children = (
 				2B0C3F8B196CAC820026300F /* ECTAdjustmentMenu.h */,
 				2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */,
-				2B0C3F94196CBAFF0026300F /* ECTAGateInfoView.h */,
-				2B0C3F95196CBAFF0026300F /* ECTAGateInfoView.m */,
 			);
 			name = ECTAdjustmentMenu;
+			sourceTree = "<group>";
+		};
+		2B0C3F98196CBFCF0026300F /* Info View */ = {
+			isa = PBXGroup;
+			children = (
+				2B0C3F99196CC33D0026300F /* LTAGateInfoView.h */,
+				2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */,
+			);
+			name = "Info View";
 			sourceTree = "<group>";
 		};
 		2B12D4821968259B009E3C72 /* Sub Gates */ = {
@@ -410,6 +417,7 @@
 				2B3C6FD9195F3D2D002FDFDC /* ViewController.m */,
 				2BFA241719604D9400D35073 /* Gates */,
 				2B3C6FDB195F3D2D002FDFDC /* Images.xcassets */,
+				2B0C3F98196CBFCF0026300F /* Info View */,
 				2B3C6FC7195F3D2D002FDFDC /* Supporting Files */,
 			);
 			path = LogicGate;
@@ -632,8 +640,8 @@
 				2B26D962196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
 				2B0C3F8D196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,
 				2B26D96A196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
-				2B0C3F96196CBAFF0026300F /* ECTAGateInfoView.m in Sources */,
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
+				2B0C3F9B196CC33D0026300F /* LTAGateInfoView.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
 				2B325F2D19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
@@ -661,6 +669,7 @@
 				2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */,
 				2B26D96E196B700A00FD9F74 /* LLight.m in Sources */,
 				2B3C6FDA195F3D2D002FDFDC /* ViewController.m in Sources */,
+				2B0C3F9C196CC33D0026300F /* LTAGateInfoView.m in Sources */,
 				2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */,
 				2B12D489196827D0009E3C72 /* LAndGate.m in Sources */,
 				2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */,
@@ -672,7 +681,6 @@
 				2B12D486196826B1009E3C72 /* LStandardGate.m in Sources */,
 				2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */,
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,
-				2B0C3F97196CBAFF0026300F /* ECTAGateInfoView.m in Sources */,
 				2B12D48D196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */,
 				2BFA241319604BAE00D35073 /* LGate.m in Sources */,
 				2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,

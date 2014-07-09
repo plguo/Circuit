@@ -34,7 +34,7 @@
 }
 
 -(NSString*)booleanFormula{
-    return @"TRUE";
+    return @"<-TRUE->";
 }
 
 +(NSString*)gateName{
