@@ -34,6 +34,7 @@
     MenuState _menuState;
     
     __weak id<LObjectProtocol> _menuControlLObject;
+    __weak LGate* _selectedGate;
 }
 
 #pragma mark - View Loading
@@ -253,6 +254,16 @@
     if (gate && _menuState != MenuAppealingState && _menuState != MenuDisappealingState) {
         CGRect frame = [_toolBar subAdjustmentMenuFrame];
         if (!CGRectIsNull(frame)) {
+            
+            if ([gate isKindOfClass:[LGate class]]) {
+                if (_selectedGate) {
+                    _selectedGate.selected = NO;
+                    _selectedGate = nil;
+                }
+                _selectedGate = (LGate*)gate;
+                _selectedGate.selected = YES;
+            }
+            
             LTAGateInfoView* menu = [[LTAGateInfoView alloc]initWithFrame:frame];
             menu.delegate = gate;
             if (_menuState == MenuNormalState) {
@@ -359,6 +370,9 @@
     }else{
         if (_tapMode == TapModeAdjust) {
             _tapMode = TapModeNone;
+            if (_selectedGate) {
+                _selectedGate.selected = NO;
+            }
         }
     }
 }

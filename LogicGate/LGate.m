@@ -13,7 +13,7 @@
 @implementation LGate{
     BOOL _initializedUserInteraction;
     
-    CALayer* _selectedLayer;
+    UIView* _selectedView;
 }
 
 #pragma mark - NSCoding
@@ -148,19 +148,18 @@
     if (selected != _selected) {
         _selected = selected;
         if (_selected) {
-            if (_selectedLayer) {
-                _selectedLayer = [CALayer layer];
-                _selectedLayer.zPosition = -1.0;
-                _selectedLayer.backgroundColor = [UIColor blueColor].CGColor;
-                _selectedLayer.frame = CGRectInset(self.frame, 5, 5);
-                _selectedLayer.cornerRadius = 5;
-                _selectedLayer.borderWidth = 2;
-                [self.layer addSublayer:_selectedLayer];
+            if (!_selectedView) {
+                _selectedView = [[UIView alloc] initWithFrame:CGRectInset(self.bounds, -5, -5)];
+                _selectedView.backgroundColor = [UIColor colorWithRed:0.2 green:0.6 blue:0.86 alpha:0.2];
+                _selectedView.layer.cornerRadius = 5;
+                _selectedView.layer.borderWidth = 2;
+                _selectedView.layer.borderColor = [UIColor blackColor].CGColor;
+                [self addSubview:_selectedView];
             }
         }else{
-            if (_selectedLayer) {
-                [_selectedLayer removeFromSuperlayer];
-                _selectedLayer = nil;
+            if (_selectedView) {
+                [_selectedView removeFromSuperview];
+                _selectedView = nil;
             }
         }
     }

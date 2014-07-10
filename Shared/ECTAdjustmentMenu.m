@@ -7,7 +7,6 @@
 //
 
 #import "ECTAdjustmentMenu.h"
-#define MARGIN 5.0
 
 @implementation ECTAdjustmentMenu{
     UILabel* _label;
@@ -42,9 +41,6 @@
     return menu;
 }
 
--(CGRect)subMenuFrame{
-    return CGRectInset(CGRectMake(0.0, 0.0,CGRectGetWidth(self.bounds), 120.0), MARGIN, MARGIN);
-}
 
 - (void)layoutSubviews{
     if (_label) {
@@ -70,7 +66,7 @@
 -(void)addSubMenu:(UIView *)view{
     if (view) {
         self.displayTapTitle = NO;
-        CGFloat viewHeight = CGRectGetHeight(view.frame)+ MARGIN * 2;
+        CGFloat viewHeight = CGRectGetHeight(view.frame)+ 5.0 * 2;
         CGRect frame = CGRectMake(0,self.frame.origin.y - (viewHeight - CGRectGetHeight(self.frame)), CGRectGetWidth(self.frame), viewHeight);
         [UIView animateWithDuration:0.3 animations:^{
             self.frame = frame;

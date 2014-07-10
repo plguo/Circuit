@@ -371,18 +371,18 @@ static NSString*const kSubMemuHiding = @"H";
 }
 
 - (void)showSubAdjustmentMenu:(UIView*)view{
+    if (_selectedTool != 1 || !_selected) {
+        [self tapAdjustmentMenuButton];
+    }
     ECTAdjustmentMenu* menu = (ECTAdjustmentMenu*)[_menuArray pointerAtIndex:1];
     if (menu) {
+        
         [menu addSubMenu:view];
     }
 }
 
 - (CGRect)subAdjustmentMenuFrame{
-    ECTAdjustmentMenu* menu = (ECTAdjustmentMenu*)[_menuArray pointerAtIndex:1];
-    if (menu) {
-        return [menu subMenuFrame];
-    }
-    return CGRectNull;
+    return CGRectInset(CGRectMake(0.0, 0.0,CGRectGetWidth(self.bounds), 120.0), 5.0, 5.0);;
 }
 
 #pragma mark - Animation
