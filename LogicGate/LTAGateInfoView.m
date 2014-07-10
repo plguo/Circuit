@@ -10,6 +10,7 @@
 
 @implementation LTAGateInfoView{
     UITextView* _textView;
+    UILabel* _label;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -17,6 +18,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        _title = @"Gate";
         
         UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:@"Format" forState:UIControlStateNormal];
@@ -24,8 +26,20 @@
         [button sizeToFit];
         CGSize buttonSize = button.frame.size;
         CGSize boundsSize = self.bounds.size;
+        
+        button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
         button.center = CGPointMake(boundsSize.width - buttonSize.width/2, buttonSize.height/2);
         [self addSubview:button];
+        
+        _label = [[UILabel alloc] init];
+        _label.text = self.title;
+        _label.textColor = [UIColor whiteColor];
+        _label.font = button.titleLabel.font;
+        _label.textAlignment = NSTextAlignmentCenter;
+        
+        [_label sizeToFit];
+        _label.center = CGPointMake(_label.center.x, button.center.y);
+        [self addSubview:_label];
         
         CGFloat space = 2.0;
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, buttonSize.height + space, boundsSize.width, boundsSize.height - (buttonSize.height + space))];
@@ -36,6 +50,12 @@
         [self addSubview:_textView];
     }
     return self;
+}
+
+- (void)setTitle:(NSString *)title{
+    _title = title;
+    _label.text = _title;
+    [_label sizeToFit];
 }
 
 - (void)setDelegate:(id<LTAGateInfoViewDelegate>)delegate{

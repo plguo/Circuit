@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "LGate.h"
 #import "LAndGate.h"
 #import "LNotGate.h"
 #import "LTrueOutput.h"
@@ -32,6 +31,8 @@
     
     TapMode _tapMode;
     MenuState _menuState;
+    
+    __weak LTAGateInfoView* _gateInfoView;
     
     __weak id<LObjectProtocol> _menuControlLObject;
     __weak LGate* _selectedGate;
@@ -255,24 +256,32 @@
         CGRect frame = [_toolBar subAdjustmentMenuFrame];
         if (!CGRectIsNull(frame)) {
             
+            NSString* title = nil;
             if ([gate isKindOfClass:[LGate class]]) {
                 if (_selectedGate) {
                     _selectedGate.selected = NO;
+                    _selectedGate.delegate = nil;
                     _selectedGate = nil;
                 }
                 _selectedGate = (LGate*)gate;
                 _selectedGate.selected = YES;
+                _selectedGate.delegate = self;
+                
+                title = [[_selectedGate class] gateName];
             }
             
             LTAGateInfoView* menu = [[LTAGateInfoView alloc]initWithFrame:frame];
             menu.delegate = gate;
+            if (title) {
+                menu.title = title;
+            }
             if (_menuState == MenuNormalState) {
                 [_toolBar showSubAdjustmentMenu:menu];
             }else{
                 [self showMenu];
                 [_toolBar performSelector:@selector(showSubAdjustmentMenu:) withObject:menu afterDelay:0.6];
             }
-            
+            _gateInfoView = menu;
         }
     }
 }
@@ -352,6 +361,20 @@
     return 4;
 }
 
+#pragma mark - LGateDelegate
+- (void)gateBooleanFormulaDidChange{
+    if (_gateInfoView) {
+        [_gateInfoView performSelectorInBackground:@selector(loadBooleanFormula) withObject:nil];
+    }
+}
+
+- (void)gateWillRemove{
+    if (_selectedGate) {
+        [_toolBar hideAdjustmentMenu];
+        _selectedGate = nil;
+    }
+}
+
 #pragma mark - ECTDeleteModeDelegate
 - (void)deleteModeChangeTo:(BOOL)allowDelete{
     if (allowDelete) {
@@ -372,6 +395,8 @@
             _tapMode = TapModeNone;
             if (_selectedGate) {
                 _selectedGate.selected = NO;
+                _selectedGate.delegate = nil;
+                _selectedGate = nil;
             }
         }
     }

@@ -66,17 +66,23 @@
 }
 
 #pragma mark - Handle notifications from inWire
-- (void)connectToInWire:(LWire *)inWire{
+- (void)connectToWire:(LWire *)wire{
+    [_delegatesArray compact];
     if (self.type == PortTypeInput){
-        _inWire = inWire;
+        _inWire = wire;
         self.realInput = _inWire.realInput;
         
         _boolStatus = _inWire.boolStatus;
-        [_delegatesArray compact];
+        
         for (id<LPortDelegate> pointer in _delegatesArray){
             if ([pointer respondsToSelector:@selector(portBoolStatusDidChange:)]) {
                 [pointer portBoolStatusDidChange:self.type];
             }
+        }
+    }
+    for (id<LPortDelegate> pointer in _delegatesArray){
+        if ([pointer respondsToSelector:@selector(portWireDidChange)]) {
+            [pointer portWireDidChange];
         }
     }
 }
@@ -85,6 +91,13 @@
     self.boolStatus = NO;
     self.realInput = NO;
     self.inWire = nil;
+    
+    [_delegatesArray compact];
+    for (id<LPortDelegate> pointer in _delegatesArray){
+        if ([pointer respondsToSelector:@selector(portWireDidChange)]) {
+            [pointer portWireDidChange];
+        }
+    }
 }
 
 - (void)inWireBoolStatusDidChange{

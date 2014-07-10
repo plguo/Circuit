@@ -30,6 +30,7 @@
         self.frame = CGRectMake(0, 10, frame.size.width, size.height+4);
         
         _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        _label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:_label];
     }
     return self;
@@ -39,13 +40,6 @@
     ECTAdjustmentMenu* menu = [[self alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(view.bounds), 20.0)];
     menu.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     return menu;
-}
-
-
-- (void)layoutSubviews{
-    if (_label) {
-        _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    }
 }
 
 -(void)setDisplayTapTitle:(BOOL)displayTapTitle{

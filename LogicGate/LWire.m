@@ -77,8 +77,8 @@
                 } else {
                     _endPort = port;
                     [_endPort addDelegate:self];
-                    [_endPort connectToInWire:self];
                 }
+                [port connectToWire:self];
                 if (_startPort && _endPort) {
                     [self drawWire];
                 }

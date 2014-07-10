@@ -385,6 +385,12 @@ static NSString*const kSubMemuHiding = @"H";
     return CGRectInset(CGRectMake(0.0, 0.0,CGRectGetWidth(self.bounds), 120.0), 5.0, 5.0);;
 }
 
+- (void)hideAdjustmentMenu{
+    if (_selected && _selectedTool == 1) {
+        [self tapAdjustmentMenuButton];
+    }
+}
+
 #pragma mark - Animation
 - (void)startHideAnimation{
     [self immediatelyHideAllMenu];

@@ -16,5 +16,5 @@
 @property(nonatomic) BOOL displayTapTitle;
 
 +(instancetype)autosizeAdjustmentMenuForView:(UIView*)view;
--(void)addSubMenu:(UIView*)view;
+- (void)addSubMenu:(UIView*)view;
 @end

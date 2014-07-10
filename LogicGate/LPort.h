@@ -20,7 +20,7 @@
 - (id)initWithPortType:(PortType)type SuperGate:(LGate*)gate Center:(CGPoint)center;
 + (instancetype)portType:(PortType)type SuperGate:(LGate *)gate Center:(CGPoint)center;
 
-- (void)connectToInWire:(LWire*)inWire;
+- (void)connectToWire:(LWire *)wire;
 
 - (void)removeAllWire;
 

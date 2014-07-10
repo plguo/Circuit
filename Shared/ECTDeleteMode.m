@@ -27,6 +27,7 @@
         self.frame = CGRectMake(0, 10, frame.size.width, size.height+4);
         
         _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        _label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:_label];
     }
     return self;
@@ -36,9 +37,5 @@
     ECTDeleteMode* deleteMode = [[self alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(view.bounds), 20)];
     deleteMode.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     return deleteMode;
-}
-
-- (void)layoutSubviews{
-    _label.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 @end

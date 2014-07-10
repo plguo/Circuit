@@ -11,4 +11,6 @@
 
 @interface LTAGateInfoView : UIView
 @property(nonatomic, weak) id<LTAGateInfoViewDelegate> delegate;
+- (void)loadBooleanFormula;
+@property (nonatomic) NSString* title;
 @end

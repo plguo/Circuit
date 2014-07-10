@@ -15,8 +15,9 @@ typedef NS_ENUM(NSUInteger, PortType){
 
 @protocol LPortDelegate <NSObject>
 @optional
--(void)portRealInputDidChange:(PortType)portType;
--(void)portBoolStatusDidChange:(PortType)portType;
--(void)portPositionDidChange;
--(void)portWillRemoveWires:(PortType)portType;
+- (void)portRealInputDidChange:(PortType)portType;
+- (void)portBoolStatusDidChange:(PortType)portType;
+- (void)portPositionDidChange;
+- (void)portWillRemoveWires:(PortType)portType;
+- (void)portWireDidChange;
 @end

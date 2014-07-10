@@ -11,6 +11,7 @@
 #import "GateType.h"
 #import "LObjectProtocol.h"
 #import "LTAGateInfoViewDelegate.h"
+#import "LGateDelegate.h"
 
 @interface LGate : UIImageView<LObjectProtocol, LPortDelegate, LTAGateInfoViewDelegate>
 - (instancetype)initGate;
@@ -30,6 +31,8 @@
 - (NSString*)booleanFormula;
 
 - (void)initUserInteractionWithTarget:(id)target action:(SEL)sector;
+
+@property (nonatomic,weak) id<LGateDelegate> delegate;
 
 @property (nonatomic) BOOL selected;
 

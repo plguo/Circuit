@@ -118,18 +118,21 @@
 }
 
 - (NSString*)booleanFormula{
-    return @"NO_BOOLEAN_FORMULA";
+    return @"Not enough information to generate boolean formula.";
 }
 
 #pragma mark - LObjectProtocol
 - (void)objectRemove{
+    if (self.delegate) {
+        [self.delegate gateWillRemove];
+    }
     [_inPorts makeObjectsPerformSelector:@selector(removeAllWire)];
     [_outPorts makeObjectsPerformSelector:@selector(removeAllWire)];
     [self removeFromSuperview];
 }
 
 #pragma mark - LPortDelegate
--(void)setInPortDelegate{
+- (void)setInPortDelegate{
     for (LPort* port in _inPorts){
         [port addDelegate:self];
     }
@@ -143,6 +146,12 @@
     [self updateOutput];
 }
 
+- (void)portWireDidChange{
+    if (self.delegate) {
+        [self.delegate gateBooleanFormulaDidChange];
+    }
+}
+
 #pragma mark - Selected Layer
 - (void)setSelected:(BOOL)selected{
     if (selected != _selected) {
@@ -154,6 +163,7 @@
                 _selectedView.layer.cornerRadius = 5;
                 _selectedView.layer.borderWidth = 2;
                 _selectedView.layer.borderColor = [UIColor blackColor].CGColor;
+                _selectedView.userInteractionEnabled = NO;
                 [self addSubview:_selectedView];
             }
         }else{

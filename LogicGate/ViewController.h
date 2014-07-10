@@ -14,6 +14,7 @@
 #import "ECGridView.h"
 #import "ECScreenEdgeScrollController.h"
 #import "LTAGateInfoView.h"
+#import "LGate.h"
 
 typedef NS_ENUM(NSUInteger, TapMode){
     TapModeNone,
@@ -28,6 +29,6 @@ typedef NS_ENUM(NSUInteger, MenuState){
     MenuDisappealingState
 };
 
-@interface ViewController : UIViewController<ECNavigationBarDelegate,ECToolBarDelegate>
+@interface ViewController : UIViewController<ECNavigationBarDelegate,ECToolBarDelegate,LGateDelegate>
 
 @end
