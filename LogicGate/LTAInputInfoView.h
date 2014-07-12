@@ -11,4 +11,5 @@
 
 @interface LTAInputInfoView : UIView
 @property(nonatomic,weak) id<LTAInputInfoViewDelegate> delegate;
+@property(nonatomic,weak) UIView* toolBar;
 @end

@@ -50,6 +50,7 @@
         _textView.editable = NO;
         _textView.backgroundColor = [UIColor clearColor];
         _textView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+        _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_textView];
     }
     return self;
@@ -80,11 +81,20 @@
     if (self.delegate) {
         
         NSMutableString* string = [[NSMutableString alloc] initWithString:[self.delegate booleanFormulaWithFormat:_format]];
+        
+        if ([[string substringToIndex:1] isEqualToString:@"("]) {
+            [string deleteCharactersInRange:NSMakeRange(0, 1)];
+        }
+        
+        if ([[string substringFromIndex:string.length - 1] isEqualToString:@")"]) {
+            [string deleteCharactersInRange:NSMakeRange(string.length - 1, 1)];
+        }
+        
         UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
         UIFont* boldFont = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
         NSDictionary* dict = @{NSFontAttributeName:font,NSForegroundColorAttributeName:[UIColor whiteColor]};
         
-        if ([string rangeOfString:@"<*"].location == NSNotFound) {
+        if ([string rangeOfString:@"<-"].location == NSNotFound) {
             NSMutableAttributedString*attString = [[NSMutableAttributedString alloc] initWithString:string
                                                                                          attributes:dict];
             [_textView performSelectorOnMainThread:@selector(setAttributedText:) withObject:attString waitUntilDone:NO];
@@ -100,7 +110,7 @@
             for (NSUInteger i = 0; i < string.length - 1; i++) {
                 subStringRange.location = i;
                 NSString* subString = [string substringWithRange:subStringRange];
-                if ([subString isEqualToString:@"(*"]) {
+                if ([subString isEqualToString:@"<-"]) {
                     if (beginLocation == -1) {
                         beginLocation = i;
                         [string deleteCharactersInRange:subStringRange];
@@ -109,7 +119,7 @@
                     }else{
                         counter += 1;
                     }
-                }else if ([subString isEqualToString:@"*)"]){
+                }else if ([subString isEqualToString:@"->"]){
                     if (beginLocation >= 0) {
                         if (counter == 0) {
                             NSRange range = NSMakeRange(beginLocation, i - beginLocation);

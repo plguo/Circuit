@@ -70,6 +70,7 @@
             _subMenu = nil;
         }
         _subMenu = view;
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:view];
         
     }

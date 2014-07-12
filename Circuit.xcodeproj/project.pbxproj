@@ -437,6 +437,7 @@
 				2B3C6FD9195F3D2D002FDFDC /* ViewController.m */,
 				2BFA241719604D9400D35073 /* Gates */,
 				2B3C6FDB195F3D2D002FDFDC /* Images.xcassets */,
+				2B8F238B1971FCB300FD2A85 /* Core Data */,
 				2B0C3F98196CBFCF0026300F /* Info View */,
 				2B3C6FC7195F3D2D002FDFDC /* Supporting Files */,
 			);
@@ -471,6 +472,13 @@
 				2B3C6FEA195F3D2E002FDFDC /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2B8F238B1971FCB300FD2A85 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 		2BFA241719604D9400D35073 /* Gates */ = {

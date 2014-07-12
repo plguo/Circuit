@@ -370,13 +370,13 @@ static NSString*const kSubMemuHiding = @"H";
     _selected = NO;
 }
 
+#pragma mark - SubAdjustmentMenu
 - (void)showSubAdjustmentMenu:(UIView*)view{
     if (_selectedTool != 1 || !_selected) {
         [self tapAdjustmentMenuButton];
     }
     ECTAdjustmentMenu* menu = (ECTAdjustmentMenu*)[_menuArray pointerAtIndex:1];
     if (menu) {
-        
         [menu addSubMenu:view];
     }
 }

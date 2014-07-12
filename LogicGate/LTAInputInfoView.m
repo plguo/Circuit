@@ -34,8 +34,10 @@
         _textField.borderStyle = UITextBorderStyleRoundedRect;
         _textField.backgroundColor = [UIColor whiteColor];
         _textField.placeholder = @"Enter a name";
-        [_textField addTarget:self action:@selector(done) forControlEvents:UIControlEventEditingDidEndOnExit];
+        _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_textField];
+        [_textField addTarget:self action:@selector(done) forControlEvents:UIControlEventEditingDidEndOnExit];
+        
         
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -56,7 +58,7 @@
 - (void)done{
     [_textField resignFirstResponder];
     if (self.delegate && _textField.text.length > 0) {
-        [self.delegate setInputName:[NSString stringWithFormat:@"(*%@*)",_textField.text]];
+        [self.delegate setInputName:[NSString stringWithFormat:@"<-%@->",_textField.text]];
     }
 }
 
@@ -78,7 +80,11 @@
     if (beginFrame.origin.y >= CGRectGetMaxY(self.superview.superview.frame)) {
         _oldCenter = self.superview.center;
     }else if (endFrame.origin.y >= CGRectGetMaxY(self.superview.superview.frame)){
-        superviewCenter = _oldCenter;
+        if (_toolBar) {
+            superviewCenter = CGPointMake(CGRectGetWidth(self.superview.frame)/2, CGRectGetMinY(_toolBar.frame) - CGRectGetHeight(self.superview.frame)/2);
+        }else{
+            superviewCenter = _oldCenter;
+        }
     }
 
     [UIView beginAnimations:nil context:NULL];

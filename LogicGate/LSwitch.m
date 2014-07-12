@@ -21,7 +21,7 @@
     [button addTarget:self action:@selector(touchUp) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
     
-    self.inputName = @"(*Variable*)";
+    self.inputName = @"<-Variable->";
     _outputState = NO;
 }
 

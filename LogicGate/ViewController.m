@@ -101,10 +101,8 @@
     
     _tapMode = TapModeNone;
     _menuState = MenuNormalState;
-}
-
-- (BOOL)canDisplayBannerAds{
-    return YES;
+    
+    self.canDisplayBannerAds = YES;
 }
 
 - (void)viewDidLayoutSubviews{
@@ -273,6 +271,7 @@
             UIView* menu;
             if ([gate conformsToProtocol:@protocol(LTAInputInfoViewDelegate)]) {
                 LTAInputInfoView* inputView = [[LTAInputInfoView alloc]initWithFrame:frame];
+                inputView.toolBar = _toolBar;
                 inputView.delegate = (id<LTAInputInfoViewDelegate>)gate;
                 menu = (UIView*)inputView;
             }else{
