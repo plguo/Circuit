@@ -14,6 +14,8 @@
     LPort *outP1 = [[LPort alloc]initWithPortType:PortTypeOutput SuperGate:self Center:CGPointMake(27, 25)];
     self.outPorts = [NSArray arrayWithObject:outP1];
     [self addSubview:outP1];
+    
+    self.inputName = @"<*True*>";
 }
 
 -(NSString*)imageName{
@@ -29,12 +31,8 @@
     return GateTypeTrueOutput;
 }
 
--(BOOL)isRealInputSource{
-    return YES;
-}
-
 -(NSString*)booleanFormula{
-    return @"<-TRUE->";
+    return self.inputName;
 }
 
 +(NSString*)gateName{

@@ -8,7 +8,7 @@
 
 #ifndef Circuit_GateType_h
 #define Circuit_GateType_h
-typedef NS_ENUM(NSUInteger, GateType) {
+typedef NS_ENUM(NSInteger, GateType) {
     GateTypeDefult,
     GateTypeAND,
     GateTypeOR,

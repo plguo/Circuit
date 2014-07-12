@@ -14,6 +14,7 @@
 #import "ECGridView.h"
 #import "ECScreenEdgeScrollController.h"
 #import "LTAGateInfoView.h"
+#import "LTAInputInfoView.h"
 #import "LGate.h"
 
 typedef NS_ENUM(NSUInteger, TapMode){

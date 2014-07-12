@@ -10,4 +10,5 @@
 
 @protocol LObjectProtocol <NSObject>
 - (void)objectRemove;
+
 @end

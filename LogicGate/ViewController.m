@@ -269,19 +269,28 @@
                 
                 title = [[_selectedGate class] gateName];
             }
-            
-            LTAGateInfoView* menu = [[LTAGateInfoView alloc]initWithFrame:frame];
-            menu.delegate = gate;
-            if (title) {
-                menu.title = title;
+            UIView* menu;
+            if ([gate conformsToProtocol:@protocol(LTAInputInfoViewDelegate)]) {
+                LTAInputInfoView* inputView = [[LTAInputInfoView alloc]initWithFrame:frame];
+                inputView.delegate = (id<LTAInputInfoViewDelegate>)gate;
+                menu = (UIView*)inputView;
+            }else{
+                LTAGateInfoView* gateMenu = [[LTAGateInfoView alloc]initWithFrame:frame];
+                gateMenu.delegate = gate;
+                if (title) {
+                    gateMenu.title = title;
+                }
+                _gateInfoView = gateMenu;
+                menu = (UIView*)gateMenu;
             }
+            
             if (_menuState == MenuNormalState) {
                 [_toolBar showSubAdjustmentMenu:menu];
             }else{
                 [self showMenu];
                 [_toolBar performSelector:@selector(showSubAdjustmentMenu:) withObject:menu afterDelay:0.6];
             }
-            _gateInfoView = menu;
+            
         }
     }
 }

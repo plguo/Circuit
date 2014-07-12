@@ -10,4 +10,5 @@
 
 @protocol LTAGateInfoViewDelegate <NSObject>
 - (NSString*)booleanFormula;
+- (BOOL)isRealInputSource;
 @end

@@ -8,9 +8,11 @@
 
 #import "LTAGateInfoView.h"
 
+
 @implementation LTAGateInfoView{
     UITextView* _textView;
     UILabel* _label;
+    NSInteger _format;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -19,6 +21,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _title = @"Gate";
+        _format = 0;
         
         UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:@"Format" forState:UIControlStateNormal];
@@ -45,7 +48,8 @@
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, buttonSize.height + space, boundsSize.width, boundsSize.height - (buttonSize.height + space))];
         _textView.editable = NO;
         _textView.backgroundColor = [UIColor clearColor];
-        _textView.textColor = [UIColor whiteColor];
+//        _textView.font = [UIFont systemFontOfSize:30.0];
+//        _textView.textColor = [UIColor whiteColor];
         _textView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         [self addSubview:_textView];
     }
@@ -67,8 +71,60 @@
 
 - (void)loadBooleanFormula{
     if (self.delegate) {
-        NSString* string = [self.delegate booleanFormula];
-        [_textView performSelectorOnMainThread:@selector(setText:) withObject:string waitUntilDone:NO];
+        
+        NSMutableString* string = [[NSMutableString alloc] initWithString:[self.delegate booleanFormula]];
+        UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+        UIFont* boldFont = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
+        NSDictionary* dict = @{NSFontAttributeName:font,NSForegroundColorAttributeName:[UIColor whiteColor]};
+        
+        if ([string rangeOfString:@"<*"].location == NSNotFound) {
+            NSMutableAttributedString*attString = [[NSMutableAttributedString alloc] initWithString:string
+                                                                                         attributes:dict];
+            [_textView performSelectorOnMainThread:@selector(setAttributedText:) withObject:attString waitUntilDone:NO];
+            
+        }else{
+            
+            NSMutableSet* rangeSet = [NSMutableSet set];
+            NSRange subStringRange = NSMakeRange(0, 2);
+            
+            
+            NSInteger beginLocation = -1;
+            NSInteger counter = 0;
+            for (NSUInteger i = 0; i < string.length - 1; i++) {
+                subStringRange.location = i;
+                NSString* subString = [string substringWithRange:subStringRange];
+                if ([subString isEqualToString:@"<*"]) {
+                    if (beginLocation == -1) {
+                        beginLocation = i;
+                        [string deleteCharactersInRange:subStringRange];
+                        counter = 0;
+                        i --;
+                    }else{
+                        counter += 1;
+                    }
+                }else if ([subString isEqualToString:@"*>"]){
+                    if (beginLocation >= 0) {
+                        if (counter == 0) {
+                            NSRange range = NSMakeRange(beginLocation, i - beginLocation);
+                            [rangeSet addObject:[NSValue valueWithRange:range]];
+                            [string deleteCharactersInRange:subStringRange];
+                            beginLocation = -1;
+                        }else{
+                            counter -= 1;
+                        }
+                    }
+                }
+            }
+            
+            NSMutableAttributedString* attString = [[NSMutableAttributedString alloc] initWithString:(NSString *)string attributes:dict];
+            for (NSValue* value in rangeSet) {
+                NSRange range = [value rangeValue];
+                [attString addAttribute:NSBackgroundColorAttributeName value:[UIColor colorWithRed:0.18 green:0.8 blue:0.44 alpha:1.0] range:range];
+                [attString addAttribute:NSFontAttributeName value:boldFont range:range];
+            }
+            
+            [_textView performSelectorOnMainThread:@selector(setAttributedText:) withObject:attString waitUntilDone:NO];
+        }
     }
 }
 @end

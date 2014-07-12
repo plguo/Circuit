@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
 
-#import "LGate.h"
+#import "LInputGate.h"
 
-@interface LTrueOutput : LGate
+@interface LTrueOutput : LInputGate
 
 @end

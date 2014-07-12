@@ -17,19 +17,23 @@
 }
 
 #pragma mark - NSCoding
+/*
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithCoder:aDecoder];
+    self = [self initGate];
     if (self) {
-        
+        self.center = [aDecoder decodeCGPointForKey:@"center"]
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [super encodeWithCoder:aCoder];
+    [aCoder encodeCGPoint:self.center forKey:@"center"];
+    [aCoder encodeBool:_initializedUserInteraction forKey:@"initUserInteraction"];
+    [aCoder encodeBool:_realInput forKey:@"realInput"];
 }
+*/
 
 #pragma mark - Initialization
 

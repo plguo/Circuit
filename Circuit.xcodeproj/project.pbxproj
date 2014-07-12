@@ -75,6 +75,8 @@
 		2B3C6FF8195F3EBE002FDFDC /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
 		2B3C6FFA195F6B82002FDFDC /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8BA5CA1964984A0028627B /* LTrueOutput.m */; };
+		2B8F237619716CC000FD2A85 /* LTAInputInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F237519716CC000FD2A85 /* LTAInputInfoView.m */; };
+		2B8F23791971A1BF00FD2A85 /* LInputGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F23781971A1BF00FD2A85 /* LInputGate.m */; };
 		2BFA241319604BAE00D35073 /* LGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241219604BAE00D35073 /* LGate.m */; };
 		2BFA241619604D8700D35073 /* LPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241519604D8700D35073 /* LPort.m */; };
 		2BFA24191960523400D35073 /* GateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BFA24181960523400D35073 /* GateImages.xcassets */; };
@@ -169,6 +171,11 @@
 		2B3C6FF9195F55EB002FDFDC /* ECNavigationBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECNavigationBarDelegate.h; path = Shared/ECNavigationBarDelegate.h; sourceTree = "<group>"; };
 		2B8BA5C91964984A0028627B /* LTrueOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTrueOutput.h; sourceTree = "<group>"; };
 		2B8BA5CA1964984A0028627B /* LTrueOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTrueOutput.m; sourceTree = "<group>"; };
+		2B8F237419716CC000FD2A85 /* LTAInputInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAInputInfoView.h; sourceTree = "<group>"; };
+		2B8F237519716CC000FD2A85 /* LTAInputInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTAInputInfoView.m; sourceTree = "<group>"; };
+		2B8F23771971A1BF00FD2A85 /* LInputGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LInputGate.h; sourceTree = "<group>"; };
+		2B8F23781971A1BF00FD2A85 /* LInputGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LInputGate.m; sourceTree = "<group>"; };
+		2B8F237B1971A3EB00FD2A85 /* LTAInputInfoViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAInputInfoViewDelegate.h; sourceTree = "<group>"; };
 		2BED42DA196DEDBB001ADC8F /* LTAGateInfoViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAGateInfoViewDelegate.h; sourceTree = "<group>"; };
 		2BED42DB196E12E9001ADC8F /* LGateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGateDelegate.h; sourceTree = "<group>"; };
 		2BFA241119604BAE00D35073 /* LGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGate.h; sourceTree = "<group>"; };
@@ -328,6 +335,9 @@
 				2B0C3F99196CC33D0026300F /* LTAGateInfoView.h */,
 				2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */,
 				2BED42DA196DEDBB001ADC8F /* LTAGateInfoViewDelegate.h */,
+				2B8F237419716CC000FD2A85 /* LTAInputInfoView.h */,
+				2B8F237519716CC000FD2A85 /* LTAInputInfoView.m */,
+				2B8F237B1971A3EB00FD2A85 /* LTAInputInfoViewDelegate.h */,
 			);
 			name = "Info View";
 			sourceTree = "<group>";
@@ -338,6 +348,8 @@
 				2B12D4831968263A009E3C72 /* Standard Gates */,
 				2B2CAEEB1961CE670000B7ED /* LNotGate.h */,
 				2B2CAEEC1961CE670000B7ED /* LNotGate.m */,
+				2B8F23771971A1BF00FD2A85 /* LInputGate.h */,
+				2B8F23781971A1BF00FD2A85 /* LInputGate.m */,
 				2B8BA5C91964984A0028627B /* LTrueOutput.h */,
 				2B8BA5CA1964984A0028627B /* LTrueOutput.m */,
 				2B26D96C196B700A00FD9F74 /* LLight.h */,
@@ -669,6 +681,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */,
+				2B8F237619716CC000FD2A85 /* LTAInputInfoView.m in Sources */,
 				2BFA241F1960654600D35073 /* LWire.m in Sources */,
 				2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */,
 				2B26D96E196B700A00FD9F74 /* LLight.m in Sources */,
@@ -679,6 +692,7 @@
 				2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */,
 				2B325F261963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */,
 				2B26D96B196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
+				2B8F23791971A1BF00FD2A85 /* LInputGate.m in Sources */,
 				2B26D963196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
 				2BFA241619604D8700D35073 /* LPort.m in Sources */,
 				2B2CAEED1961CE670000B7ED /* LNotGate.m in Sources */,
