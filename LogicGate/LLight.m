@@ -35,6 +35,7 @@
     [super updateRealIntput];
     self.image = [UIImage imageNamed:[self imageName]];
 }
+
 -(void)updateOutput{
     self.image = [UIImage imageNamed:[self imageName]];
     LPort *inP1 = [self.inPorts objectAtIndex:0];

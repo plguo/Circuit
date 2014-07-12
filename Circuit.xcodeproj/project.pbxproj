@@ -77,6 +77,7 @@
 		2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8BA5CA1964984A0028627B /* LTrueOutput.m */; };
 		2B8F237619716CC000FD2A85 /* LTAInputInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F237519716CC000FD2A85 /* LTAInputInfoView.m */; };
 		2B8F23791971A1BF00FD2A85 /* LInputGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F23781971A1BF00FD2A85 /* LInputGate.m */; };
+		2B8F237E1971E21A00FD2A85 /* LSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F237D1971E21A00FD2A85 /* LSwitch.m */; };
 		2BFA241319604BAE00D35073 /* LGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241219604BAE00D35073 /* LGate.m */; };
 		2BFA241619604D8700D35073 /* LPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241519604D8700D35073 /* LPort.m */; };
 		2BFA24191960523400D35073 /* GateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BFA24181960523400D35073 /* GateImages.xcassets */; };
@@ -176,6 +177,8 @@
 		2B8F23771971A1BF00FD2A85 /* LInputGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LInputGate.h; sourceTree = "<group>"; };
 		2B8F23781971A1BF00FD2A85 /* LInputGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LInputGate.m; sourceTree = "<group>"; };
 		2B8F237B1971A3EB00FD2A85 /* LTAInputInfoViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAInputInfoViewDelegate.h; sourceTree = "<group>"; };
+		2B8F237C1971E21A00FD2A85 /* LSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSwitch.h; sourceTree = "<group>"; };
+		2B8F237D1971E21A00FD2A85 /* LSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSwitch.m; sourceTree = "<group>"; };
 		2BED42DA196DEDBB001ADC8F /* LTAGateInfoViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAGateInfoViewDelegate.h; sourceTree = "<group>"; };
 		2BED42DB196E12E9001ADC8F /* LGateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGateDelegate.h; sourceTree = "<group>"; };
 		2BFA241119604BAE00D35073 /* LGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGate.h; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 				2B8F23781971A1BF00FD2A85 /* LInputGate.m */,
 				2B8BA5C91964984A0028627B /* LTrueOutput.h */,
 				2B8BA5CA1964984A0028627B /* LTrueOutput.m */,
+				2B8F237C1971E21A00FD2A85 /* LSwitch.h */,
+				2B8F237D1971E21A00FD2A85 /* LSwitch.m */,
 				2B26D96C196B700A00FD9F74 /* LLight.h */,
 				2B26D96D196B700A00FD9F74 /* LLight.m */,
 			);
@@ -682,6 +687,7 @@
 			files = (
 				2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */,
 				2B8F237619716CC000FD2A85 /* LTAInputInfoView.m in Sources */,
+				2B8F237E1971E21A00FD2A85 /* LSwitch.m in Sources */,
 				2BFA241F1960654600D35073 /* LWire.m in Sources */,
 				2B3C6FF7195F3D6A002FDFDC /* ECGridView.m in Sources */,
 				2B26D96E196B700A00FD9F74 /* LLight.m in Sources */,

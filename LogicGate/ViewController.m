@@ -11,6 +11,7 @@
 #import "LNotGate.h"
 #import "LTrueOutput.h"
 #import "LLight.h"
+#import "LSwitch.h"
 
 @interface ViewController ()
 
@@ -326,12 +327,16 @@
         case 1:
             return [LNotGate gate];
             break;
-        
+            
         case 2:
-            return [LTrueOutput gate];
+            return [LSwitch gate];
             break;
         
         case 3:
+            return [LTrueOutput gate];
+            break;
+        
+        case 4:
             return [LLight gate];
             break;
             
@@ -352,10 +357,13 @@
             break;
             
         case 2:
+            return [LSwitch gateName];
+            
+        case 3:
             return [LTrueOutput gateName];
             break;
         
-        case 3:
+        case 4:
             return [LLight gateName];
             break;
 
@@ -367,7 +375,7 @@
 }
 
 - (NSUInteger)componentsMenuNumberOfViews{
-    return 4;
+    return 5;
 }
 
 #pragma mark - LGateDelegate
