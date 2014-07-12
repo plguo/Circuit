@@ -9,5 +9,5 @@
 #import "LGate.h"
 
 @interface LStandardGate : LGate
--(NSString*)gateComponentInBooleanFormula;
+-(NSString*)formatInBooleanFormula:(NSInteger)format;
 @end

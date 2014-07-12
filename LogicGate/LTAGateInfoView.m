@@ -26,6 +26,7 @@
         UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
         [button setTitle:@"Format" forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(changeFormat) forControlEvents:UIControlEventTouchDown];
         [button sizeToFit];
         CGSize buttonSize = button.frame.size;
         CGSize boundsSize = self.bounds.size;
@@ -48,8 +49,6 @@
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, buttonSize.height + space, boundsSize.width, boundsSize.height - (buttonSize.height + space))];
         _textView.editable = NO;
         _textView.backgroundColor = [UIColor clearColor];
-//        _textView.font = [UIFont systemFontOfSize:30.0];
-//        _textView.textColor = [UIColor whiteColor];
         _textView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         [self addSubview:_textView];
     }
@@ -69,10 +68,18 @@
     }
 }
 
+- (void)changeFormat{
+    _format += 1;
+    if (_format > 1) {
+        _format = 0;
+    }
+    [self loadBooleanFormula];
+}
+
 - (void)loadBooleanFormula{
     if (self.delegate) {
         
-        NSMutableString* string = [[NSMutableString alloc] initWithString:[self.delegate booleanFormula]];
+        NSMutableString* string = [[NSMutableString alloc] initWithString:[self.delegate booleanFormulaWithFormat:_format]];
         UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
         UIFont* boldFont = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
         NSDictionary* dict = @{NSFontAttributeName:font,NSForegroundColorAttributeName:[UIColor whiteColor]};
@@ -93,7 +100,7 @@
             for (NSUInteger i = 0; i < string.length - 1; i++) {
                 subStringRange.location = i;
                 NSString* subString = [string substringWithRange:subStringRange];
-                if ([subString isEqualToString:@"<*"]) {
+                if ([subString isEqualToString:@"(*"]) {
                     if (beginLocation == -1) {
                         beginLocation = i;
                         [string deleteCharactersInRange:subStringRange];
@@ -102,7 +109,7 @@
                     }else{
                         counter += 1;
                     }
-                }else if ([subString isEqualToString:@"*>"]){
+                }else if ([subString isEqualToString:@"*)"]){
                     if (beginLocation >= 0) {
                         if (counter == 0) {
                             NSRange range = NSMakeRange(beginLocation, i - beginLocation);

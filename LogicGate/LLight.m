@@ -49,16 +49,16 @@
     return GateTypeLightBulb;
 }
 
--(NSString*)booleanFormula{
+-(NSString*)booleanFormulaWithFormat:(NSInteger)format{
     if (self.realInput) {
         LPort* inP1 = self.inPorts[0];
         if (inP1.inWire) {
             if (inP1.inWire.startPort.superGate) {
-                return [inP1.inWire.startPort.superGate booleanFormula];
+                return [inP1.inWire.startPort.superGate booleanFormulaWithFormat:format];
             }
         }
     }
-    return @"ERROR";
+    return @"No input";
 }
 
 +(NSString*)gateName{

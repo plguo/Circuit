@@ -22,24 +22,23 @@
     [self addSubview:outP1];
 }
 
--(NSString*)gateComponentInBooleanFormula{
-    return @"?";
+-(NSString*)formatInBooleanFormula:(NSInteger)format{
+    return @"( %@ ? %@ )";
 }
 
--(NSString*)booleanFormula{
+-(NSString*)booleanFormulaWithFormat:(NSInteger)format{
     if (self.inPorts.count >= 2) {
         LPort*inP1 = self.inPorts[0];
         LPort*inP2 = self.inPorts[1];
         if (inP1.inWire && inP2.inWire) {
             if (inP1.inWire.startPort && inP2.inWire.startPort) {
-                return [NSString stringWithFormat:@"(%@) %@ (%@)",
-                        [inP1.inWire.startPort.superGate booleanFormula],
-                        [self gateComponentInBooleanFormula],
-                        [inP2.inWire.startPort.superGate booleanFormula]];
+                return [NSString stringWithFormat:[self formatInBooleanFormula:format],
+                        [inP1.inWire.startPort.superGate booleanFormulaWithFormat:format],
+                        [inP2.inWire.startPort.superGate booleanFormulaWithFormat:format]];
             }
         }
     }
-    return [super booleanFormula];
+    return [super booleanFormulaWithFormat:format];
 }
 
 @end

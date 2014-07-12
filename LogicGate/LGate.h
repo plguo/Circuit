@@ -28,7 +28,7 @@
 //-(void)updatePortPositonInDurtion:(NSTimeInterval)duration;
 
 + (NSString*)gateName;
-- (NSString*)booleanFormula;
+- (NSString*)booleanFormulaWithFormat:(NSInteger)format;
 
 - (void)initUserInteractionWithTarget:(id)target action:(SEL)sector;
 

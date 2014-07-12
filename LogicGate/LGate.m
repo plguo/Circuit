@@ -121,7 +121,7 @@
     return @"GATE";
 }
 
-- (NSString*)booleanFormula{
+- (NSString*)booleanFormulaWithFormat:(NSInteger)format{
     return @"Not enough information to generate boolean formula.";
 }
 

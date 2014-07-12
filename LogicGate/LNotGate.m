@@ -36,17 +36,21 @@
     return GateTypeNOT;
 }
 
--(NSString*)booleanFormula{
+-(NSString*)booleanFormulaWithFormat:(NSInteger)format{
     if (self.inPorts.count > 0) {
         LPort*inP1 = self.inPorts[0];
         if (inP1.inWire) {
             LGate* startGate = inP1.inWire.startPort.superGate;
             if (startGate) {
-                return [NSString stringWithFormat:@"NOT(%@)",[startGate booleanFormula]];
+                if (format == 1) {
+                    return [NSString stringWithFormat:@"¬ ( %@ )",[startGate booleanFormulaWithFormat:format]];
+                }else{
+                    return [NSString stringWithFormat:@"NOT ( %@ )",[startGate booleanFormulaWithFormat:format]];
+                }
             }
         }
     }
-    return [super booleanFormula];
+    return [super booleanFormulaWithFormat:format];
 }
 
 +(NSString*)gateName{

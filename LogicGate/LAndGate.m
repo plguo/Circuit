@@ -27,8 +27,11 @@
     return GateTypeAND;
 }
 
--(NSString*)gateComponentInBooleanFormula{
-    return @"AND";
+-(NSString*)formatInBooleanFormula:(NSInteger)format{
+    if (format == 1) {
+        return @"( %@ ∧ %@ )";
+    }
+    return @"( %@ AND %@ )";
 }
 
 +(NSString*)gateName{

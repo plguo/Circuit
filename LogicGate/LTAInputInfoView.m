@@ -56,7 +56,7 @@
 - (void)done{
     [_textField resignFirstResponder];
     if (self.delegate && _textField.text.length > 0) {
-        [self.delegate setInputName:[NSString stringWithFormat:@"<*%@*>",_textField.text]];
+        [self.delegate setInputName:[NSString stringWithFormat:@"(*%@*)",_textField.text]];
     }
 }
 

@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol LTAGateInfoViewDelegate <NSObject>
-- (NSString*)booleanFormula;
+- (NSString*)booleanFormulaWithFormat:(NSInteger)format;
 - (BOOL)isRealInputSource;
 @end
