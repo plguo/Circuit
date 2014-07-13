@@ -78,6 +78,7 @@
 		2B8F237619716CC000FD2A85 /* LTAInputInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F237519716CC000FD2A85 /* LTAInputInfoView.m */; };
 		2B8F23791971A1BF00FD2A85 /* LInputGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F23781971A1BF00FD2A85 /* LInputGate.m */; };
 		2B8F237E1971E21A00FD2A85 /* LSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F237D1971E21A00FD2A85 /* LSwitch.m */; };
+		2B8F23A319720CCC00FD2A85 /* LDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F23A219720CCC00FD2A85 /* LDataModel.m */; };
 		2BFA241319604BAE00D35073 /* LGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241219604BAE00D35073 /* LGate.m */; };
 		2BFA241619604D8700D35073 /* LPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA241519604D8700D35073 /* LPort.m */; };
 		2BFA24191960523400D35073 /* GateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BFA24181960523400D35073 /* GateImages.xcassets */; };
@@ -179,6 +180,8 @@
 		2B8F237B1971A3EB00FD2A85 /* LTAInputInfoViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAInputInfoViewDelegate.h; sourceTree = "<group>"; };
 		2B8F237C1971E21A00FD2A85 /* LSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSwitch.h; sourceTree = "<group>"; };
 		2B8F237D1971E21A00FD2A85 /* LSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSwitch.m; sourceTree = "<group>"; };
+		2B8F23A119720CCC00FD2A85 /* LDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDataModel.h; sourceTree = "<group>"; };
+		2B8F23A219720CCC00FD2A85 /* LDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDataModel.m; sourceTree = "<group>"; };
 		2BED42DA196DEDBB001ADC8F /* LTAGateInfoViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAGateInfoViewDelegate.h; sourceTree = "<group>"; };
 		2BED42DB196E12E9001ADC8F /* LGateDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGateDelegate.h; sourceTree = "<group>"; };
 		2BFA241119604BAE00D35073 /* LGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGate.h; sourceTree = "<group>"; };
@@ -437,7 +440,7 @@
 				2B3C6FD9195F3D2D002FDFDC /* ViewController.m */,
 				2BFA241719604D9400D35073 /* Gates */,
 				2B3C6FDB195F3D2D002FDFDC /* Images.xcassets */,
-				2B8F238B1971FCB300FD2A85 /* Core Data */,
+				2B8F238B1971FCB300FD2A85 /* Data */,
 				2B0C3F98196CBFCF0026300F /* Info View */,
 				2B3C6FC7195F3D2D002FDFDC /* Supporting Files */,
 			);
@@ -474,11 +477,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2B8F238B1971FCB300FD2A85 /* Core Data */ = {
+		2B8F238B1971FCB300FD2A85 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2B8F23A119720CCC00FD2A85 /* LDataModel.h */,
+				2B8F23A219720CCC00FD2A85 /* LDataModel.m */,
 			);
-			name = "Core Data";
+			name = Data;
 			sourceTree = "<group>";
 		};
 		2BFA241719604D9400D35073 /* Gates */ = {
@@ -705,6 +710,7 @@
 				2B12D489196827D0009E3C72 /* LAndGate.m in Sources */,
 				2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */,
 				2B325F261963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */,
+				2B8F23A319720CCC00FD2A85 /* LDataModel.m in Sources */,
 				2B26D96B196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
 				2B8F23791971A1BF00FD2A85 /* LInputGate.m in Sources */,
 				2B26D963196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
