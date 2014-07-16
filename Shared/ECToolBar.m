@@ -189,7 +189,22 @@ static NSString*const kSubMemuHiding = @"H";
 }
 
 - (void)showFilesMenu{
-    
+    UIView* fileMenu = (UIView*)[_menuArray pointerAtIndex:2];
+    if (self.delegate && !fileMenu) {
+        _menuStateArray[2] = kSubMemuAppealing;
+        ECTFileMenu* menu = [ECTFileMenu autosizeFileMenuForView:self];
+        
+        menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
+        [self.superview insertSubview:menu belowSubview:self];
+        
+        CGPoint newCenter = CGPointMake(menu.center.x, menu.center.y - CGRectGetHeight(menu.frame));
+        [UIView animateWithDuration:0.3 animations:^{
+            menu.center = newCenter;
+        }completion:^(BOOL finished) {
+            _menuStateArray[2] = kSubMemuShowing;
+        }];
+        [_menuArray replacePointerAtIndex:2 withPointer:(__bridge void *)(menu)];
+    }
 }
 
 - (void)showDeleteMode{
@@ -305,7 +320,20 @@ static NSString*const kSubMemuHiding = @"H";
 }
 
 - (void)hideFilesMenuBehideBar:(BOOL)behideBar{
-
+    _menuStateArray[2] = kSubMemuDisappealing;
+    UIView* fileMenu = (UIView*)[_menuArray pointerAtIndex:2];
+    if (fileMenu) {
+        CGPoint center = CGPointMake(fileMenu.center.x, fileMenu.center.y + CGRectGetHeight(fileMenu.frame));
+        if (!behideBar) {
+            center.y = self.superview.frame.size.height + fileMenu.frame.size.height/2;
+        }
+        [UIView animateWithDuration:0.3 animations:^{
+            fileMenu.center = center;
+        } completion:^(BOOL finished) {
+            [fileMenu removeFromSuperview];
+            _menuStateArray[2] = kSubMemuHiding;
+        }];
+    }
 }
 
 - (void)hideDeleteModeBehideBar:(BOOL)behideBar{

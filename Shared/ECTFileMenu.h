@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ECTFileMenu : UICollectionView
+#import "ECTFileMenuCell.h"
+@interface ECTFileMenu : UIView<UICollectionViewDelegate>
 +(instancetype)autosizeFileMenuForView:(UIView*)view;
+@property (nonatomic,readonly) UICollectionView *collectionView;
 @end
