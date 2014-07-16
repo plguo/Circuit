@@ -30,6 +30,10 @@
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2B0F9B1E19770A3200F46C33 /* LGMapModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */; };
 		2B0F9B2019770DEF00F46C33 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F9B1F19770DEF00F46C33 /* CoreData.framework */; };
+		2B0F9B241977217300F46C33 /* ECTFileMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B231977217300F46C33 /* ECTFileMenu.m */; };
+		2B0F9B251977217300F46C33 /* ECTFileMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B231977217300F46C33 /* ECTFileMenu.m */; };
+		2B0F9B28197721D400F46C33 /* ECTFileMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B27197721D400F46C33 /* ECTFileMenuCell.m */; };
+		2B0F9B29197721D400F46C33 /* ECTFileMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B27197721D400F46C33 /* ECTFileMenuCell.m */; };
 		2B12D486196826B1009E3C72 /* LStandardGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D485196826B1009E3C72 /* LStandardGate.m */; };
 		2B12D489196827D0009E3C72 /* LAndGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D488196827D0009E3C72 /* LAndGate.m */; };
 		2B12D48C196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D48B196832FD009E3C72 /* ECTCMGestureHandler.m */; };
@@ -136,6 +140,10 @@
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2B0F9B1D19770A3200F46C33 /* LGMapModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGMapModel.xcdatamodel; sourceTree = "<group>"; };
 		2B0F9B1F19770DEF00F46C33 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2B0F9B221977217300F46C33 /* ECTFileMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTFileMenu.h; path = Shared/ECTFileMenu.h; sourceTree = "<group>"; };
+		2B0F9B231977217300F46C33 /* ECTFileMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTFileMenu.m; path = Shared/ECTFileMenu.m; sourceTree = "<group>"; };
+		2B0F9B26197721D400F46C33 /* ECTFileMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTFileMenuCell.h; path = Shared/ECTFileMenuCell.h; sourceTree = "<group>"; };
+		2B0F9B27197721D400F46C33 /* ECTFileMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTFileMenuCell.m; path = Shared/ECTFileMenuCell.m; sourceTree = "<group>"; };
 		2B12D484196826B1009E3C72 /* LStandardGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LStandardGate.h; sourceTree = "<group>"; };
 		2B12D485196826B1009E3C72 /* LStandardGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LStandardGate.m; sourceTree = "<group>"; };
 		2B12D487196827D0009E3C72 /* LAndGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAndGate.h; sourceTree = "<group>"; };
@@ -354,6 +362,17 @@
 			name = "Info View";
 			sourceTree = "<group>";
 		};
+		2B0F9B2119771D2200F46C33 /* ECTFileMenu */ = {
+			isa = PBXGroup;
+			children = (
+				2B0F9B221977217300F46C33 /* ECTFileMenu.h */,
+				2B0F9B231977217300F46C33 /* ECTFileMenu.m */,
+				2B0F9B26197721D400F46C33 /* ECTFileMenuCell.h */,
+				2B0F9B27197721D400F46C33 /* ECTFileMenuCell.m */,
+			);
+			name = ECTFileMenu;
+			sourceTree = "<group>";
+		};
 		2B12D4821968259B009E3C72 /* Sub Gates */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +407,7 @@
 			children = (
 				2B06E5FE195C822400DE0165 /* ECToolBar.h */,
 				2B06E5FF195C822400DE0165 /* ECToolBar.m */,
+				2B0F9B2119771D2200F46C33 /* ECTFileMenu */,
 				2B0C3F8A196CAA530026300F /* ECTAdjustmentMenu */,
 				2B26D967196B510000FD9F74 /* ECTDeleteMode */,
 				2B26D965196B50EC00FD9F74 /* ECTComponentsMenu */,
@@ -679,12 +699,14 @@
 				2BFC7B0F195D9223007AD84E /* ECGridView.m in Sources */,
 				2BFC7B09195D8B2D007AD84E /* ECNavigationBar.m in Sources */,
 				2B26D962196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
+				2B0F9B241977217300F46C33 /* ECTFileMenu.m in Sources */,
 				2B0C3F8D196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,
 				2B26D96A196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
 				2B0C3F9B196CC33D0026300F /* LTAGateInfoView.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
+				2B0F9B28197721D400F46C33 /* ECTFileMenuCell.m in Sources */,
 				2B325F2D19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
 				2B097FEF195C7C7E00EBF2E6 /* main.m in Sources */,
 			);
@@ -706,6 +728,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */,
+				2B0F9B251977217300F46C33 /* ECTFileMenu.m in Sources */,
 				2B8F237619716CC000FD2A85 /* LTAInputInfoView.m in Sources */,
 				2B8F237E1971E21A00FD2A85 /* LSwitch.m in Sources */,
 				2BFA241F1960654600D35073 /* LWire.m in Sources */,
@@ -727,6 +750,7 @@
 				2B12D486196826B1009E3C72 /* LStandardGate.m in Sources */,
 				2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */,
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,
+				2B0F9B29197721D400F46C33 /* ECTFileMenuCell.m in Sources */,
 				2B12D48D196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */,
 				2BFA241319604BAE00D35073 /* LGate.m in Sources */,
 				2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,

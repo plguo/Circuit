@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <iAd/iAd.h>
-
+#import "LDataModel.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

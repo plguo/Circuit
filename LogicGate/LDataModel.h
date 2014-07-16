@@ -11,4 +11,5 @@
 
 @interface LDataModel : NSObject;
 + (instancetype)sharedDataModel;
++ (void)saveDataModel;
 @end

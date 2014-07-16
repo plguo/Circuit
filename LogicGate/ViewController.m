@@ -12,6 +12,7 @@
 #import "LTrueOutput.h"
 #import "LLight.h"
 #import "LSwitch.h"
+#import "LDataModel.h"
 
 @interface ViewController ()
 
