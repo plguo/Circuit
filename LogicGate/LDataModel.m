@@ -14,8 +14,12 @@
 
 static LDataModel* shareModel;
 @implementation LDataModel{
-    NSMutableArray* _fileList;
-    NSDictionary* _filesInfoDictionary;
+    //NSMutableArray* _fileList;
+    //NSDictionary* _filesInfoDictionary;
+    
+    NSManagedObjectContext* _managedObjectContext;
+    NSManagedObjectModel* _managedObjectModel;
+    NSPersistentStoreCoordinator*  _persistentStoreCoordinator;
 }
 
 #pragma mark - Init Model
@@ -29,6 +33,8 @@ static LDataModel* shareModel;
 - (instancetype)init{
     self = [super init];
     if (self) {
+        
+        /*
         //Make sure save folder exist
         if (![[NSFileManager defaultManager]fileExistsAtPath:[self getSaveDirectory]]) {
             [[NSFileManager defaultManager] createDirectoryAtPath:[self getSaveDirectory]
@@ -54,6 +60,8 @@ static LDataModel* shareModel;
             _fileList = [NSMutableArray arrayWithArray:dictionary[@"files"]];
             _filesInfoDictionary = _filesInfoDictionary = @{@"version":formatVersion,@"files":_fileList};
         }
+         */
+        
     }
     return self;
 }

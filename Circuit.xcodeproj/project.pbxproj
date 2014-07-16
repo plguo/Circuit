@@ -28,6 +28,8 @@
 		2B0C3F9B196CC33D0026300F /* LTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */; };
 		2B0C3F9C196CC33D0026300F /* LTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
+		2B0F9B1E19770A3200F46C33 /* LGMapModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */; };
+		2B0F9B2019770DEF00F46C33 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F9B1F19770DEF00F46C33 /* CoreData.framework */; };
 		2B12D486196826B1009E3C72 /* LStandardGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D485196826B1009E3C72 /* LStandardGate.m */; };
 		2B12D489196827D0009E3C72 /* LAndGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D488196827D0009E3C72 /* LAndGate.m */; };
 		2B12D48C196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D48B196832FD009E3C72 /* ECTCMGestureHandler.m */; };
@@ -132,6 +134,8 @@
 		2B0C3F99196CC33D0026300F /* LTAGateInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAGateInfoView.h; sourceTree = "<group>"; };
 		2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTAGateInfoView.m; sourceTree = "<group>"; };
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		2B0F9B1D19770A3200F46C33 /* LGMapModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGMapModel.xcdatamodel; sourceTree = "<group>"; };
+		2B0F9B1F19770DEF00F46C33 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2B12D484196826B1009E3C72 /* LStandardGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LStandardGate.h; sourceTree = "<group>"; };
 		2B12D485196826B1009E3C72 /* LStandardGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LStandardGate.m; sourceTree = "<group>"; };
 		2B12D487196827D0009E3C72 /* LAndGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAndGate.h; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0F9B2019770DEF00F46C33 /* CoreData.framework in Frameworks */,
 				2B3C6FFA195F6B82002FDFDC /* iAd.framework in Frameworks */,
 				2B3C6FC4195F3D2D002FDFDC /* CoreGraphics.framework in Frameworks */,
 				2B3C6FC5195F3D2D002FDFDC /* UIKit.framework in Frameworks */,
@@ -273,6 +278,7 @@
 		2B097FE1195C7C7E00EBF2E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B0F9B1F19770DEF00F46C33 /* CoreData.framework */,
 				2B0F2006195CCEDD00EC267E /* iAd.framework */,
 				2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */,
 				2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */,
@@ -482,6 +488,7 @@
 			children = (
 				2B8F23A119720CCC00FD2A85 /* LDataModel.h */,
 				2B8F23A219720CCC00FD2A85 /* LDataModel.m */,
+				2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -710,6 +717,7 @@
 				2B12D489196827D0009E3C72 /* LAndGate.m in Sources */,
 				2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */,
 				2B325F261963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */,
+				2B0F9B1E19770A3200F46C33 /* LGMapModel.xcdatamodeld in Sources */,
 				2B8F23A319720CCC00FD2A85 /* LDataModel.m in Sources */,
 				2B26D96B196B515D00FD9F74 /* ECTDeleteMode.m in Sources */,
 				2B8F23791971A1BF00FD2A85 /* LInputGate.m in Sources */,
@@ -1081,6 +1089,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2B0F9B1D19770A3200F46C33 /* LGMapModel.xcdatamodel */,
+			);
+			currentVersion = 2B0F9B1D19770A3200F46C33 /* LGMapModel.xcdatamodel */;
+			path = LGMapModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2B097FD7195C7C7E00EBF2E6 /* Project object */;
 }
