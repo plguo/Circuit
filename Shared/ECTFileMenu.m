@@ -11,6 +11,7 @@
 @implementation ECTFileMenu{
     NSArray* _buttons;
     NSUInteger _counter;
+    NSMutableSet* _selectedIndexPath;
     
     UIButton* _addButton;
     UIButton* _saveButton;
@@ -103,7 +104,15 @@
 }
 
 - (void)tapAddButton{
-    
+    UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Add Map"
+                                                       message:nil
+                                                      delegate:self
+                                             cancelButtonTitle:@"cancel"
+                                             otherButtonTitles:@"add", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField* textField = [alertView textFieldAtIndex:0];
+    textField.placeholder = @"Enter a name";
+    [alertView show];
 }
 
 - (void)tapSaveButton{
@@ -115,7 +124,13 @@
 }
 
 - (void)tapRemoveButton{
-    
+    NSString* title = [NSString stringWithFormat:@"Do you want to delete these %lu maps",(unsigned long)_selectedIndexPath.count];
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:title
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Delete"
+                                                    otherButtonTitles:nil];
+    [actionSheet showInView:self.superview];
 }
 
 - (void)tapRenameButton{
@@ -143,10 +158,25 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [_selectedIndexPath addObject:indexPath];
     [self setCounter:_counter + 1];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [_selectedIndexPath removeObject:indexPath];
     [self setCounter:_counter - 1];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if ([alertView.title isEqualToString:@"Add Map"]) {
+        if (buttonIndex == 1) {
+            UITextField* textField = [alertView textFieldAtIndex:0];
+            
+            if (self.delegate) {
+                [self.delegate addMapWithName:textField.text];
+            }
+        }
+        
+    }
 }
 @end

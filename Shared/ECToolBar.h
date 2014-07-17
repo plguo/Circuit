@@ -12,7 +12,7 @@
 #import "ECTAdjustmentMenu.h"
 #import "ECTFileMenu.h"
 
-@protocol ECToolBarDelegate <ECTComponentsMenuDelegate,ECTDeleteModeDelegate,ECTAdjustmentMenuDelegate>
+@protocol ECToolBarDelegate <ECTComponentsMenuDelegate,ECTDeleteModeDelegate,ECTAdjustmentMenuDelegate,ECTFileMenuDelegate>
 
 @end
 

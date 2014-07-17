@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface LDataModel : NSObject;
+@interface LDataModel : NSObject<UICollectionViewDataSource>
 + (instancetype)sharedDataModel;
 + (void)saveDataModel;
 @end

@@ -419,4 +419,25 @@
     }
 }
 
+#pragma mark - ECTFileMenuDelegate
+- (void)addMapWithName:(NSString*)name{
+    
+}
+
+- (void)saveMapAtIndexPath:(NSIndexPath*)indexPath{
+    
+}
+
+- (void)loadMapAtIndexPath:(NSIndexPath*)indexPath{
+    
+}
+
+- (void)removeMapInIndexPathSet:(NSSet*)indexPath{
+    
+}
+
+- (void)renameMapAtIndexPath:(NSIndexPath*)indexPath Name:(NSString*)name{
+    
+}
+
 @end

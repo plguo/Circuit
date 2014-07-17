@@ -5,7 +5,7 @@
 //  Created by Edward Guo on 2014-07-12.
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
-
+#import "ECTFileMenuCell.h"
 #import "LDataModel.h"
 #import "LWire.h"
 #import "LGate.h"
@@ -21,6 +21,7 @@ static LDataModel* shareModel;
     NSManagedObjectModel* _managedObjectModel;
     NSPersistentStoreCoordinator*  _persistentStoreCoordinator;
     
+    NSFetchedResultsController* _fetchedResultsController;
     //dispatch_queue_t _dataQueue;
 }
 
@@ -68,6 +69,14 @@ static LDataModel* shareModel;
 
 #pragma mark setup
 - (void)setupFileSystem{
+    if (![[NSFileManager defaultManager]fileExistsAtPath:[self saveDirectory].path]) {
+        NSError* err;
+        [[NSFileManager defaultManager] createDirectoryAtURL:[self saveDirectory]
+                                 withIntermediateDirectories:YES attributes:nil error:&err];
+    }
+    
+    
+    //Core Data
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LGMapModel" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     
@@ -81,6 +90,22 @@ static LDataModel* shareModel;
     
     _managedObjectContext = [[NSManagedObjectContext alloc] init];
     [_managedObjectContext setPersistentStoreCoordinator:_persistentStoreCoordinator];
+    
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"empty == NO"];
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastEditedDate" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                    managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
+                                                                               cacheName:nil];
 }
 
 #pragma mark save context
@@ -130,12 +155,70 @@ static LDataModel* shareModel;
     return [[self documentsDirectory] URLByAppendingPathComponent:@"Save" isDirectory:YES];
 }
 
-/*
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return [[_fetchedResultsController sections] count];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if ([[_fetchedResultsController sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+        return [sectionInfo numberOfObjects];
+    }
+    return 0;
+}
+
+- (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    ECTFileMenuCell *cell = (ECTFileMenuCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    NSManagedObject *managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
+    cell.image = [[UIImage alloc] initWithData:(NSData*)[managedObject valueForKey:@"snapshot"]];
+    cell.title = (NSString*)[managedObject valueForKey:@"name"];
+    cell.titleColor = [UIColor whiteColor];
+    // Configure the cell with data from the managed object.
+    return cell;
+}
+
 #pragma mark - Save Map
--(void)saveMapToIndex:(NSUInteger)index GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray{
+- (BOOL)addMap:(NSString*)name{
+    if (![self isMapExisted:name]) {
+        NSURL* url = [[self saveDirectory] URLByAppendingPathComponent:name isDirectory:YES];
+        BOOL succeed = [[NSFileManager defaultManager] createDirectoryAtURL:url
+                                               withIntermediateDirectories:YES
+                                                                attributes:nil
+                                                                     error:nil];
+        if (succeed) {
+            [self addEntry:name Path:url LastEditedDate:nil Snapshot:nil];
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+- (void)saveMap:(NSString*)name GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray Snapshot:(UIImage*)snapshot{
     
 }
 
+- (BOOL)isMapExisted:(NSString*)name{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
+    [fetchRequest setEntity:entity];
+    // Specify criteria for filtering which objects to fetch
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects) {
+        if (fetchedObjects.count == 0) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+/*
 #pragma mark - File List
 -(NSString*)getFilesListPath{
     return [[self getSaveDirectory] stringByAppendingPathComponent:@"filesList.plist"];
