@@ -34,6 +34,8 @@
     TapMode _tapMode;
     MenuState _menuState;
     
+    LDataModel* _dataModel;
+    
     __weak LTAGateInfoView* _gateInfoView;
     
     __weak id<LObjectProtocol> _menuControlLObject;
@@ -46,9 +48,12 @@
 {
     [super viewDidLoad];
     
+    _dataModel = [LDataModel sharedDataModel];
+    
     //Setup tool bar
     _toolBar = [ECToolBar autosizeToolBarForView:self.originalContentView];
     _toolBar.delegate = self;
+    _toolBar.fileMenuDataSource = _dataModel;
     [self.originalContentView addSubview:_toolBar];
 	
     //Setup navigation bar
@@ -75,8 +80,8 @@
     _gateView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
     _wireView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
     
-    [_mainScrollView addSubview:_wireView];
-    [_mainScrollView addSubview:_gateView];
+    [_gridView addSubview:_wireView];
+    [_gridView addSubview:_gateView];
     
     [_mainScrollView setContentOffset:CGPointMake(_mainScrollView.contentSize.width/2 - _mainScrollView.bounds.size.width/2, _mainScrollView.contentSize.height/2 - _mainScrollView.bounds.size.height/2) animated:NO];
     
@@ -421,22 +426,30 @@
 
 #pragma mark - ECTFileMenuDelegate
 - (void)addMapWithName:(NSString*)name{
+    CGSize imageSize = [ECTFileMenuCell preferredSizeForImage];
+    CGRect rect = CGRectMake(CGRectGetWidth(_gridView.bounds)/2 - imageSize.width, CGRectGetHeight(_gridView.bounds)/2 - imageSize.width, imageSize.width*2, imageSize.height*2);
+    
+    UIGraphicsBeginImageContextWithOptions(imageSize, YES, 0.0);
+    [_gridView drawViewHierarchyInRect:rect afterScreenUpdates:NO];
+    UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [_dataModel addMap:name Snapshot:snapshot];
+}
+
+- (void)saveMapAtIndex:(NSUInteger)index{
     
 }
 
-- (void)saveMapAtIndexPath:(NSIndexPath*)indexPath{
+- (void)loadMapAtIndex:(NSUInteger)index{
     
 }
 
-- (void)loadMapAtIndexPath:(NSIndexPath*)indexPath{
+- (void)removeMapInIndexSet:(NSSet *)indexSet{
     
 }
 
-- (void)removeMapInIndexPathSet:(NSSet*)indexPath{
-    
-}
-
-- (void)renameMapAtIndexPath:(NSIndexPath*)indexPath Name:(NSString*)name{
+- (void)renameMapAtIndex:(NSUInteger)index Name:(NSString *)name{
     
 }
 

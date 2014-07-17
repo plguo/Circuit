@@ -22,7 +22,7 @@ static LDataModel* shareModel;
     NSPersistentStoreCoordinator*  _persistentStoreCoordinator;
     
     NSFetchedResultsController* _fetchedResultsController;
-    //dispatch_queue_t _dataQueue;
+    dispatch_queue_t _dataQueue;
 }
 
 #pragma mark - Init Model
@@ -42,12 +42,12 @@ static LDataModel* shareModel;
 - (instancetype)init{
     self = [super init];
     if (self) {
-        //_dataQueue = dispatch_queue_create("com.edguo.LogicGate.LDataModel", 0);
+        _dataQueue = dispatch_queue_create("com.edguo.LogicGate.LDataModel", 0);
         
         [self setupFileSystem];
         
-        //#warning Debug only
-        [self logAllData];
+        
+        
         
         
     }
@@ -58,54 +58,92 @@ static LDataModel* shareModel;
 
 #pragma mark - Method for database
 #pragma mark add
-- (void)addEntry:(NSString *)name Path:(NSURL *)path LastEditedDate:(NSDate*)date Snapshot:(NSData*)snapshot{
-    NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"LDMap"
-                                                                   inManagedObjectContext:_managedObjectContext];
-    [managedObject setValue:name                  forKey:@"name"];
-    [managedObject setValue:[path absoluteString] forKey:@"path"];
-    [managedObject setValue:date                  forKey:@"lastEditedDate"];
-    [managedObject setValue:snapshot              forKey:@"snapshot"];
+- (void)addManagedObject:(NSString *)name Path:(NSURL *)path LastEditedDate:(NSDate*)date Snapshot:(NSData*)snapshot{
+    if (name != nil && path != nil) {
+        dispatch_async(_dataQueue, ^{
+            NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"LDMap"
+                                                                           inManagedObjectContext:_managedObjectContext];
+            [managedObject setValue:name forKey:@"name"];
+            
+            [managedObject setValue:[path absoluteString] forKey:@"path"];
+            
+            if (date) {
+                [managedObject setValue:date forKey:@"lastEditedDate"];
+            } else {
+                [managedObject setValue:[NSDate date] forKey:@"lastEditedDate"];
+            }
+            
+            if (snapshot) {
+                [managedObject setValue:snapshot forKey:@"snapshot"];
+            }else{
+                
+                __block NSData* data;
+                CGSize imageSize = [ECTFileMenuCell preferredSizeForImage];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+                    label.text = name;
+                    label.backgroundColor = [UIColor whiteColor];
+                    label.textColor = [UIColor blackColor];
+                    label.textAlignment = NSTextAlignmentCenter;
+                    
+                    UIGraphicsBeginImageContextWithOptions(imageSize, YES, 0.0);
+                    [label.layer renderInContext:UIGraphicsGetCurrentContext()];
+                    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+                    UIGraphicsEndImageContext();
+                    
+                    data = UIImagePNGRepresentation(image);
+                });
+                
+                [managedObject setValue:data forKey:@"snapshot"];
+            }
+            
+            [_managedObjectContext insertObject:managedObject];
+        });
+    }
 }
 
 #pragma mark setup
 - (void)setupFileSystem{
-    if (![[NSFileManager defaultManager]fileExistsAtPath:[self saveDirectory].path]) {
-        NSError* err;
-        [[NSFileManager defaultManager] createDirectoryAtURL:[self saveDirectory]
-                                 withIntermediateDirectories:YES attributes:nil error:&err];
-    }
+    dispatch_async(_dataQueue, ^{
+        if (![[NSFileManager defaultManager]fileExistsAtPath:[self saveDirectory].path]) {
+            NSError* err;
+            [[NSFileManager defaultManager] createDirectoryAtURL:[self saveDirectory]
+                                     withIntermediateDirectories:YES attributes:nil error:&err];
+        }
+        
+        
+        //Core Data
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LGMapModel" withExtension:@"momd"];
+        _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        
+        NSURL *storeURL = [[self documentsDirectory] URLByAppendingPathComponent:@"LGMapModel.sqlite"];
+        
+        NSError *error = nil;
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+            NSLog(@"LDataModel init _persistentStoreCoordinator error %@, %@", error, [error userInfo]);
+        }
+        
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:_persistentStoreCoordinator];
+        
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastEditedDate" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+        
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                        managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+        //#warning Debug only
+        [self logAllData];
+    });
     
-    
-    //Core Data
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LGMapModel" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    
-    NSURL *storeURL = [[self documentsDirectory] URLByAppendingPathComponent:@"LGMapModel.sqlite"];
-    
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        NSLog(@"LDataModel init _persistentStoreCoordinator error %@, %@", error, [error userInfo]);
-    }
-    
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:_persistentStoreCoordinator];
-    
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"empty == NO"];
-    [fetchRequest setPredicate:predicate];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastEditedDate" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                    managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
-                                                                               cacheName:nil];
 }
 
 #pragma mark save context
@@ -180,7 +218,7 @@ static LDataModel* shareModel;
 }
 
 #pragma mark - Save Map
-- (BOOL)addMap:(NSString*)name{
+- (BOOL)addMap:(NSString*)name Snapshot:(UIImage *)snapshot{
     if (![self isMapExisted:name]) {
         NSURL* url = [[self saveDirectory] URLByAppendingPathComponent:name isDirectory:YES];
         BOOL succeed = [[NSFileManager defaultManager] createDirectoryAtURL:url
@@ -188,7 +226,10 @@ static LDataModel* shareModel;
                                                                 attributes:nil
                                                                      error:nil];
         if (succeed) {
-            [self addEntry:name Path:url LastEditedDate:nil Snapshot:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSData* data = UIImagePNGRepresentation(snapshot);
+                [self addManagedObject:name Path:url LastEditedDate:nil Snapshot:data];
+            });
             return YES;
         }
     }
@@ -209,13 +250,20 @@ static LDataModel* shareModel;
     [fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
-    NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects) {
-        if (fetchedObjects.count == 0) {
+    NSUInteger fetchedCount = [_managedObjectContext countForFetchRequest:fetchRequest error:&error];
+    if (!error) {
+        if (fetchedCount == NSNotFound ||fetchedCount == 0) {
             return NO;
         }
     }
     return YES;
+}
+
+- (void)setFetchedResultsControllerDelegate:(id)delegate{
+    if ([delegate conformsToProtocol:@protocol(NSFetchedResultsControllerDelegate) ]) {
+        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>)delegate;
+    }
+    
 }
 
 /*

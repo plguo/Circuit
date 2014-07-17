@@ -89,6 +89,7 @@
         UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0);
+        flowLayout.itemSize = [ECTFileMenuCell preferredSizeForCell];
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, buttonHeight, CGRectGetWidth(self.frame), 80) collectionViewLayout:flowLayout];
         [_collectionView registerClass:[ECTFileMenuCell class] forCellWithReuseIdentifier:@"cell"];
@@ -177,6 +178,33 @@
             }
         }
         
+    }
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UICollectionView *collectionView = _collectionView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [collectionView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+            break;
     }
 }
 @end

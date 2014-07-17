@@ -7,6 +7,7 @@
 //
 
 #import "ECToolBar.h"
+
 #define toolBarHeight 44.0
 
 static NSString*const kSubMemuAppealing = @"A";
@@ -197,11 +198,18 @@ static NSString*const kSubMemuHiding = @"H";
         menu.frame = CGRectMake(0, self.frame.origin.y, menu.frame.size.width, menu.frame.size.height);
         [self.superview insertSubview:menu belowSubview:self];
         
+        if (self.fileMenuDataSource) {
+            menu.collectionView.dataSource = self.fileMenuDataSource;
+            [self.fileMenuDataSource setFetchedResultsControllerDelegate:menu];
+        }
+        
+        
         CGPoint newCenter = CGPointMake(menu.center.x, menu.center.y - CGRectGetHeight(menu.frame));
         [UIView animateWithDuration:0.3 animations:^{
             menu.center = newCenter;
         }completion:^(BOOL finished) {
             _menuStateArray[2] = kSubMemuShowing;
+            menu.delegate = self.delegate;
         }];
         [_menuArray replacePointerAtIndex:2 withPointer:(__bridge void *)(menu)];
     }
@@ -437,4 +445,18 @@ static NSString*const kSubMemuHiding = @"H";
         
     }];
 }
+
+/*
+#pragma mark - UICollectionViewDataSource
+- (void)setFileMenuDataSource:(id<UICollectionViewDataSource>)fileMenuDataSource{
+    if (fileMenuDataSource) {
+        _fileMenuDataSource = fileMenuDataSource;
+        ECTFileMenu* fileMenu = (ECTFileMenu*)[_menuArray pointerAtIndex:2];
+        if (fileMenu) {
+            fileMenu.collectionView.dataSource = _fileMenuDataSource;
+        }
+    }
+    
+}
+ */
 @end

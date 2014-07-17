@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ECTFileMenuCell.h"
+#import <CoreData/CoreData.h>
+
 @class ECTFileMenu;
 @protocol ECTFileMenuDelegate <NSObject>
 - (void)addMapWithName:(NSString*)name;
@@ -19,7 +21,11 @@
 - (void)renameMapAtIndex:(NSUInteger)index Name:(NSString*)name;
 @end
 
-@interface ECTFileMenu : UIView<UICollectionViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
+@protocol ECTFileMenuDataSource <UICollectionViewDataSource>
+- (void)setFetchedResultsControllerDelegate:(id)delegate;
+@end
+
+@interface ECTFileMenu : UIView<UICollectionViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate,NSFetchedResultsControllerDelegate>
 +(instancetype)autosizeFileMenuForView:(UIView*)view;
 @property (nonatomic, readonly) UICollectionView *collectionView;
 @property (nonatomic, weak) id<ECTFileMenuDelegate> delegate;

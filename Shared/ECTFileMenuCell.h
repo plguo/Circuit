@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ECTFileMenuCell : UICollectionViewCell
++ (CGSize)preferredSizeForImage;
++ (CGSize)preferredSizeForCell;
 @property (nonatomic) UIImage* image;
 @property (nonatomic) NSString* title;
 @property (nonatomic) UIColor* titleColor;

@@ -50,6 +50,12 @@
     _imageView.image = image;
 }
 
++ (CGSize)preferredSizeForCell{
+    return CGSizeMake(50.0, 50.0);
+}
 
-
++ (CGSize)preferredSizeForImage{
+    CGSize cellSize = [self preferredSizeForCell];
+    return CGSizeMake(cellSize.width, cellSize.height - 20.0);
+}
 @end

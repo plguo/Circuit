@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "ECTFileMenu.h"
 
-@interface LDataModel : NSObject<UICollectionViewDataSource>
+@interface LDataModel : NSObject<ECTFileMenuDataSource>
 + (instancetype)sharedDataModel;
 + (void)saveDataModel;
+- (BOOL)addMap:(NSString*)name Snapshot:(UIImage*)snapshot;
+//- (void)saveMap:(NSString*)name GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray Snapshot:(UIImage*)snapshot;
 @end

@@ -16,6 +16,8 @@
 
 @end
 
+
+
 @interface ECToolBar : UIView
 +(instancetype)autosizeToolBarForView:(UIView*)view;
 - (void)startHideAnimation;
@@ -25,4 +27,5 @@
 - (void)hideAdjustmentMenu;
 - (CGRect)subAdjustmentMenuFrame;
 @property(nonatomic,weak) id<ECToolBarDelegate> delegate;
+@property(nonatomic,weak) id<ECTFileMenuDataSource> fileMenuDataSource;
 @end
