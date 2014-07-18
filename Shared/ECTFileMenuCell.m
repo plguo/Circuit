@@ -17,6 +17,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        //self.contentView.backgroundColor = [UIColor greenColor];
         _image = nil;
         _title = @"";
         _titleColor = [UIColor clearColor];
@@ -24,10 +25,12 @@
         _imageView = [[UIImageView alloc] initWithFrame:CGRectOffset(CGRectInset(self.contentView.bounds, 5, 15),0,-10)];
         _imageView.layer.shadowPath = [UIBezierPath bezierPathWithRect:_imageView.frame].CGPath;
         _imageView.layer.shadowColor = [UIColor grayColor].CGColor;
+        _imageView.layer.shadowOpacity = 0.8;
         [self.contentView addSubview:_imageView];
         
-        _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.contentView.bounds) - 20, CGRectGetWidth(self.contentView.bounds), 20)];
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetHeight(self.contentView.bounds) - 20, CGRectGetWidth(self.contentView.bounds)-30, 20)];
         _label.text = _title;
+        _label.textAlignment = NSTextAlignmentCenter;
         _label.textColor = _titleColor;
         [self.contentView addSubview:_label];
     }
@@ -51,7 +54,7 @@
 }
 
 + (CGSize)preferredSizeForCell{
-    return CGSizeMake(50.0, 50.0);
+    return CGSizeMake(80.0, 70.0);
 }
 
 + (CGSize)preferredSizeForImage{

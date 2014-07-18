@@ -61,8 +61,8 @@ static LDataModel* shareModel;
 - (void)addManagedObject:(NSString *)name Path:(NSURL *)path LastEditedDate:(NSDate*)date Snapshot:(NSData*)snapshot{
     if (name != nil && path != nil) {
         dispatch_async(_dataQueue, ^{
-            NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"LDMap"
-                                                                           inManagedObjectContext:_managedObjectContext];
+            NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
+            
             [managedObject setValue:name forKey:@"name"];
             
             [managedObject setValue:[path absoluteString] forKey:@"path"];
@@ -98,7 +98,6 @@ static LDataModel* shareModel;
                 [managedObject setValue:data forKey:@"snapshot"];
             }
             
-            [_managedObjectContext insertObject:managedObject];
         });
     }
 }
@@ -140,6 +139,7 @@ static LDataModel* shareModel;
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+        
         //#warning Debug only
         [self logAllData];
     });
@@ -209,11 +209,13 @@ static LDataModel* shareModel;
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     ECTFileMenuCell *cell = (ECTFileMenuCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+    // Configure the cell with data from the managed object.
     NSManagedObject *managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.image = [[UIImage alloc] initWithData:(NSData*)[managedObject valueForKey:@"snapshot"]];
     cell.title = (NSString*)[managedObject valueForKey:@"name"];
     cell.titleColor = [UIColor whiteColor];
-    // Configure the cell with data from the managed object.
+    
     return cell;
 }
 
@@ -226,10 +228,8 @@ static LDataModel* shareModel;
                                                                 attributes:nil
                                                                      error:nil];
         if (succeed) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSData* data = UIImagePNGRepresentation(snapshot);
-                [self addManagedObject:name Path:url LastEditedDate:nil Snapshot:data];
-            });
+            NSData* data = UIImagePNGRepresentation(snapshot);
+            [self addManagedObject:name Path:url LastEditedDate:nil Snapshot:data];
             return YES;
         }
     }
@@ -262,6 +262,7 @@ static LDataModel* shareModel;
 - (void)setFetchedResultsControllerDelegate:(id)delegate{
     if ([delegate conformsToProtocol:@protocol(NSFetchedResultsControllerDelegate) ]) {
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>)delegate;
+        [_fetchedResultsController performFetch:nil];
     }
     
 }
