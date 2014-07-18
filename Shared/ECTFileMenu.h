@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ECTFileMenuCell.h"
-#import <CoreData/CoreData.h>
+#import <CoreData/NSFetchedResultsController.h>
 
 @class ECTFileMenu;
 @protocol ECTFileMenuDelegate <NSObject>
@@ -16,13 +16,15 @@
 
 - (void)saveMapAtIndex:(NSUInteger)index;
 - (void)loadMapAtIndex:(NSUInteger)index;
-- (void)removeMapInIndexSet:(NSSet*)indexSet;
+- (void)removeMapInIndexArray:(NSArray*)indexArray;
 
 - (void)renameMapAtIndex:(NSUInteger)index Name:(NSString*)name;
+
+- (void)fileMenuDidDisappear;
 @end
 
 @protocol ECTFileMenuDataSource <UICollectionViewDataSource>
-- (void)setFetchedResultsControllerDelegate:(id)delegate;
+- (void) setFetchedResultsControllerDelegate:(id)delegate;
 @end
 
 @interface ECTFileMenu : UIView<UICollectionViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate,NSFetchedResultsControllerDelegate>

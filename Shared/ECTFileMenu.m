@@ -10,7 +10,6 @@
 
 @implementation ECTFileMenu{
     NSArray* _buttons;
-    NSUInteger _counter;
     NSMutableSet* _selectedIndexPath;
     
     UIButton* _addButton;
@@ -26,6 +25,7 @@
     if (self) {
         
         self.backgroundColor = [UIColor blackColor];
+        _selectedIndexPath = [NSMutableSet set];
         
         _addButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [_addButton setTitle:@"Add" forState:UIControlStateNormal];
@@ -82,7 +82,7 @@
         _renameButton.frame = CGRectOffset(_renameButton.frame, CGRectGetMaxX(_removeButton.frame) + 8, 4);
         [self addSubview:_renameButton];
         
-        [self setCounter:0];
+        [self selectedIndexPathDidChange];
         CGFloat buttonHeight = 8.0 + CGRectGetHeight(_addButton.frame);
         self.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), buttonHeight+80);
         
@@ -92,6 +92,11 @@
         flowLayout.itemSize = [ECTFileMenuCell preferredSizeForCell];
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, buttonHeight, CGRectGetWidth(self.frame), 80) collectionViewLayout:flowLayout];
+        _collectionView.allowsSelection = YES;
+        _collectionView.allowsMultipleSelection = YES;
+        _collectionView.bounces = YES;
+        _collectionView.alwaysBounceHorizontal = YES;
+        _collectionView.delegate = self;
         [_collectionView registerClass:[ECTFileMenuCell class] forCellWithReuseIdentifier:@"cell"];
         [self addSubview:_collectionView];
     }
@@ -138,14 +143,14 @@
     
 }
 
-- (void)setCounter:(NSUInteger)counter{
-    _counter = counter;
-    if (_counter == 0) {
+- (void)selectedIndexPathDidChange{
+    NSUInteger count = _selectedIndexPath.count;
+    if (count == 0) {
         _saveButton.enabled = NO;
         _loadButton.enabled = NO;
         _removeButton.enabled = NO;
         _renameButton.enabled = NO;
-    }else if (_counter == 1){
+    }else if (count == 1){
         _saveButton.enabled = YES;
         _loadButton.enabled = YES;
         _removeButton.enabled = YES;
@@ -159,13 +164,16 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (_selectedIndexPath.count == 0) {
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:0 animated:YES];
+    }
     [_selectedIndexPath addObject:indexPath];
-    [self setCounter:_counter + 1];
+    [self selectedIndexPathDidChange];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
     [_selectedIndexPath removeObject:indexPath];
-    [self setCounter:_counter - 1];
+    [self selectedIndexPathDidChange];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -181,6 +189,26 @@
     }
 }
 
+- (void)removeFromSuperview{
+    [super removeFromSuperview];
+    if (self.delegate) {
+        [self.delegate fileMenuDidDisappear];
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        if (self.delegate) {
+            NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"row" ascending:YES];
+            NSArray* array = [_selectedIndexPath sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.delegate removeMapInIndexArray:array];
+        }
+        [_selectedIndexPath removeAllObjects];
+        [self selectedIndexPathDidChange];
+    }
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
@@ -191,19 +219,27 @@
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            [collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]];
+            [collectionView performSelectorOnMainThread:@selector(insertItemsAtIndexPaths:)
+                                             withObject:[NSArray arrayWithObject:newIndexPath]
+                                          waitUntilDone:NO];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+            [collectionView performSelectorOnMainThread:@selector(reloadData)
+                                             withObject:nil
+                                          waitUntilDone:NO];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+            [collectionView performSelectorOnMainThread:@selector(reloadItemsAtIndexPaths:)
+                                             withObject:[NSArray arrayWithObject:indexPath]
+                                          waitUntilDone:NO];
             break;
             
         case NSFetchedResultsChangeMove:
-            [collectionView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [collectionView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+            });
             break;
     }
 }

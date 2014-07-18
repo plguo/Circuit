@@ -33,6 +33,9 @@
         _label.textAlignment = NSTextAlignmentCenter;
         _label.textColor = _titleColor;
         [self.contentView addSubview:_label];
+        
+        self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.contentView.frame];
+        self.selectedBackgroundView.backgroundColor = [UIColor greenColor];
     }
     return self;
     

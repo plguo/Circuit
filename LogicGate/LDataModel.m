@@ -13,6 +13,8 @@
 #define formatVersion @"1"
 
 static LDataModel* shareModel;
+static NSString* const kLDataModelCache;
+
 @implementation LDataModel{
     //NSMutableArray* _fileList;
     //NSDictionary* _filesInfoDictionary;
@@ -58,14 +60,12 @@ static LDataModel* shareModel;
 
 #pragma mark - Method for database
 #pragma mark add
-- (void)addManagedObject:(NSString *)name Path:(NSURL *)path LastEditedDate:(NSDate*)date Snapshot:(NSData*)snapshot{
-    if (name != nil && path != nil) {
+- (void)addManagedObject:(NSString *)name Snapshot:(NSData*)snapshot LastEditedDate:(NSDate*)date{
+    if (name != nil) {
         dispatch_async(_dataQueue, ^{
             NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
             
             [managedObject setValue:name forKey:@"name"];
-            
-            [managedObject setValue:[path absoluteString] forKey:@"path"];
             
             if (date) {
                 [managedObject setValue:date forKey:@"lastEditedDate"];
@@ -97,7 +97,7 @@ static LDataModel* shareModel;
                 
                 [managedObject setValue:data forKey:@"snapshot"];
             }
-            
+            [LDataModel saveDataModel];
         });
     }
 }
@@ -105,13 +105,6 @@ static LDataModel* shareModel;
 #pragma mark setup
 - (void)setupFileSystem{
     dispatch_async(_dataQueue, ^{
-        if (![[NSFileManager defaultManager]fileExistsAtPath:[self saveDirectory].path]) {
-            NSError* err;
-            [[NSFileManager defaultManager] createDirectoryAtURL:[self saveDirectory]
-                                     withIntermediateDirectories:YES attributes:nil error:&err];
-        }
-        
-        
         //Core Data
         NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LGMapModel" withExtension:@"momd"];
         _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
@@ -138,7 +131,8 @@ static LDataModel* shareModel;
         
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
+                                                                                   cacheName:kLDataModelCache];
+
         
         //#warning Debug only
         [self logAllData];
@@ -176,9 +170,7 @@ static LDataModel* shareModel;
     }else{
         for (NSManagedObject* managedObject in fetchedObjects) {
             NSString* name = [managedObject valueForKey:@"name"];
-            NSString* path = [managedObject valueForKey:@"path"];
-            NSDate* date = [managedObject valueForKey:@"lastEditedDate"];
-            NSLog(@"Name:%@ Path:%@ Date:%@",name,path,[date description]);
+            NSLog(@"Map Name:%@",name);
         }
     }
 }
@@ -220,25 +212,29 @@ static LDataModel* shareModel;
 }
 
 #pragma mark - Save Map
-- (BOOL)addMap:(NSString*)name Snapshot:(UIImage *)snapshot{
+- (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot{
     if (![self isMapExisted:name]) {
-        NSURL* url = [[self saveDirectory] URLByAppendingPathComponent:name isDirectory:YES];
-        BOOL succeed = [[NSFileManager defaultManager] createDirectoryAtURL:url
-                                               withIntermediateDirectories:YES
-                                                                attributes:nil
-                                                                     error:nil];
-        if (succeed) {
             NSData* data = UIImagePNGRepresentation(snapshot);
-            [self addManagedObject:name Path:url LastEditedDate:nil Snapshot:data];
-            return YES;
-        }
+            [self addManagedObject:name Snapshot:data LastEditedDate:nil];
     }
-    return NO;
 }
 
 
 - (void)saveMap:(NSString*)name GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray Snapshot:(UIImage*)snapshot{
     
+}
+
+- (void)deleteMapsAtIndexPath:(NSArray *)indexPaths{
+    dispatch_async(_dataQueue, ^{
+        NSMutableArray* objectArray = [NSMutableArray arrayWithCapacity:indexPaths.count];
+        for (NSIndexPath* path in indexPaths) {
+            [objectArray addObject:[_fetchedResultsController objectAtIndexPath:path]];
+        }
+        for (NSManagedObject* object  in objectArray) {
+            [_managedObjectContext deleteObject:object];
+        }
+        [LDataModel saveDataModel];
+    });
 }
 
 - (BOOL)isMapExisted:(NSString*)name{
@@ -267,29 +263,8 @@ static LDataModel* shareModel;
     
 }
 
-/*
-#pragma mark - File List
--(NSString*)getFilesListPath{
-    return [[self getSaveDirectory] stringByAppendingPathComponent:@"filesList.plist"];
+- (void)deleteCache{
+    [NSFetchedResultsController deleteCacheWithName:kLDataModelCache];
 }
-
--(void)saveFilesList{
-    [_filesInfoDictionary writeToFile:[self getFilesListPath] atomically:YES];
-}
-
-#pragma mark - SaveDirectory
--(void)removeSaveDirectory{
-    NSError *error;
-    [[NSFileManager defaultManager]removeItemAtPath:[self getSaveDirectory] error:&error];
-}
-
--(NSString*)getSaveDirectory{
-    //Get doc path
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *docPath = [paths objectAtIndex:0];
-    //Return path with save directory
-    return [docPath stringByAppendingPathComponent:@"save"];
-}
-*/
 
 @end

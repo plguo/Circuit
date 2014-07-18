@@ -10,9 +10,11 @@
 #import <CoreData/CoreData.h>
 #import "ECTFileMenu.h"
 
-@interface LDataModel : NSObject<ECTFileMenuDataSource>
+@interface LDataModel : NSObject<ECTFileMenuDataSource,NSFetchedResultsControllerDelegate>
 + (instancetype)sharedDataModel;
 + (void)saveDataModel;
-- (BOOL)addMap:(NSString*)name Snapshot:(UIImage*)snapshot;
+- (void)deleteCache;
+- (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot;
+- (void)deleteMapsAtIndexPath:(NSArray*)indexPaths;
 //- (void)saveMap:(NSString*)name GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray Snapshot:(UIImage*)snapshot;
 @end
