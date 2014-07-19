@@ -11,6 +11,7 @@
 #import "LGate.h"
 
 #define formatVersion @"1"
+#define DATA_DEBUG_MODE YES
 
 static LDataModel* shareModel;
 static NSString* const kLDataModelCache;
@@ -63,7 +64,7 @@ static NSString* const kLDataModelCache;
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
         if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-            NSLog(@"LDataModel init _persistentStoreCoordinator error %@, %@", error, [error userInfo]);
+            NSLog(@"LDataModel Selector:setupFileSystem RelatedObject:_persistentStoreCoordinator %@, %@", error, [error userInfo]);
         }
         
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
@@ -84,8 +85,14 @@ static NSString* const kLDataModelCache;
                                                                                    cacheName:kLDataModelCache];
         
         
-        //#warning Debug only
-        [self logData];
+        
+        
+        if (DATA_DEBUG_MODE) {
+            //#warning Debug only
+            //[self addEmptyData:40];
+            [self logData];
+            [self logDetailedData];
+        }
     });
     
 }
@@ -158,7 +165,7 @@ static NSString* const kLDataModelCache;
     NSError *error = nil;
     if (_managedObjectContext != nil) {
         if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
-            NSLog(@"LDataModel save _managedObjectContext error %@, %@", error, [error userInfo]);
+            NSLog(@"LDataModel Selector:saveContext RelatedObject:_managedObjectContext %@, %@", error, [error userInfo]);
         }
     }
 }
@@ -184,11 +191,6 @@ static NSString* const kLDataModelCache;
     NSUInteger mapCount = [_managedObjectContext countForFetchRequest:fetchRequest error:nil];
     
     NSLog(@"LDMap Count:%lu LDMapData Count:%lu",(unsigned long)mapCount,(unsigned long)count);
-    
-    
-    
-    
-    
 }
 
 - (void)logDetailedData{
@@ -212,6 +214,15 @@ static NSString* const kLDataModelCache;
             NSLog(@"Map Name:%@ DataStatus:%hhd",name, (char)dataStatus);
         }
     }
+}
+
+- (void)addEmptyData:(NSUInteger)number{
+    for (NSUInteger i = 1; i <= number; i++) {
+        NSArray* emptyArray = @[];
+        NSData* emptyData = [NSKeyedArchiver archivedDataWithRootObject:emptyArray];
+        [self addManagedObject:[NSString stringWithFormat:@"EmptyData(%lu)",(unsigned long)i] Snapshot:nil GateData:emptyData WireData:emptyData LastEditedDate:nil];
+    }
+    [LDataModel saveDataModel];
 }
 
 #pragma mark - URL
