@@ -18,6 +18,7 @@
 + (void)saveDataModel;
 - (void)deleteCache;
 - (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray;
+- (void)saveMapAtIndexPath:(NSIndexPath *)indexPath Snapshot:(UIImage *)snapshot GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray;
 - (void)deleteMapsAtIndexPath:(NSArray*)indexPaths;
 
 - (void)loadMapAtIndexPath:(NSIndexPath *)indexPath GateView:(UIView*)gateView WireView:(UIView*)wireView GateGestureRecognizerTarget:(id)target PanAction:(SEL)panAction PortAction:(SEL)portAction;

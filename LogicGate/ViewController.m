@@ -472,11 +472,45 @@
 }
 
 - (void)saveMapAtIndexPath:(NSIndexPath *)indexPath{
+    __weak ViewController* weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_dataModel saveMapAtIndexPath:indexPath Snapshot:[weakSelf snapshotForFileMenu]
+                            GatesArray:[weakSelf allGate] WiresArray:[weakSelf allWire]];
+    });
+}
+
+- (UIImage*)snapshotForFileMenu{
+    CGSize imageSize = [ECTFileMenuCell preferredSizeForImage];
     
+    CGRect rect = CGRectMake(CGRectGetWidth(_gridView.bounds) - imageSize.width*8.0, CGRectGetHeight(_gridView.bounds) - imageSize.height*8.0, imageSize.width*16.0, imageSize.height*16.0);
+    
+    UIGraphicsBeginImageContextWithOptions(_gridView.bounds.size, YES, 0.0);
+    [_gridView drawViewHierarchyInRect:_gridView.bounds afterScreenUpdates:NO];
+    UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect(snapshot.CGImage, rect);
+    UIImage* cropImage = [UIImage imageWithCGImage:imageRef scale:snapshot.scale orientation:snapshot.imageOrientation];
+    CGImageRelease(imageRef);
+    
+    CGRect smallRect = CGRectMake(0, 0, cropImage.size.width/4.0, cropImage.size.height/4.0);
+    
+    UIGraphicsBeginImageContext(smallRect.size);
+    [cropImage drawInRect:smallRect];
+    UIImage* smallImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return smallImage;
 }
 
 - (void)loadMapAtIndexPath:(NSIndexPath *)indexPath{
-    
+    [self clearMap];
+    [_dataModel loadMapAtIndexPath:indexPath
+                          GateView:_gateView
+                          WireView:_wireView
+       GateGestureRecognizerTarget:self
+                         PanAction:@selector(handlePanFrom:)
+                        PortAction:@selector(handlePanFromWireGestureRecognizer:)];
 }
 
 - (void)removeMapInIndexArray:(NSArray *)indexArray{
@@ -491,4 +525,8 @@
     //[LDataModel saveDataModel];
 }
 
+- (void)clearMap{
+    [_gateView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [_wireView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
 @end

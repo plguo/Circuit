@@ -35,12 +35,6 @@ static NSString* const kLDataModelCache;
     return shareModel;
 }
 
-+ (void)saveDataModel {
-    if (shareModel != nil) {
-        [shareModel saveContext];
-    }
-}
-
 - (instancetype)init{
     self = [super init];
     if (self) {
@@ -151,12 +145,18 @@ static NSString* const kLDataModelCache;
             
             [LDataModel saveDataModel];
             
-            [gateData writeToURL:[[self documentsDirectory] URLByAppendingPathComponent:@"testData.plist"] atomically:YES];
+            [gateData writeToURL:[[[LDataModel sharedDataModel] documentsDirectory] URLByAppendingPathComponent:@"testData.plist"] atomically:YES];
         });
     }
 }
 
 #pragma mark save context
++ (void)saveDataModel {
+    if (shareModel != nil) {
+        [shareModel saveContext];
+    }
+}
+
 - (void)saveContext{
     NSError *error = nil;
     if (_managedObjectContext != nil) {
@@ -197,7 +197,7 @@ static NSString* const kLDataModelCache;
         for (NSManagedObject* managedObject in fetchedObjects) {
             NSString* name = [managedObject valueForKey:@"name"];
             BOOL dataStatus = ([managedObject valueForKey:@"mapData"] != nil);
-            NSLog(@"Map Name:%@ DataStatus:%hhd",name, dataStatus);
+            NSLog(@"Map Name:%@ DataStatus:%hhd",name, (char)dataStatus);
         }
     }
 }
@@ -235,7 +235,7 @@ static NSString* const kLDataModelCache;
 }
 
 #pragma mark - Map
-#pragma mark - add
+#pragma mark add
 - (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot
     GatesArray:(NSArray *)gatesArray WiresArray:(NSArray *)wiresArray{
     
@@ -252,6 +252,37 @@ static NSString* const kLDataModelCache;
             
         });
     }
+    
+}
+
+#pragma mark save
+- (void)saveMapAtIndexPath:(NSIndexPath *)indexPath Snapshot:(UIImage *)snapshot
+                GatesArray:(NSArray *)gatesArray WiresArray:(NSArray *)wiresArray{
+    
+    NSData* data = UIImagePNGRepresentation(snapshot);
+    __weak LDataModel* weakSelf = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSData* wireData = [weakSelf wireDataWithWiresArray:wiresArray GatesArray:gatesArray];
+        NSData* gateData = [NSKeyedArchiver archivedDataWithRootObject:gatesArray];
+        
+        dispatch_async(_dataQueue, ^{
+            
+            NSManagedObject* managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
+            NSManagedObject* mapData = [managedObject valueForKey:@"mapData"];
+            
+            [managedObject setValue:data forKey:@"snapshot"];
+            [managedObject setValue:[NSDate date] forKey:@"lastEditedDate"];
+            
+            [mapData setValue:wireData forKey:@"wireData"];
+            [mapData setValue:gateData forKey:@"gateData"];
+            
+            [LDataModel saveDataModel];
+            
+        });
+        
+    });
     
 }
 
@@ -289,18 +320,38 @@ static NSString* const kLDataModelCache;
 GateGestureRecognizerTarget:(id)target
                  PanAction:(SEL)panAction PortAction:(SEL)portAction{
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSManagedObject* managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
-        NSManagedObject* mapData = [managedObject valueForKey:@"mapData"];
-        if (mapData) {
-            NSArray* gateArray = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[mapData valueForKey:@"gateData"]];
-            NSArray* wireArray = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[mapData valueForKey:@"wireData"]];
-            for (NSArray* wireInfo in wireArray) {
-                LWire* wire = [[LWire alloc] initWire];
-                LGate* startGate = [gateArray indexOfObject:]
-            }
+    NSManagedObject* managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
+    NSManagedObject* mapData = [managedObject valueForKey:@"mapData"];
+    if (mapData) {
+        NSArray* gateArray = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[mapData valueForKey:@"gateData"]];
+        for (LGate* gate in gateArray) {
+            [gateView addSubview:gate];
+            UIPanGestureRecognizer* panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:target
+                                                                                                   action:panAction];
+            [gate addGestureRecognizer:panGestureRecognizer];
+            [gate initUserInteractionWithTarget:target action:portAction];
         }
-    });
+        
+        NSArray* wireArray = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[mapData valueForKey:@"wireData"]];
+        for (NSArray* wireInfo in wireArray) {
+            if (wireInfo.count == 4) {
+                LGate* startGate = [gateArray objectAtIndex:[(NSNumber*)wireInfo[0] unsignedIntegerValue]];
+                LGate* endGate = [gateArray objectAtIndex:[(NSNumber*)wireInfo[2] unsignedIntegerValue]];
+                
+                LPort* startPort = [startGate.outPorts objectAtIndex:[(NSNumber*)wireInfo[1] unsignedIntegerValue]];
+                LPort* endPort =   [endGate.inPorts objectAtIndex:[(NSNumber*)wireInfo[3] unsignedIntegerValue]];
+                
+                if (startPort != nil && endPort != nil) {
+                    LWire* wire = [[LWire alloc] initWire];
+                    [wire connectNewPort:startPort];
+                    [wire connectNewPort:endPort];
+                    [wireView addSubview:wire];
+                    [wire drawWire];
+                }
+            }
+            
+        }
+    }
     
 }
 

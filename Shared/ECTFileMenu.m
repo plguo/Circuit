@@ -122,11 +122,19 @@
 }
 
 - (void)tapSaveButton{
-    
+    if (_selectedIndexPath.count>0) {
+        if (self.delegate) {
+            [self.delegate saveMapAtIndexPath:[_selectedIndexPath anyObject]];
+        }
+    }
 }
 
 - (void)tapLoadButton{
-    
+    if (_selectedIndexPath.count>0) {
+        if (self.delegate) {
+            [self.delegate loadMapAtIndexPath:[_selectedIndexPath anyObject]];
+        }
+    }
 }
 
 - (void)tapRemoveButton{
@@ -264,6 +272,7 @@
         case NSFetchedResultsChangeMove:
             dispatch_async(dispatch_get_main_queue(), ^{
                 [collectionView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+                [collectionView reloadItemsAtIndexPaths:@[newIndexPath]];
             });
             break;
     }
