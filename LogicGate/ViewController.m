@@ -458,7 +458,7 @@
             [array addObject:(LGate*)view];
         }
     }
-    return array;
+    return [NSArray arrayWithArray:array];
 }
 
 - (NSArray*)allWire{

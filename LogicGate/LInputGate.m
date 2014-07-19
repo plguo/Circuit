@@ -10,6 +10,22 @@
 
 @implementation LInputGate
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        _inputName = (NSString*)[coder decodeObjectForKey:@"InputName"];
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [super encodeWithCoder:coder];
+    [coder encodeObject:_inputName forKey:@"InputName"];
+}
+
 -(BOOL)isRealInputSource{
     return YES;
 }

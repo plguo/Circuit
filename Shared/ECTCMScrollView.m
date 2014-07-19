@@ -155,7 +155,7 @@
         //CGPoint ma
         if (CGRectGetMaxY(view.frame) < CGRectGetMinY(self.superview.frame))
         {
-            [recognizer removeTarget:self action:@selector(handlePanFrom:)];
+            [recognizer removeTarget:nil action:NULL];
             recognizer.delegate = nil;
             recognizer.delaysTouchesBegan = NO;
             [view.layer removeAllAnimations];

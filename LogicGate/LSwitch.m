@@ -11,6 +11,24 @@
 @implementation LSwitch{
     BOOL _outputState;
 }
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        _outputState = ![coder decodeBoolForKey:@"OutputState"];
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [super encodeWithCoder:coder];
+    [coder encodeBool:_outputState forKey:@"OutputState"];
+}
+
+
 - (void)initPorts{
     LPort *outP1 = [[LPort alloc]initWithPortType:PortTypeOutput SuperGate:self Center:CGPointMake(27, 25)];
     self.outPorts = [NSArray arrayWithObject:outP1];

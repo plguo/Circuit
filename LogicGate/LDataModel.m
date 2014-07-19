@@ -59,6 +59,46 @@ static NSString* const kLDataModelCache;
 
 
 #pragma mark - Method for database
+#pragma mark setup
+- (void)setupFileSystem{
+    NSURL* documentsDirectory = [self documentsDirectory];
+    dispatch_async(_dataQueue, ^{
+        //Core Data
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LGMapModel" withExtension:@"momd"];
+        _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        
+        NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"LGMapModel.sqlite"];
+        
+        NSError *error = nil;
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+            NSLog(@"LDataModel init _persistentStoreCoordinator error %@, %@", error, [error userInfo]);
+        }
+        
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:_persistentStoreCoordinator];
+        
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        fetchRequest.fetchBatchSize = 10;
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastEditedDate" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+        
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                        managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
+                                                                                   cacheName:kLDataModelCache];
+        
+        
+        //#warning Debug only
+        [self logAllData];
+    });
+    
+}
+
 #pragma mark add
 - (void)addManagedObject:(NSString *)name Snapshot:(NSData*)snapshot
                 GateData:(NSData*)gateData WireData:(NSData*)wireData
@@ -107,49 +147,13 @@ static NSString* const kLDataModelCache;
             
             [managedObjectData setValue:wireData forKey:@"wireData"];
             
+            [managedObject setValue:managedObjectData forKey:@"mapData"];
+            
             [LDataModel saveDataModel];
+            
+            [gateData writeToURL:[[self documentsDirectory] URLByAppendingPathComponent:@"testData.plist"] atomically:YES];
         });
     }
-}
-
-#pragma mark setup
-- (void)setupFileSystem{
-    NSURL* documentsDirectory = [self documentsDirectory];
-    dispatch_async(_dataQueue, ^{
-        //Core Data
-        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LGMapModel" withExtension:@"momd"];
-        _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-        
-        NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"LGMapModel.sqlite"];
-        
-        NSError *error = nil;
-        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
-        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-            NSLog(@"LDataModel init _persistentStoreCoordinator error %@, %@", error, [error userInfo]);
-        }
-        
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:_persistentStoreCoordinator];
-        
-        
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        fetchRequest.fetchBatchSize = 10;
-        
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastEditedDate" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-        
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
-                                                                                   cacheName:kLDataModelCache];
-
-        
-        //#warning Debug only
-        //[self logAllData];
-    });
-    
 }
 
 #pragma mark save context
@@ -162,15 +166,25 @@ static NSString* const kLDataModelCache;
     }
 }
 
+#pragma mark cache
+- (void)deleteCache{
+    [NSFetchedResultsController deleteCacheWithName:kLDataModelCache];
+}
+
 #pragma mark - Debug
 - (void)logAllData{
+    NSFetchRequest *dataFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *dataEntity = [NSEntityDescription entityForName:@"LDMapData"
+                                                  inManagedObjectContext:_managedObjectContext];
+    [dataFetchRequest setEntity:dataEntity];
+    NSUInteger count = [_managedObjectContext countForFetchRequest:dataFetchRequest error:nil];
+    NSLog(@"LDMapData Count:%lu",(unsigned long)count);
+    
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
     [fetchRequest setEntity:entity];
-    // Limit size
-    //[fetchRequest setFetchBatchSize:10];
     
-    // Specify how the fetched objects should be sorted
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastEditedDate" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
@@ -182,7 +196,8 @@ static NSString* const kLDataModelCache;
     }else{
         for (NSManagedObject* managedObject in fetchedObjects) {
             NSString* name = [managedObject valueForKey:@"name"];
-            NSLog(@"Map Name:%@",name);
+            BOOL dataStatus = ([managedObject valueForKey:@"mapData"] != nil);
+            NSLog(@"Map Name:%@ DataStatus:%hhd",name, dataStatus);
         }
     }
 }
@@ -219,7 +234,8 @@ static NSString* const kLDataModelCache;
     return cell;
 }
 
-#pragma mark - Save Map
+#pragma mark - Map
+#pragma mark - add
 - (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot
     GatesArray:(NSArray *)gatesArray WiresArray:(NSArray *)wiresArray{
     
@@ -239,17 +255,25 @@ static NSString* const kLDataModelCache;
     
 }
 
-
 - (NSData*)wireDataWithWiresArray:(NSArray*)wiresArray GatesArray:(NSArray*)gatesArray{
     NSMutableSet* set = [NSMutableSet setWithCapacity:wiresArray.count];
     for (LWire* wire in wiresArray) {
         if (wire.startPort && wire.endPort) {
             NSUInteger startIndex = [gatesArray indexOfObject:wire.startPort.superGate];
             NSUInteger endIndex = [gatesArray indexOfObject:wire.endPort.superGate];
-            if (startIndex != NSNotFound || endIndex != NSNotFound) {
+            
+            NSUInteger startPortIndex = [wire.startPort.superGate.outPorts indexOfObject:wire.startPort];
+            NSUInteger endPortIndex = [wire.endPort.superGate.inPorts indexOfObject:wire.endPort];
+            
+            if (startIndex != NSNotFound && endIndex != NSNotFound) {
+                
                 NSNumber* startIndexNumber = [NSNumber numberWithUnsignedInteger:startIndex];
+                NSNumber* startPortIndexNumber = [NSNumber numberWithUnsignedInteger:startPortIndex];
+                
                 NSNumber* endIndexNumber = [NSNumber numberWithUnsignedInteger:endIndex];
-                NSArray* aWireInfoArray = @[startIndexNumber,endIndexNumber];
+                NSNumber* endPortIndexNumber = [NSNumber numberWithUnsignedInteger:endPortIndex];
+                
+                NSArray* aWireInfoArray = @[startIndexNumber,startPortIndexNumber,endIndexNumber, endPortIndexNumber];
                 [set addObject:aWireInfoArray];
             }
             
@@ -259,6 +283,28 @@ static NSString* const kLDataModelCache;
     return data;
 }
 
+#pragma mark load
+- (void)loadMapAtIndexPath:(NSIndexPath *)indexPath
+                  GateView:(UIView *)gateView WireView:(UIView *)wireView
+GateGestureRecognizerTarget:(id)target
+                 PanAction:(SEL)panAction PortAction:(SEL)portAction{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSManagedObject* managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
+        NSManagedObject* mapData = [managedObject valueForKey:@"mapData"];
+        if (mapData) {
+            NSArray* gateArray = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[mapData valueForKey:@"gateData"]];
+            NSArray* wireArray = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[mapData valueForKey:@"wireData"]];
+            for (NSArray* wireInfo in wireArray) {
+                LWire* wire = [[LWire alloc] initWire];
+                LGate* startGate = [gateArray indexOfObject:]
+            }
+        }
+    });
+    
+}
+
+#pragma mark delete
 - (void)deleteMapsAtIndexPath:(NSArray *)indexPaths{
     dispatch_async(_dataQueue, ^{
         NSMutableArray* objectArray = [NSMutableArray arrayWithCapacity:indexPaths.count];
@@ -266,12 +312,14 @@ static NSString* const kLDataModelCache;
             [objectArray addObject:[_fetchedResultsController objectAtIndexPath:path]];
         }
         for (NSManagedObject* object  in objectArray) {
+            [_managedObjectContext deleteObject:(NSManagedObject*)[object valueForKey:@"mapData"]];
             [_managedObjectContext deleteObject:object];
         }
         [LDataModel saveDataModel];
     });
 }
 
+#pragma mark rename
 - (void)renameMapAtIndexPath:(NSIndexPath *)indexPath Name:(NSString *)name{
     dispatch_async(_dataQueue, ^{
         NSManagedObject* managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
@@ -280,6 +328,7 @@ static NSString* const kLDataModelCache;
     });
 }
 
+#pragma mark existed
 - (BOOL)isMapExisted:(NSString*)name{
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
@@ -298,6 +347,7 @@ static NSString* const kLDataModelCache;
     return YES;
 }
 
+#pragma mark- ECTFileMenuDataSource
 - (void)setFetchedResultsControllerDelegate:(id)delegate{
     if ([delegate conformsToProtocol:@protocol(NSFetchedResultsControllerDelegate) ]) {
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>)delegate;
@@ -305,9 +355,4 @@ static NSString* const kLDataModelCache;
     }
     
 }
-
-- (void)deleteCache{
-    [NSFetchedResultsController deleteCacheWithName:kLDataModelCache];
-}
-
 @end
