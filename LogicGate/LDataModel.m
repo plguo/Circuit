@@ -122,6 +122,7 @@ static NSString* const kLDataModelCache;
         
         
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        fetchRequest.fetchBatchSize = 10;
         
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
         [fetchRequest setEntity:entity];
@@ -135,7 +136,7 @@ static NSString* const kLDataModelCache;
 
         
         //#warning Debug only
-        [self logAllData];
+        //[self logAllData];
     });
     
 }
@@ -233,6 +234,14 @@ static NSString* const kLDataModelCache;
         for (NSManagedObject* object  in objectArray) {
             [_managedObjectContext deleteObject:object];
         }
+        [LDataModel saveDataModel];
+    });
+}
+
+- (void)renameMapAtIndexPath:(NSIndexPath *)indexPath Name:(NSString *)name{
+    dispatch_async(_dataQueue, ^{
+        NSManagedObject* managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
+        [managedObject setValue:name forKey:@"name"];
         [LDataModel saveDataModel];
     });
 }

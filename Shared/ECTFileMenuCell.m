@@ -28,7 +28,7 @@
         _imageView.layer.shadowOpacity = 0.8;
         [self.contentView addSubview:_imageView];
         
-        _label = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetHeight(self.contentView.bounds) - 20, CGRectGetWidth(self.contentView.bounds)-30, 20)];
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.contentView.bounds) - 20, CGRectGetWidth(self.contentView.bounds), 20)];
         _label.text = _title;
         _label.textAlignment = NSTextAlignmentCenter;
         _label.textColor = _titleColor;

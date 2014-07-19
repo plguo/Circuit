@@ -14,11 +14,11 @@
 @protocol ECTFileMenuDelegate <NSObject>
 - (void)addMapWithName:(NSString*)name;
 
-- (void)saveMapAtIndex:(NSUInteger)index;
-- (void)loadMapAtIndex:(NSUInteger)index;
+- (void)saveMapAtIndexPath:(NSIndexPath*)indexPath;
+- (void)loadMapAtIndexPath:(NSIndexPath*)indexPath;
 - (void)removeMapInIndexArray:(NSArray*)indexArray;
 
-- (void)renameMapAtIndex:(NSUInteger)index Name:(NSString*)name;
+- (void)renameMapAtIndexPath:(NSIndexPath*)indexPath Name:(NSString*)name;
 
 - (void)fileMenuDidDisappear;
 @end

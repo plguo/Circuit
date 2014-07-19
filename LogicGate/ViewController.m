@@ -429,8 +429,7 @@
     CGSize imageSize = [ECTFileMenuCell preferredSizeForImage];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"%@",[NSValue valueWithCGRect:_gridView.bounds]);
-        CGRect rect = CGRectMake(CGRectGetWidth(_gridView.bounds)/2 - imageSize.width*8.0, CGRectGetHeight(_gridView.bounds)/2 - imageSize.height*8.0, imageSize.width*16.0, imageSize.height*16.0);
+        CGRect rect = CGRectMake(CGRectGetWidth(_gridView.bounds) - imageSize.width*8.0, CGRectGetHeight(_gridView.bounds) - imageSize.height*8.0, imageSize.width*16.0, imageSize.height*16.0);
         
         UIGraphicsBeginImageContextWithOptions(_gridView.bounds.size, YES, 0.0);
         [_gridView drawViewHierarchyInRect:_gridView.bounds afterScreenUpdates:NO];
@@ -441,7 +440,7 @@
         UIImage* cropImage = [UIImage imageWithCGImage:imageRef scale:snapshot.scale orientation:snapshot.imageOrientation];
         CGImageRelease(imageRef);
         
-        CGRect smallRect = CGRectMake(0, 0, cropImage.size.width/8.0, cropImage.size.height/8.0);
+        CGRect smallRect = CGRectMake(0, 0, cropImage.size.width/4.0, cropImage.size.height/4.0);
         
         UIGraphicsBeginImageContext(smallRect.size);
         [cropImage drawInRect:smallRect];
@@ -452,11 +451,11 @@
     });
 }
 
-- (void)saveMapAtIndex:(NSUInteger)index{
+- (void)saveMapAtIndexPath:(NSIndexPath *)indexPath{
     
 }
 
-- (void)loadMapAtIndex:(NSUInteger)index{
+- (void)loadMapAtIndexPath:(NSIndexPath *)indexPath{
     
 }
 
@@ -464,8 +463,8 @@
     [_dataModel deleteMapsAtIndexPath:indexArray];
 }
 
-- (void)renameMapAtIndex:(NSUInteger)index Name:(NSString *)name{
-    
+- (void)renameMapAtIndexPath:(NSIndexPath *)indexPath Name:(NSString *)name{
+    [_dataModel renameMapAtIndexPath:indexPath Name:name];
 }
 
 - (void)fileMenuDidDisappear{

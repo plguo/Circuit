@@ -140,7 +140,15 @@
 }
 
 - (void)tapRenameButton{
-    
+    UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Rename Map"
+                                                       message:nil
+                                                      delegate:self
+                                             cancelButtonTitle:@"cancel"
+                                             otherButtonTitles:@"rename", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField* textField = [alertView textFieldAtIndex:0];
+    textField.placeholder = @"Enter a name";
+    [alertView show];
 }
 
 - (void)selectedIndexPathDidChange{
@@ -186,6 +194,15 @@
             }
         }
         
+    }else if ([alertView.title isEqualToString:@"Rename Map"]) {
+        if (buttonIndex == 1) {
+            UITextField* textField = [alertView textFieldAtIndex:0];
+            
+            if (self.delegate && _selectedIndexPath.count == 1) {
+                [self.delegate renameMapAtIndexPath:[_selectedIndexPath anyObject] Name:textField.text];
+            }
+        }
+        
     }
 }
 
@@ -194,6 +211,14 @@
     if (self.delegate) {
         [self.delegate fileMenuDidDisappear];
     }
+}
+
+- (void)insertCellAtIndexPath:(NSIndexPath*)indexPath{
+    for (NSIndexPath* path in _selectedIndexPath) {
+        [_collectionView deselectItemAtIndexPath:path animated:YES];
+    }
+    [_selectedIndexPath removeAllObjects];
+    [_collectionView insertItemsAtIndexPaths:@[indexPath]];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -219,8 +244,8 @@
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            [collectionView performSelectorOnMainThread:@selector(insertItemsAtIndexPaths:)
-                                             withObject:[NSArray arrayWithObject:newIndexPath]
+            [self performSelectorOnMainThread:@selector(insertCellAtIndexPath:)
+                                             withObject:newIndexPath
                                           waitUntilDone:NO];
             break;
             
