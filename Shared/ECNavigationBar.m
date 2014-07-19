@@ -88,14 +88,19 @@
 }
 
 #pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         if (self.delegate) {
             [self.delegate newMap];
         }
     }else if(buttonIndex == 1){
-        ECFileTableView* view = [[ECFileTableView alloc] initWithFrame:self.superview.frame];
-        [self.superview addSubview:view];
+        if (self.delegate) {
+            ECFileTableView* view = [[ECFileTableView alloc] initWithFrame:self.superview.frame];
+            [self.delegate fileTableViewWillAppear:view];
+            view.dataSource = self.delegate;
+            view.delegate = self.delegate;
+            [self.superview addSubview:view];
+        }
     }
 }
 

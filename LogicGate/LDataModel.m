@@ -23,7 +23,6 @@ static NSString* const kLDataModelCache;
     NSManagedObjectModel* _managedObjectModel;
     NSPersistentStoreCoordinator*  _persistentStoreCoordinator;
     
-    NSFetchedResultsController* _fetchedResultsController;
     dispatch_queue_t _dataQueue;
     
     NSUInteger _lockCount;
@@ -86,7 +85,7 @@ static NSString* const kLDataModelCache;
         
         
         //#warning Debug only
-        [self logAllData];
+        [self logData];
     });
     
 }
@@ -170,17 +169,32 @@ static NSString* const kLDataModelCache;
 }
 
 #pragma mark - Debug
-- (void)logAllData{
+- (void)logData{
     NSFetchRequest *dataFetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *dataEntity = [NSEntityDescription entityForName:@"LDMapData"
                                                   inManagedObjectContext:_managedObjectContext];
     [dataFetchRequest setEntity:dataEntity];
     NSUInteger count = [_managedObjectContext countForFetchRequest:dataFetchRequest error:nil];
-    NSLog(@"LDMapData Count:%lu",(unsigned long)count);
-    
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap"
+                                              inManagedObjectContext:_managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSUInteger mapCount = [_managedObjectContext countForFetchRequest:fetchRequest error:nil];
+    
+    NSLog(@"LDMap Count:%lu LDMapData Count:%lu",(unsigned long)mapCount,(unsigned long)count);
+    
+    
+    
+    
+    
+}
+
+- (void)logDetailedData{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LDMap"
+                                              inManagedObjectContext:_managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastEditedDate" ascending:NO];
@@ -357,6 +371,26 @@ GateGestureRecognizerTarget:(id)target
 }
 
 #pragma mark delete
+- (void)deleteMapsAtIndexPath:(NSArray *)indexPaths completion:(void (^)())handler{
+    dispatch_async(_dataQueue, ^{
+        
+        NSMutableArray* objectArray = [NSMutableArray arrayWithCapacity:indexPaths.count];
+        for (NSIndexPath* path in indexPaths) {
+            [objectArray addObject:[_fetchedResultsController objectAtIndexPath:path]];
+        }
+        for (NSManagedObject* object  in objectArray) {
+            [_managedObjectContext deleteObject:(NSManagedObject*)[object valueForKey:@"mapData"]];
+            [_managedObjectContext deleteObject:object];
+        }
+        [LDataModel saveDataModel];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            handler(indexPaths);
+        });
+        
+    });
+}
+
 - (void)deleteMapsAtIndexPath:(NSArray *)indexPaths{
     dispatch_async(_dataQueue, ^{
         NSMutableArray* objectArray = [NSMutableArray arrayWithCapacity:indexPaths.count];

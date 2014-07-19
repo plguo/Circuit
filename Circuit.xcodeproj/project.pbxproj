@@ -175,7 +175,6 @@
 		2B39D324197AB7620036C258 /* LDataModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDataModelDelegate.h; sourceTree = "<group>"; };
 		2B39D325197ACF920036C258 /* ECFileTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECFileTableView.h; path = Shared/ECFileTableView.h; sourceTree = "<group>"; };
 		2B39D326197ACF920036C258 /* ECFileTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECFileTableView.m; path = Shared/ECFileTableView.m; sourceTree = "<group>"; };
-		2B39D329197AD6180036C258 /* ECFileTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECFileTableViewDataSource.h; path = Shared/ECFileTableViewDataSource.h; sourceTree = "<group>"; };
 		2B3C6FC2195F3D2D002FDFDC /* LogicGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LogicGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B3C6FC8195F3D2D002FDFDC /* LogicGate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGate-Info.plist"; sourceTree = "<group>"; };
 		2B3C6FCA195F3D2D002FDFDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -383,7 +382,6 @@
 				2B39D321197AB0FD0036C258 /* ECBlockView.m */,
 				2B39D325197ACF920036C258 /* ECFileTableView.h */,
 				2B39D326197ACF920036C258 /* ECFileTableView.m */,
-				2B39D329197AD6180036C258 /* ECFileTableViewDataSource.h */,
 			);
 			name = ECTFileMenu;
 			sourceTree = "<group>";

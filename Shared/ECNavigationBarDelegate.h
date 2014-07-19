@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ECFileTableView.h"
 
-@protocol ECNavigationBarDelegate <NSObject>
+@protocol ECNavigationBarDelegate <ECFileTableViewDelegate,ECFileTableViewDataSource>
 - (void)hideMenu;
 - (void)newMap;
 @end

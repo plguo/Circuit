@@ -523,6 +523,40 @@
     self.originalContentView.userInteractionEnabled = NO;
 }
 - (void)finishMapDataProcessing{
-    self.originalContentView.userInteractionEnabled = NO;
+    self.originalContentView.userInteractionEnabled = YES;
 }
+
+#pragma mark- ECFileTableViewDataSource
+- (NSString*)fileTableView:(ECFileTableView *)fileTableView titleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSManagedObject *managedObject = [_dataModel.fetchedResultsController objectAtIndexPath:indexPath];
+    return [managedObject valueForKey:@"name"];
+}
+
+- (NSInteger)fileTableView:(ECFileTableView *)fileTableView numberOfRowsInSection:(NSInteger)section{
+    if ([[_dataModel.fetchedResultsController sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[_dataModel.fetchedResultsController sections] objectAtIndex:section];
+        return [sectionInfo numberOfObjects];
+    }
+    return 0;
+}
+
+- (NSInteger)numberOfSectionsInFileTableView:(ECFileTableView *)fileTableView{
+    return _dataModel.fetchedResultsController.sections.count;
+}
+
+#pragma mark- ECFileTableViewDelegate
+- (void)fileTableViewWillAppear:(ECFileTableView *)fileTableView{
+    [_dataModel.fetchedResultsController performFetch:nil];
+}
+
+- (void)fileTableView:(ECFileTableView*)fileTableView DeleteMapsAtIndexPaths:(NSArray*)indexPaths{
+    __weak ECFileTableView* weakFileTableView = fileTableView;
+    [_dataModel deleteMapsAtIndexPath:indexPaths completion:^() {
+        if (weakFileTableView){
+            [weakFileTableView reloadData];
+        }
+    }];
+}
+
+
 @end
