@@ -24,12 +24,6 @@ static NSString*const kSubMemuHiding = @"H";
     
     NSPointerArray* _menuArray;
     
-    /*
-    UIView* _componentsMenu;
-    UIView* _adjustmentMenu;
-    UIView* _filesMenu;
-    UIView* _deleteMode;
-     */
 }
 
 #pragma mark - Methods for tool bar initialization

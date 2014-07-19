@@ -7,9 +7,12 @@
 //
 
 #import "ECNavigationBar.h"
+#import "ECFileTableView.h"
 #define navigationBarHeight 44.0
 
-@implementation ECNavigationBar
+@implementation ECNavigationBar{
+    UIButton* _menuButton;
+}
 
 #pragma mark - Methods for navigation bar initialization
 - (id)initWithFrame:(CGRect)frame
@@ -28,6 +31,15 @@
         hideButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [hideButton addTarget:self action:@selector(hideMenu) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:hideButton];
+        
+        // Add Menu Button
+        _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_menuButton setImage:[UIImage imageNamed:@"MenuIcon"] forState:UIControlStateNormal];
+        [_menuButton sizeToFit];
+        _menuButton.center = CGPointMake(5 + _menuButton.frame.size.width/2, self.bounds.size.height/2);
+        _menuButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+        [_menuButton addTarget:self action:@selector(moreMenu) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_menuButton];
     }
     return self;
 }
@@ -50,6 +62,13 @@
     }
 }
 
+- (void)moreMenu{
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"New",@"Open", nil];
+    [actionSheet showFromRect:_menuButton.frame inView:self animated:YES];
+    
+    
+}
+
 #pragma mark - Animation
 - (void)startHideAnimation{
     [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
@@ -66,6 +85,18 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        if (self.delegate) {
+            [self.delegate newMap];
+        }
+    }else if(buttonIndex == 1){
+        ECFileTableView* view = [[ECFileTableView alloc] initWithFrame:self.superview.frame];
+        [self.superview addSubview:view];
+    }
 }
 
 @end

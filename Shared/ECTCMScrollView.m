@@ -152,7 +152,6 @@
         }];
     }else if (recognizer.state == UIGestureRecognizerStateChanged){
         view.center = [recognizer locationInView:view.superview];
-        //CGPoint ma
         if (CGRectGetMaxY(view.frame) < CGRectGetMinY(self.superview.frame))
         {
             [recognizer removeTarget:nil action:NULL];

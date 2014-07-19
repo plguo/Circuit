@@ -16,6 +16,7 @@
 #import "LTAGateInfoView.h"
 #import "LTAInputInfoView.h"
 #import "LGate.h"
+#import "LDataModelDelegate.h"
 
 typedef NS_ENUM(NSUInteger, TapMode){
     TapModeNone,
@@ -30,6 +31,6 @@ typedef NS_ENUM(NSUInteger, MenuState){
     MenuDisappealingState
 };
 
-@interface ViewController : UIViewController<ECNavigationBarDelegate,ECToolBarDelegate,LGateDelegate>
+@interface ViewController : UIViewController<ECNavigationBarDelegate,ECToolBarDelegate,LGateDelegate,LDataModelDelegate>
 
 @end

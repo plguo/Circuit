@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ECNavigationBarDelegate.h"
 
-@interface ECNavigationBar : UIView
+@interface ECNavigationBar : UIView<UIActionSheetDelegate>
 +(instancetype)autosizeTooNavigationBarForView:(UIView*)view;
 - (void)startHideAnimation;
 - (void)startShowAnimation;

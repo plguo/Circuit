@@ -25,6 +25,8 @@ static NSString* const kLDataModelCache;
     
     NSFetchedResultsController* _fetchedResultsController;
     dispatch_queue_t _dataQueue;
+    
+    NSUInteger _lockCount;
 }
 
 #pragma mark - Init Model
@@ -39,13 +41,9 @@ static NSString* const kLDataModelCache;
     self = [super init];
     if (self) {
         _dataQueue = dispatch_queue_create("com.edguo.LogicGate.LDataModel", 0);
+        _lockCount = 0;
         
         [self setupFileSystem];
-        
-        
-        
-        
-        
     }
     return self;
 }
@@ -242,14 +240,14 @@ static NSString* const kLDataModelCache;
     if (![self isMapExisted:name]) {
         NSData* data = UIImagePNGRepresentation(snapshot);
         __weak LDataModel* weakSelf = self;
-        
+        [self lockMap];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             NSData* wireData = [weakSelf wireDataWithWiresArray:wiresArray GatesArray:gatesArray];
             NSData* gateData = [NSKeyedArchiver archivedDataWithRootObject:gatesArray];
             
             [weakSelf addManagedObject:name Snapshot:data GateData:gateData WireData:wireData LastEditedDate:nil];
-            
+            [weakSelf unlockMap];
         });
     }
     
@@ -261,6 +259,7 @@ static NSString* const kLDataModelCache;
     
     NSData* data = UIImagePNGRepresentation(snapshot);
     __weak LDataModel* weakSelf = self;
+    [self lockMap];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -280,6 +279,7 @@ static NSString* const kLDataModelCache;
             
             [LDataModel saveDataModel];
             
+            [weakSelf unlockMap];
         });
         
     });
@@ -319,7 +319,7 @@ static NSString* const kLDataModelCache;
                   GateView:(UIView *)gateView WireView:(UIView *)wireView
 GateGestureRecognizerTarget:(id)target
                  PanAction:(SEL)panAction PortAction:(SEL)portAction{
-    
+    [self lockMap];
     NSManagedObject* managedObject = [_fetchedResultsController objectAtIndexPath:indexPath];
     NSManagedObject* mapData = [managedObject valueForKey:@"mapData"];
     if (mapData) {
@@ -352,6 +352,7 @@ GateGestureRecognizerTarget:(id)target
             
         }
     }
+    [self unlockMap];
     
 }
 
@@ -396,6 +397,24 @@ GateGestureRecognizerTarget:(id)target
         }
     }
     return YES;
+}
+#pragma mark - Map Interaction
+- (void)lockMap{
+    _lockCount += 1;
+    if (_lockCount == 1) {
+        if (self.delegate) {
+            [self.delegate startMapDataProcessing];
+        }
+    }
+}
+
+- (void)unlockMap{
+    _lockCount -= 1;
+    if (_lockCount == 0) {
+        if (self.delegate) {
+            [self.delegate finishMapDataProcessing];
+        }
+    }
 }
 
 #pragma mark- ECTFileMenuDataSource

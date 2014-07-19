@@ -214,13 +214,6 @@
     }
 }
 
-- (void)removeFromSuperview{
-    [super removeFromSuperview];
-    if (self.delegate) {
-        [self.delegate fileMenuDidDisappear];
-    }
-}
-
 - (void)insertCellAtIndexPath:(NSIndexPath*)indexPath{
     for (NSIndexPath* path in _selectedIndexPath) {
         [_collectionView deselectItemAtIndexPath:path animated:YES];

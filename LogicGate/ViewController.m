@@ -13,6 +13,7 @@
 #import "LLight.h"
 #import "LSwitch.h"
 #import "LDataModel.h"
+#import "ECBlockView.h"
 
 @interface ViewController ()
 
@@ -49,6 +50,7 @@
     [super viewDidLoad];
     
     _dataModel = [LDataModel sharedDataModel];
+    _dataModel.delegate = self;
     
     //Setup tool bar
     _toolBar = [ECToolBar autosizeToolBarForView:self.originalContentView];
@@ -93,9 +95,14 @@
     
     //Setup show/hide button
     _showButton= [UIButton buttonWithType:UIButtonTypeCustom];
-    [_showButton setImage:[UIImage imageNamed:@"ShowMenuIcon"] forState:UIControlStateNormal];
-    [_showButton sizeToFit];
+    _showButton.backgroundColor = [UIColor redColor];
+    UIImageView* showButtonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ShowMenuIcon"]];
+    _showButton.frame = CGRectMake(0, 0, CGRectGetWidth(showButtonImage.frame) + 10.0, CGRectGetHeight(showButtonImage.frame) + 10.0);
+    showButtonImage.center = CGPointMake(CGRectGetMidX(_showButton.bounds), CGRectGetMidY(_showButton.bounds));
+    [_showButton addSubview:showButtonImage];
     _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 8, 8, _showButton.frame.size.width, _showButton.frame.size.height);
+    _showButton.layer.cornerRadius = 4.0;
+    _showButton.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
     _showButton.alpha = 0.8;
     _showButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin;
     [_showButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
@@ -426,28 +433,9 @@
 
 #pragma mark - ECTFileMenuDelegate
 - (void)addMapWithName:(NSString*)name{
-    CGSize imageSize = [ECTFileMenuCell preferredSizeForImage];
-    
+    __weak ViewController* weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        CGRect rect = CGRectMake(CGRectGetWidth(_gridView.bounds) - imageSize.width*8.0, CGRectGetHeight(_gridView.bounds) - imageSize.height*8.0, imageSize.width*16.0, imageSize.height*16.0);
-        
-        UIGraphicsBeginImageContextWithOptions(_gridView.bounds.size, YES, 0.0);
-        [_gridView drawViewHierarchyInRect:_gridView.bounds afterScreenUpdates:NO];
-        UIImage* snapshot = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        CGImageRef imageRef = CGImageCreateWithImageInRect(snapshot.CGImage, rect);
-        UIImage* cropImage = [UIImage imageWithCGImage:imageRef scale:snapshot.scale orientation:snapshot.imageOrientation];
-        CGImageRelease(imageRef);
-        
-        CGRect smallRect = CGRectMake(0, 0, cropImage.size.width/4.0, cropImage.size.height/4.0);
-        
-        UIGraphicsBeginImageContext(smallRect.size);
-        [cropImage drawInRect:smallRect];
-        UIImage* smallImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        [_dataModel addMap:name Snapshot:smallImage GatesArray:[self allGate] WiresArray:[self allWire]];
+        [_dataModel addMap:name Snapshot:[weakSelf snapshotForFileMenu] GatesArray:[self allGate] WiresArray:[self allWire]];
     });
 }
 
@@ -521,12 +509,20 @@
     [_dataModel renameMapAtIndexPath:indexPath Name:name];
 }
 
-- (void)fileMenuDidDisappear{
-    //[LDataModel saveDataModel];
+- (void)newMap{
+    [self clearMap];
 }
 
 - (void)clearMap{
     [_gateView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_wireView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+#pragma mark - LDataModelDelegate
+- (void)startMapDataProcessing{
+    self.originalContentView.userInteractionEnabled = NO;
+}
+- (void)finishMapDataProcessing{
+    self.originalContentView.userInteractionEnabled = NO;
 }
 @end

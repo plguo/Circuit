@@ -60,6 +60,10 @@
 		2B325F2D19634A9500F29100 /* ECTComponentsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */; };
 		2B325F2E19634A9500F29100 /* ECTComponentsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */; };
 		2B3805CE195F0F76004E7FC2 /* ButtonIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */; };
+		2B39D322197AB0FD0036C258 /* ECBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B39D321197AB0FD0036C258 /* ECBlockView.m */; };
+		2B39D323197AB0FD0036C258 /* ECBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B39D321197AB0FD0036C258 /* ECBlockView.m */; };
+		2B39D327197ACF920036C258 /* ECFileTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B39D326197ACF920036C258 /* ECFileTableView.m */; };
+		2B39D328197ACF920036C258 /* ECFileTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B39D326197ACF920036C258 /* ECFileTableView.m */; };
 		2B3C6FC3195F3D2D002FDFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE2195C7C7E00EBF2E6 /* Foundation.framework */; };
 		2B3C6FC4195F3D2D002FDFDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE4195C7C7E00EBF2E6 /* CoreGraphics.framework */; };
 		2B3C6FC5195F3D2D002FDFDC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B097FE6195C7C7E00EBF2E6 /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -166,6 +170,12 @@
 		2B325F2B19634A9500F29100 /* ECTComponentsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECTComponentsMenu.h; path = Shared/ECTComponentsMenu.h; sourceTree = "<group>"; };
 		2B325F2C19634A9500F29100 /* ECTComponentsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTComponentsMenu.m; path = Shared/ECTComponentsMenu.m; sourceTree = "<group>"; };
 		2B3805CD195F0F76004E7FC2 /* ButtonIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ButtonIcons.xcassets; path = Shared/ButtonIcons.xcassets; sourceTree = "<group>"; };
+		2B39D320197AB0FD0036C258 /* ECBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECBlockView.h; path = Shared/ECBlockView.h; sourceTree = "<group>"; };
+		2B39D321197AB0FD0036C258 /* ECBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECBlockView.m; path = Shared/ECBlockView.m; sourceTree = "<group>"; };
+		2B39D324197AB7620036C258 /* LDataModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDataModelDelegate.h; sourceTree = "<group>"; };
+		2B39D325197ACF920036C258 /* ECFileTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECFileTableView.h; path = Shared/ECFileTableView.h; sourceTree = "<group>"; };
+		2B39D326197ACF920036C258 /* ECFileTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECFileTableView.m; path = Shared/ECFileTableView.m; sourceTree = "<group>"; };
+		2B39D329197AD6180036C258 /* ECFileTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECFileTableViewDataSource.h; path = Shared/ECFileTableViewDataSource.h; sourceTree = "<group>"; };
 		2B3C6FC2195F3D2D002FDFDC /* LogicGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LogicGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B3C6FC8195F3D2D002FDFDC /* LogicGate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicGate-Info.plist"; sourceTree = "<group>"; };
 		2B3C6FCA195F3D2D002FDFDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -369,6 +379,11 @@
 				2B0F9B231977217300F46C33 /* ECTFileMenu.m */,
 				2B0F9B26197721D400F46C33 /* ECTFileMenuCell.h */,
 				2B0F9B27197721D400F46C33 /* ECTFileMenuCell.m */,
+				2B39D320197AB0FD0036C258 /* ECBlockView.h */,
+				2B39D321197AB0FD0036C258 /* ECBlockView.m */,
+				2B39D325197ACF920036C258 /* ECFileTableView.h */,
+				2B39D326197ACF920036C258 /* ECFileTableView.m */,
+				2B39D329197AD6180036C258 /* ECFileTableViewDataSource.h */,
 			);
 			name = ECTFileMenu;
 			sourceTree = "<group>";
@@ -509,6 +524,7 @@
 				2B8F23A119720CCC00FD2A85 /* LDataModel.h */,
 				2B8F23A219720CCC00FD2A85 /* LDataModel.m */,
 				2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */,
+				2B39D324197AB7620036C258 /* LDataModelDelegate.h */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -705,8 +721,10 @@
 				2B097FFC195C7C7E00EBF2E6 /* ViewController.m in Sources */,
 				2B0C3F9B196CC33D0026300F /* LTAGateInfoView.m in Sources */,
 				2B06E600195C822400DE0165 /* ECToolBar.m in Sources */,
+				2B39D322197AB0FD0036C258 /* ECBlockView.m in Sources */,
 				2B097FF3195C7C7E00EBF2E6 /* AppDelegate.m in Sources */,
 				2B0F9B28197721D400F46C33 /* ECTFileMenuCell.m in Sources */,
+				2B39D327197ACF920036C258 /* ECFileTableView.m in Sources */,
 				2B325F2D19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
 				2B097FEF195C7C7E00EBF2E6 /* main.m in Sources */,
 			);
@@ -753,8 +771,10 @@
 				2B0F9B29197721D400F46C33 /* ECTFileMenuCell.m in Sources */,
 				2B12D48D196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */,
 				2BFA241319604BAE00D35073 /* LGate.m in Sources */,
+				2B39D328197ACF920036C258 /* ECFileTableView.m in Sources */,
 				2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,
 				2B325F2E19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
+				2B39D323197AB0FD0036C258 /* ECBlockView.m in Sources */,
 				2B3C6FCD195F3D2D002FDFDC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

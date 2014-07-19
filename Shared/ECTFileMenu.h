@@ -19,8 +19,6 @@
 - (void)removeMapInIndexArray:(NSArray*)indexArray;
 
 - (void)renameMapAtIndexPath:(NSIndexPath*)indexPath Name:(NSString*)name;
-
-- (void)fileMenuDidDisappear;
 @end
 
 @protocol ECTFileMenuDataSource <UICollectionViewDataSource>

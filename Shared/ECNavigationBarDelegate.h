@@ -10,4 +10,5 @@
 
 @protocol ECNavigationBarDelegate <NSObject>
 - (void)hideMenu;
+- (void)newMap;
 @end

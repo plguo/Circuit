@@ -26,7 +26,10 @@
         CGSize contentSize = CGSizeMake(frame.size.width - MARGIN_WIDTH*2, frame.size.height - MARGIN_WIDTH*2);
         _width = (NSUInteger)contentSize.width/GRID_WIDTH + 1;
         _height = (NSUInteger)contentSize.height/GRID_WIDTH + 1;
-        _gridRect = CGRectMake(MARGIN_WIDTH+GRID_WIDTH, MARGIN_WIDTH+GRID_WIDTH, GRID_WIDTH*(_width-3), GRID_WIDTH*(_height-3));
+        _gridRect = CGRectMake(MARGIN_WIDTH+GRID_WIDTH,
+                               MARGIN_WIDTH+GRID_WIDTH,
+                               GRID_WIDTH*(_width-3),
+                               GRID_WIDTH*(_height-3));
         
         _gridWidth = GRID_WIDTH;
         _marginWidth = MARGIN_WIDTH;
