@@ -60,8 +60,11 @@ static NSString* const kLDataModelCache;
 
 #pragma mark - Method for database
 #pragma mark add
-- (void)addManagedObject:(NSString *)name Snapshot:(NSData*)snapshot LastEditedDate:(NSDate*)date{
-    if (name != nil) {
+- (void)addManagedObject:(NSString *)name Snapshot:(NSData*)snapshot
+                GateData:(NSData*)gateData WireData:(NSData*)wireData
+          LastEditedDate:(NSDate*)date{
+    
+    if (name != nil && gateData != nil && wireData != nil) {
         dispatch_async(_dataQueue, ^{
             NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"LDMap" inManagedObjectContext:_managedObjectContext];
             
@@ -97,6 +100,13 @@ static NSString* const kLDataModelCache;
                 
                 [managedObject setValue:data forKey:@"snapshot"];
             }
+            
+            NSManagedObject* managedObjectData = [NSEntityDescription insertNewObjectForEntityForName:@"LDMapData" inManagedObjectContext:_managedObjectContext];
+            
+            [managedObjectData setValue:gateData forKey:@"gateData"];
+            
+            [managedObjectData setValue:wireData forKey:@"wireData"];
+            
             [LDataModel saveDataModel];
         });
     }
@@ -104,12 +114,13 @@ static NSString* const kLDataModelCache;
 
 #pragma mark setup
 - (void)setupFileSystem{
+    NSURL* documentsDirectory = [self documentsDirectory];
     dispatch_async(_dataQueue, ^{
         //Core Data
         NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"LGMapModel" withExtension:@"momd"];
         _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
         
-        NSURL *storeURL = [[self documentsDirectory] URLByAppendingPathComponent:@"LGMapModel.sqlite"];
+        NSURL *storeURL = [documentsDirectory URLByAppendingPathComponent:@"LGMapModel.sqlite"];
         
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
@@ -182,10 +193,6 @@ static NSString* const kLDataModelCache;
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-- (NSURL *)saveDirectory{
-    return [[self documentsDirectory] URLByAppendingPathComponent:@"Save" isDirectory:YES];
-}
-
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return [[_fetchedResultsController sections] count];
@@ -213,16 +220,43 @@ static NSString* const kLDataModelCache;
 }
 
 #pragma mark - Save Map
-- (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot{
+- (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot
+    GatesArray:(NSArray *)gatesArray WiresArray:(NSArray *)wiresArray{
+    
     if (![self isMapExisted:name]) {
-            NSData* data = UIImagePNGRepresentation(snapshot);
-            [self addManagedObject:name Snapshot:data LastEditedDate:nil];
+        NSData* data = UIImagePNGRepresentation(snapshot);
+        __weak LDataModel* weakSelf = self;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            NSData* wireData = [weakSelf wireDataWithWiresArray:wiresArray GatesArray:gatesArray];
+            NSData* gateData = [NSKeyedArchiver archivedDataWithRootObject:gatesArray];
+            
+            [weakSelf addManagedObject:name Snapshot:data GateData:gateData WireData:wireData LastEditedDate:nil];
+            
+        });
     }
+    
 }
 
 
-- (void)saveMap:(NSString*)name GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray Snapshot:(UIImage*)snapshot{
-    
+- (NSData*)wireDataWithWiresArray:(NSArray*)wiresArray GatesArray:(NSArray*)gatesArray{
+    NSMutableSet* set = [NSMutableSet setWithCapacity:wiresArray.count];
+    for (LWire* wire in wiresArray) {
+        if (wire.startPort && wire.endPort) {
+            NSUInteger startIndex = [gatesArray indexOfObject:wire.startPort.superGate];
+            NSUInteger endIndex = [gatesArray indexOfObject:wire.endPort.superGate];
+            if (startIndex != NSNotFound || endIndex != NSNotFound) {
+                NSNumber* startIndexNumber = [NSNumber numberWithUnsignedInteger:startIndex];
+                NSNumber* endIndexNumber = [NSNumber numberWithUnsignedInteger:endIndex];
+                NSArray* aWireInfoArray = @[startIndexNumber,endIndexNumber];
+                [set addObject:aWireInfoArray];
+            }
+            
+        }
+    }
+    NSData* data = [NSKeyedArchiver archivedDataWithRootObject:[set allObjects]];
+    return data;
 }
 
 - (void)deleteMapsAtIndexPath:(NSArray *)indexPaths{

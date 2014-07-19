@@ -14,7 +14,7 @@
 + (instancetype)sharedDataModel;
 + (void)saveDataModel;
 - (void)deleteCache;
-- (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot;
+- (void)addMap:(NSString*)name Snapshot:(UIImage *)snapshot GatesArray:(NSArray*)gatesArray WiresArray:(NSArray*)wiresArray;
 - (void)deleteMapsAtIndexPath:(NSArray*)indexPaths;
 
 - (void)renameMapAtIndexPath:(NSIndexPath *)indexPath Name:(NSString *)name;

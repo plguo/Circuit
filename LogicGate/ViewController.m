@@ -447,8 +447,28 @@
         UIImage* smallImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        [_dataModel addMap:name Snapshot:smallImage];
+        [_dataModel addMap:name Snapshot:smallImage GatesArray:[self allGate] WiresArray:[self allWire]];
     });
+}
+
+- (NSArray*)allGate{
+    NSMutableArray* array = [NSMutableArray arrayWithCapacity:_gateView.subviews.count];
+    for (UIView* view in _gateView.subviews) {
+        if ([view isKindOfClass:[LGate class]]) {
+            [array addObject:(LGate*)view];
+        }
+    }
+    return array;
+}
+
+- (NSArray*)allWire{
+    NSMutableArray* array = [NSMutableArray arrayWithCapacity:_wireView.subviews.count];
+    for (UIView* view in _wireView.subviews) {
+        if ([view isKindOfClass:[LWire class]]) {
+            [array addObject:(LWire*)view];
+        }
+    }
+    return array;
 }
 
 - (void)saveMapAtIndexPath:(NSIndexPath *)indexPath{
