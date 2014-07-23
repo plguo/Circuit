@@ -8,7 +8,7 @@
 
 #import "LGate.h"
 #import "LTAInputInfoViewDelegate.h"
-
 @interface LInputGate : LGate<LTAInputInfoViewDelegate>
++(NSString*)inputDidUpdateNotificationKey;
 @property (nonatomic) NSString* inputName;
 @end

@@ -30,6 +30,9 @@
 + (NSString*)gateName;
 - (NSString*)booleanFormulaWithFormat:(NSInteger)format;
 
+- (void)startUpdateTimer;
+- (void)endUpdateTimer;
+
 - (void)initUserInteractionWithTarget:(id)target action:(SEL)sector;
 
 @property (nonatomic,weak) id<LGateDelegate> delegate;

@@ -133,8 +133,9 @@
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         [self drawWireWithPosition:[recognizer locationInView:recognizer.view.superview.superview]];
     }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded){
+        
         UIView* view = [recognizer.view.superview.superview hitTest:[recognizer locationInView:recognizer.view.superview.superview]
-                                                withEvent:nil];
+                                                          withEvent:nil];
         if (view) {
             if ([view isKindOfClass:[LPort class]]) {
                 [self connectNewPort:(LPort *)view];
@@ -195,8 +196,40 @@
 
 -(void)drawWire{
     if (self.startPort && self.endPort && self.superview) {
-        CGPoint startPos = [self.superview convertPoint:self.startPort.center fromView:self.startPort.superview];
-        CGPoint endPos = [self.superview convertPoint:self.endPort.center fromView:self.endPort.superview];
+        CALayer* startGateLayer = self.startPort.superGate.layer.presentationLayer;
+        CGPoint startPos;
+        if (startGateLayer) {
+            startPos = [self.superview convertPoint:startGateLayer.frame.origin
+                                                   fromView:self.startPort.superGate.superview];
+            
+            CGPoint startCenter = [self.startPort.superGate.superview convertPoint:self.startPort.center
+                                                                          fromView:self.startPort.superGate];
+            
+            startCenter = CGPointMake(startCenter.x - self.startPort.superGate.frame.origin.x,
+                                      startCenter.y - self.startPort.superGate.frame.origin.y);
+            
+            startPos = CGPointMake(startPos.x + startCenter.x, startPos.y + startCenter.y);
+        }else{
+             startPos = [self.superview convertPoint:self.startPort.center fromView:self.startPort.superview];
+        }
+        
+        CALayer* endGateLayer = self.endPort.superGate.layer.presentationLayer;
+        CGPoint endPos;
+        if (endGateLayer) {
+            endPos = [self.superview convertPoint:endGateLayer.frame.origin
+                                           fromView:self.endPort.superGate.superview];
+            
+            CGPoint endCenter = [self.endPort.superGate.superview convertPoint:self.endPort.center
+                                                                          fromView:self.endPort.superGate];
+            
+            endCenter = CGPointMake(endCenter.x - self.endPort.superGate.frame.origin.x,
+                                    endCenter.y - self.endPort.superGate.frame.origin.y);
+            
+            endPos = CGPointMake(endPos.x + endCenter.x, endPos.y + endCenter.y);
+        }else{
+            endPos = [self.superview convertPoint:self.endPort.center fromView:self.endPort.superview];
+        }
+        
         [self drawPathWithStartPosition:startPos andEndPosition:endPos];
     }
 }
@@ -233,9 +266,13 @@
     [bezierPath addLineToPoint:endPosition];
     
     CAShapeLayer* layer = (CAShapeLayer*)self.layer;
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
     layer.path = bezierPath.CGPath;
-    
     self.frame = CGRectMake(minPos.x, minPos.y, self.frame.size.width, self.frame.size.height);
+    [CATransaction commit];
+    
+    
 }
 
 @end

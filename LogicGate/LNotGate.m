@@ -43,9 +43,9 @@
             LGate* startGate = inP1.inWire.startPort.superGate;
             if (startGate) {
                 if (format == 1) {
-                    return [NSString stringWithFormat:@"¬ ( %@ )",[startGate booleanFormulaWithFormat:format]];
+                    return [NSString stringWithFormat:@"¬ %@",[startGate booleanFormulaWithFormat:format]];
                 }else{
-                    return [NSString stringWithFormat:@"NOT ( %@ )",[startGate booleanFormulaWithFormat:format]];
+                    return [NSString stringWithFormat:@"NOT %@",[startGate booleanFormulaWithFormat:format]];
                 }
             }
         }

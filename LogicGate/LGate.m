@@ -12,7 +12,7 @@
 
 @implementation LGate{
     BOOL _initializedUserInteraction;
-    
+    NSTimer* _updateTimer;
     UIView* _selectedView;
 }
 
@@ -142,16 +142,13 @@
 
 - (void)portRealInputDidChange:(PortType)portType{
     [self updateRealIntput];
+    if (self.delegate) {
+        [self.delegate gateBooleanFormulaDidChange];
+    }
 }
 
 - (void)portBoolStatusDidChange:(PortType)portType{
     [self updateOutput];
-}
-
-- (void)portWireDidChange{
-    if (self.delegate) {
-        [self.delegate gateBooleanFormulaDidChange];
-    }
 }
 
 #pragma mark - Selected Layer
@@ -177,16 +174,41 @@
     }
 }
 
+#pragma mark - Timer
+- (void)startUpdateTimer{
+    if (!_updateTimer) {
+        _updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.015
+                                                        target:self
+                                                      selector:@selector(positionDidChange)
+                                                      userInfo:nil
+                                                       repeats:YES];
+        [_updateTimer setTolerance:0.01];
+    }
+}
+
+- (void)endUpdateTimer{
+    if (_updateTimer) {
+        [_updateTimer invalidate];
+        _updateTimer = nil;
+    }
+}
+
+#pragma mark - PositionDidChange
+
+- (void)positionDidChange{
+    for (LPort *aPort in _inPorts){
+        [aPort gatePositionDidChange];
+    }
+    for (LPort *aPort in _outPorts){
+        [aPort gatePositionDidChange];
+    }
+}
+
 
 #pragma mark - KVO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if ([keyPath isEqualToString:kPositionKeyPath] && _initializedUserInteraction) {
-        for (LPort *aPort in _inPorts){
-            [aPort gatePositionDidChange];
-        }
-        for (LPort *aPort in _outPorts){
-            [aPort gatePositionDidChange];
-        }
+        [self positionDidChange];
     }
 }
 

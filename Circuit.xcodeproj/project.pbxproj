@@ -521,8 +521,8 @@
 			children = (
 				2B8F23A119720CCC00FD2A85 /* LDataModel.h */,
 				2B8F23A219720CCC00FD2A85 /* LDataModel.m */,
-				2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */,
 				2B39D324197AB7620036C258 /* LDataModelDelegate.h */,
+				2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */,
 			);
 			name = Data;
 			sourceTree = "<group>";

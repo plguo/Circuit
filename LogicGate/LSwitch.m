@@ -39,7 +39,7 @@
     [button addTarget:self action:@selector(touchUp) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
     
-    self.inputName = @"<-Variable->";
+    self.inputName = @"Variable";
     _outputState = NO;
 }
 
@@ -50,6 +50,8 @@
     outP1.boolStatus = _outputState;
     
     self.image = [UIImage imageNamed:[self imageName]];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:[LInputGate inputDidUpdateNotificationKey] object:self];
 }
 
 -(NSString*)imageName{
@@ -64,9 +66,6 @@
     return GateTypeSwitch;
 }
 
--(NSString*)booleanFormulaWithFormat:(NSInteger)format{
-    return self.inputName;
-}
 
 +(NSString*)gateName{
     return @"Switch";

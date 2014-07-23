@@ -7,7 +7,7 @@
 //
 
 #import "LTAGateInfoView.h"
-
+#import "LInputGate.h"
 
 @implementation LTAGateInfoView{
     UITextView* _textView;
@@ -66,6 +66,10 @@
     if (delegate) {
         _delegate = delegate;
         [self performSelectorInBackground:@selector(loadBooleanFormula) withObject:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(inputDidUpdate)
+                                                     name:[LInputGate inputDidUpdateNotificationKey]
+                                                   object:nil];
     }
 }
 
@@ -82,19 +86,17 @@
         
         NSMutableString* string = [[NSMutableString alloc] initWithString:[self.delegate booleanFormulaWithFormat:_format]];
         
-        if ([[string substringToIndex:1] isEqualToString:@"("]) {
+        if ([[string substringToIndex:1] isEqualToString:@"("] && [[string substringFromIndex:string.length - 1] isEqualToString:@")"]) {
             [string deleteCharactersInRange:NSMakeRange(0, 1)];
-        }
-        
-        if ([[string substringFromIndex:string.length - 1] isEqualToString:@")"]) {
             [string deleteCharactersInRange:NSMakeRange(string.length - 1, 1)];
         }
+        
         
         UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
         UIFont* boldFont = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
         NSDictionary* dict = @{NSFontAttributeName:font,NSForegroundColorAttributeName:[UIColor whiteColor]};
         
-        if ([string rangeOfString:@"<-"].location == NSNotFound) {
+        if ([string rangeOfString:@"<-"].location == NSNotFound && [string rangeOfString:@"->"].location == NSNotFound) {
             NSMutableAttributedString*attString = [[NSMutableAttributedString alloc] initWithString:string
                                                                                          attributes:dict];
             [_textView performSelectorOnMainThread:@selector(setAttributedText:) withObject:attString waitUntilDone:NO];
@@ -122,9 +124,34 @@
                 }else if ([subString isEqualToString:@"->"]){
                     if (beginLocation >= 0) {
                         if (counter == 0) {
-                            NSRange range = NSMakeRange(beginLocation, i - beginLocation);
-                            [rangeSet addObject:[NSValue valueWithRange:range]];
-                            [string deleteCharactersInRange:subStringRange];
+                            NSRange range; //= NSMakeRange(beginLocation, i - beginLocation);
+                            NSNumber* status;
+                            
+                            NSString* boolString = [string substringWithRange:NSMakeRange(subStringRange.location - 1, 1)];
+                            if ([boolString isEqualToString:@"0"]) {
+                                
+                                range = NSMakeRange(beginLocation, i - beginLocation - 1);
+                                status = [NSNumber numberWithBool:NO];
+                                [string deleteCharactersInRange:NSMakeRange(subStringRange.location - 1, subStringRange.length + 1)];
+                                
+                            }else if ([boolString isEqualToString:@"1"]) {
+                                
+                                range = NSMakeRange(beginLocation, i - beginLocation - 1);
+                                status = [NSNumber numberWithBool:YES];
+                                [string deleteCharactersInRange:NSMakeRange(subStringRange.location - 1, subStringRange.length + 1)];
+                                
+                            }else{
+                                
+                                range = NSMakeRange(beginLocation, i - beginLocation);
+                                status = [NSNumber numberWithBool:YES];
+                                [string deleteCharactersInRange:subStringRange];
+                                
+                            }
+                            NSValue* rangeValue = [NSValue valueWithRange:range];
+                            
+                            
+                            [rangeSet addObject:@[rangeValue,status]];
+                            
                             beginLocation = -1;
                         }else{
                             counter -= 1;
@@ -134,9 +161,16 @@
             }
             
             NSMutableAttributedString* attString = [[NSMutableAttributedString alloc] initWithString:(NSString *)string attributes:dict];
-            for (NSValue* value in rangeSet) {
+            for (NSArray* valueArray in rangeSet) {
+                NSValue* value = valueArray[0];
                 NSRange range = [value rangeValue];
-                [attString addAttribute:NSBackgroundColorAttributeName value:[UIColor colorWithRed:0.18 green:0.8 blue:0.44 alpha:1.0] range:range];
+                
+                NSNumber* status = valueArray[1];
+                if ([status boolValue]) {
+                    [attString addAttribute:NSBackgroundColorAttributeName value:[UIColor colorWithRed:0.18 green:0.8 blue:0.44 alpha:1.0] range:range];
+                }else{
+                    [attString addAttribute:NSBackgroundColorAttributeName value:[UIColor colorWithRed:0.9 green:0.298 blue:0.235 alpha:1.0] range:range];
+                }
                 [attString addAttribute:NSFontAttributeName value:boldFont range:range];
             }
             
@@ -144,4 +178,13 @@
         }
     }
 }
+
+- (void)inputDidUpdate{
+    [self loadBooleanFormula];
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+         
 @end

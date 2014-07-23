@@ -45,6 +45,9 @@
             [pointer portWillRemoveWires:self.type];
         }
     }
+    if (self.type == PortTypeInput) {
+        [self inWireWillRemove];
+    }
 }
 
 - (BOOL)allowToConnect{
@@ -80,24 +83,12 @@
             }
         }
     }
-    for (id<LPortDelegate> pointer in _delegatesArray){
-        if ([pointer respondsToSelector:@selector(portWireDidChange)]) {
-            [pointer portWireDidChange];
-        }
-    }
 }
 
 - (void)inWireWillRemove{
     self.boolStatus = NO;
     self.realInput = NO;
     self.inWire = nil;
-    
-    [_delegatesArray compact];
-    for (id<LPortDelegate> pointer in _delegatesArray){
-        if ([pointer respondsToSelector:@selector(portWireDidChange)]) {
-            [pointer portWireDidChange];
-        }
-    }
 }
 
 - (void)inWireBoolStatusDidChange{

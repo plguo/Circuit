@@ -15,7 +15,7 @@
     self.outPorts = [NSArray arrayWithObject:outP1];
     [self addSubview:outP1];
     
-    self.inputName = @"<-True->";
+    self.inputName = @"True";
 }
 
 -(NSString*)imageName{
@@ -29,10 +29,6 @@
 
 -(GateType)getDefultGateType{
     return GateTypeTrueOutput;
-}
-
--(NSString*)booleanFormulaWithFormat:(NSInteger)format{
-    return self.inputName;
 }
 
 +(NSString*)gateName{

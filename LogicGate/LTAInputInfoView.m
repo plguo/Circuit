@@ -50,7 +50,7 @@
         _delegate = delegate;
         NSString* inputName = [_delegate inputName];
         if (inputName) {
-            _textField.text = [inputName substringWithRange:NSMakeRange(2, inputName.length-4)];
+            _textField.text = inputName;
         }
     }
 }
@@ -58,7 +58,7 @@
 - (void)done{
     [_textField resignFirstResponder];
     if (self.delegate && _textField.text.length > 0) {
-        [self.delegate setInputName:[NSString stringWithFormat:@"<-%@->",_textField.text]];
+        [self.delegate setInputName:_textField.text];
     }
 }
 

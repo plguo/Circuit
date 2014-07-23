@@ -26,8 +26,17 @@
     [coder encodeObject:_inputName forKey:@"InputName"];
 }
 
+-(NSString*)booleanFormulaWithFormat:(NSInteger)format{
+    LPort* outP1 = self.outPorts[0];
+    NSString* nameFormat = outP1.boolStatus ? @"<-%@1->" : @"<-%@0->";
+    return [NSString stringWithFormat:nameFormat,self.inputName];
+}
+
 -(BOOL)isRealInputSource{
     return YES;
 }
 
++(NSString*)inputDidUpdateNotificationKey{
+    return @"LInputGateDidUpdateNotificationKey";
+}
 @end

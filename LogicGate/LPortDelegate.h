@@ -19,5 +19,4 @@ typedef NS_ENUM(NSUInteger, PortType){
 - (void)portBoolStatusDidChange:(PortType)portType;
 - (void)portPositionDidChange;
 - (void)portWillRemoveWires:(PortType)portType;
-- (void)portWireDidChange;
 @end

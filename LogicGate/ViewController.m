@@ -168,14 +168,17 @@
 
 #pragma mark - Handle Gesture Recognizers
 -(void)handlePanFrom:(UIPanGestureRecognizer *)recognizer{
-    UIView* gate = recognizer.view;
+    LGate* gate = (LGate*)recognizer.view;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         
         [UIView animateWithDuration:0.2 animations:^{
             gate.transform = CGAffineTransformMakeScale(1.2, 1.2);
             gate.center = [recognizer locationInView:gate.superview];
             gate.alpha = 0.7;
+        } completion:^(BOOL finished) {
+            [gate endUpdateTimer];
         }];
+        [gate startUpdateTimer];
         
     }else if (recognizer.state == UIGestureRecognizerStateChanged){
         gate.center = [recognizer locationInView:gate.superview];
@@ -195,11 +198,16 @@
         CGRect snapRect = CGRectMake(snapPoint.x - gateSize.width/2 , snapPoint.y - gateSize.height/2, gateSize.width, gateSize.height);
         snapRect = CGRectInset(snapRect, - 5.0, - 5.0);
         [_mainScrollView scrollRectToVisible:snapRect animated:YES];
+        
+        
         [UIView animateWithDuration:0.2 animations:^{
             gate.transform = CGAffineTransformIdentity;
             gate.center = snapPoint;
             gate.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            [gate endUpdateTimer];
         }];
+        [gate startUpdateTimer];
         
     }
 }
