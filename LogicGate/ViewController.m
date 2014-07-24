@@ -8,6 +8,11 @@
 
 #import "ViewController.h"
 #import "LAndGate.h"
+#import "LNandGate.h"
+#import "LOrGate.h"
+#import "LNorGate.h"
+#import "LXorGate.h"
+#import "LXnorGate.h"
 #import "LNotGate.h"
 #import "LTrueOutput.h"
 #import "LLight.h"
@@ -343,23 +348,43 @@
         case 0:
             return [LAndGate gate];
             break;
-            
+        
         case 1:
-            return [LNotGate gate];
+            return [LNandGate gate];
             break;
-            
+        
         case 2:
-            return [LSwitch gate];
+            return [LOrGate gate];
             break;
         
         case 3:
-            return [LTrueOutput gate];
+            return [LNorGate gate];
             break;
         
         case 4:
-            return [LLight gate];
+            return [LXorGate gate];
+            break;
+        
+        case 5:
+            return [LXnorGate gate];
             break;
             
+        case 6:
+            return [LNotGate gate];
+            break;
+            
+        case 7:
+            return [LSwitch gate];
+            break;
+        
+        case 8:
+            return [LTrueOutput gate];
+            break;
+        
+        case 9:
+            return [LLight gate];
+            break;
+        
         default:
             break;
     }
@@ -373,20 +398,40 @@
             break;
             
         case 1:
-            return [LNotGate gateName];
+            return [LNandGate gateName];
             break;
             
         case 2:
-            return [LSwitch gateName];
+            return [LOrGate gateName];
+            break;
             
         case 3:
+            return [LNorGate gateName];
+            break;
+            
+        case 4:
+            return [LXorGate gateName];
+            break;
+            
+        case 5:
+            return [LXnorGate gateName];
+            break;
+            
+        case 6:
+            return [LNotGate gateName];
+            break;
+            
+        case 7:
+            return [LSwitch gateName];
+            break;
+            
+        case 8:
             return [LTrueOutput gateName];
             break;
-        
-        case 4:
+            
+        case 9:
             return [LLight gateName];
             break;
-
             
         default:
             break;
@@ -395,7 +440,7 @@
 }
 
 - (NSUInteger)componentsMenuNumberOfViews{
-    return 5;
+    return 10;
 }
 
 #pragma mark - LGateDelegate

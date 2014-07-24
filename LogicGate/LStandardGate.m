@@ -22,6 +22,16 @@
     [self addSubview:outP1];
 }
 
+-(void)updateOutput{
+    if (self.realInput) {
+        LPort *outP1 = [self.outPorts objectAtIndex:0];
+        LPort *inP1 = [self.inPorts objectAtIndex:0];
+        LPort *inP2 = [self.inPorts objectAtIndex:1];
+        outP1.boolStatus = [self outputForFirstInput:inP1.boolStatus
+                                         SecondInput:inP2.boolStatus];
+    }
+}
+
 -(NSString*)formatInBooleanFormula:(NSInteger)format{
     return @"( %@ ? %@ )";
 }
@@ -41,4 +51,7 @@
     return [super booleanFormulaWithFormat:format];
 }
 
+- (BOOL)outputForFirstInput:(BOOL)firstInput SecondInput:(BOOL)secondInput{
+    return NO;
+}
 @end

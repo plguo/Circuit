@@ -1,42 +1,42 @@
 //
-//  LAndGate.m
+//  LNandGate.m
 //  Circuit
 //
-//  Created by Edward Guo on 2014-07-05.
+//  Created by Edward Guo on 2014-07-24.
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
 
-#import "LAndGate.h"
+#import "LNandGate.h"
 
-@implementation LAndGate
+@implementation LNandGate
 
 -(NSString*)imageName{
-    return @"and_gate";
+    return @"nand_gate";
 }
 
 - (BOOL)outputForFirstInput:(BOOL)firstInput SecondInput:(BOOL)secondInput{
-    return (firstInput && secondInput);
+    return (!(firstInput && secondInput));
 }
 
 -(GateType)getDefultGateType{
-    return GateTypeAND;
+    return GateTypeNAND;
 }
 
 -(NSString*)formatInBooleanFormula:(NSInteger)format{
     switch (format) {
         case 0:
         default:
-            return @"( %@ AND %@ )";
+            return @"( %@ NAND %@ )";
             break;
-        
+            
         case 1:
-            return @"( %@ ∧ %@ )";
+            return @"( ¬( %@ ∧ %@ ) )";
             break;
     }
 }
 
 +(NSString*)gateName{
-    return @"AND Gate";
+    return @"NAND Gate";
 }
 
 @end

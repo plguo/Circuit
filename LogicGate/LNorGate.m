@@ -1,42 +1,42 @@
 //
-//  LAndGate.m
+//  LNorGate.m
 //  Circuit
 //
-//  Created by Edward Guo on 2014-07-05.
+//  Created by Edward Guo on 2014-07-24.
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
 
-#import "LAndGate.h"
+#import "LNorGate.h"
 
-@implementation LAndGate
+@implementation LNorGate
 
 -(NSString*)imageName{
-    return @"and_gate";
+    return @"nor_gate";
 }
 
 - (BOOL)outputForFirstInput:(BOOL)firstInput SecondInput:(BOOL)secondInput{
-    return (firstInput && secondInput);
+    return ( !(firstInput || secondInput) );
 }
 
 -(GateType)getDefultGateType{
-    return GateTypeAND;
+    return GateTypeNOR;
 }
 
 -(NSString*)formatInBooleanFormula:(NSInteger)format{
     switch (format) {
         case 0:
         default:
-            return @"( %@ AND %@ )";
+            return @"( %@ NOR %@ )";
             break;
-        
+            
         case 1:
-            return @"( %@ ∧ %@ )";
+            return @"( ¬( %@ ∨ %@ ) )";
             break;
     }
 }
 
 +(NSString*)gateName{
-    return @"AND Gate";
+    return @"NOR Gate";
 }
 
 @end

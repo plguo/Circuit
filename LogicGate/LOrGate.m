@@ -1,42 +1,42 @@
 //
-//  LAndGate.m
+//  LOrGate.m
 //  Circuit
 //
-//  Created by Edward Guo on 2014-07-05.
+//  Created by Edward Guo on 2014-07-24.
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
 
-#import "LAndGate.h"
+#import "LOrGate.h"
 
-@implementation LAndGate
+@implementation LOrGate
 
 -(NSString*)imageName{
-    return @"and_gate";
+    return @"or_gate";
 }
 
 - (BOOL)outputForFirstInput:(BOOL)firstInput SecondInput:(BOOL)secondInput{
-    return (firstInput && secondInput);
+    return (firstInput || secondInput);
 }
 
 -(GateType)getDefultGateType{
-    return GateTypeAND;
+    return GateTypeOR;
 }
 
 -(NSString*)formatInBooleanFormula:(NSInteger)format{
     switch (format) {
         case 0:
         default:
-            return @"( %@ AND %@ )";
+            return @"( %@ OR %@ )";
             break;
-        
+            
         case 1:
-            return @"( %@ ∧ %@ )";
+            return @"( %@ ∨ %@ )";
             break;
     }
 }
 
 +(NSString*)gateName{
-    return @"AND Gate";
+    return @"OR Gate";
 }
 
 @end

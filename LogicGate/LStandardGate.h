@@ -10,4 +10,5 @@
 
 @interface LStandardGate : LGate
 -(NSString*)formatInBooleanFormula:(NSInteger)format;
+- (BOOL)outputForFirstInput:(BOOL)firstInput SecondInput:(BOOL)secondInput;
 @end

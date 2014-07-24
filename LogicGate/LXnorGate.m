@@ -1,42 +1,42 @@
 //
-//  LAndGate.m
+//  LXnorGate.m
 //  Circuit
 //
-//  Created by Edward Guo on 2014-07-05.
+//  Created by Edward Guo on 2014-07-24.
 //  Copyright (c) 2014 Edward Peiliang Guo. All rights reserved.
 //
 
-#import "LAndGate.h"
+#import "LXnorGate.h"
 
-@implementation LAndGate
+@implementation LXnorGate
 
 -(NSString*)imageName{
-    return @"and_gate";
+    return @"xnor_gate";
 }
 
 - (BOOL)outputForFirstInput:(BOOL)firstInput SecondInput:(BOOL)secondInput{
-    return (firstInput && secondInput);
+    return ( !(firstInput ^ secondInput) );
 }
 
 -(GateType)getDefultGateType{
-    return GateTypeAND;
+    return GateTypeXNOR;
 }
 
 -(NSString*)formatInBooleanFormula:(NSInteger)format{
     switch (format) {
         case 0:
         default:
-            return @"( %@ AND %@ )";
+            return @"( %@ XNOR %@ )";
             break;
-        
+            
         case 1:
-            return @"( %@ ∧ %@ )";
+            return @"( ¬( %@ ⊕ %@ ) )";
             break;
     }
 }
 
 +(NSString*)gateName{
-    return @"AND Gate";
+    return @"XOR Gate";
 }
 
 @end

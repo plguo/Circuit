@@ -27,6 +27,11 @@
 		2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */; };
 		2B0C3F9B196CC33D0026300F /* LTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */; };
 		2B0C3F9C196CC33D0026300F /* LTAGateInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */; };
+		2B0DAC3219819E1F00DC84AA /* LNandGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC3119819E1F00DC84AA /* LNandGate.m */; };
+		2B0DAC3519819F2100DC84AA /* LOrGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC3419819F2100DC84AA /* LOrGate.m */; };
+		2B0DAC381981A14200DC84AA /* LNorGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC371981A14200DC84AA /* LNorGate.m */; };
+		2B0DAC3B1981A1A300DC84AA /* LXorGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC3A1981A1A300DC84AA /* LXorGate.m */; };
+		2B0DAC3E1981A41E00DC84AA /* LXnorGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC3D1981A41E00DC84AA /* LXnorGate.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2B0F9B1E19770A3200F46C33 /* LGMapModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */; };
 		2B0F9B2019770DEF00F46C33 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F9B1F19770DEF00F46C33 /* CoreData.framework */; };
@@ -141,6 +146,16 @@
 		2B0C3F8C196CAC820026300F /* ECTAdjustmentMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECTAdjustmentMenu.m; path = Shared/ECTAdjustmentMenu.m; sourceTree = "<group>"; };
 		2B0C3F99196CC33D0026300F /* LTAGateInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTAGateInfoView.h; sourceTree = "<group>"; };
 		2B0C3F9A196CC33D0026300F /* LTAGateInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTAGateInfoView.m; sourceTree = "<group>"; };
+		2B0DAC3019819E1F00DC84AA /* LNandGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNandGate.h; sourceTree = "<group>"; };
+		2B0DAC3119819E1F00DC84AA /* LNandGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNandGate.m; sourceTree = "<group>"; };
+		2B0DAC3319819F2100DC84AA /* LOrGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOrGate.h; sourceTree = "<group>"; };
+		2B0DAC3419819F2100DC84AA /* LOrGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOrGate.m; sourceTree = "<group>"; };
+		2B0DAC361981A14200DC84AA /* LNorGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNorGate.h; sourceTree = "<group>"; };
+		2B0DAC371981A14200DC84AA /* LNorGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNorGate.m; sourceTree = "<group>"; };
+		2B0DAC391981A1A300DC84AA /* LXorGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXorGate.h; sourceTree = "<group>"; };
+		2B0DAC3A1981A1A300DC84AA /* LXorGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXorGate.m; sourceTree = "<group>"; };
+		2B0DAC3C1981A41E00DC84AA /* LXnorGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXnorGate.h; sourceTree = "<group>"; };
+		2B0DAC3D1981A41E00DC84AA /* LXnorGate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXnorGate.m; sourceTree = "<group>"; };
 		2B0F2006195CCEDD00EC267E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2B0F9B1D19770A3200F46C33 /* LGMapModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LGMapModel.xcdatamodel; sourceTree = "<group>"; };
 		2B0F9B1F19770DEF00F46C33 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -411,6 +426,16 @@
 				2B12D485196826B1009E3C72 /* LStandardGate.m */,
 				2B12D487196827D0009E3C72 /* LAndGate.h */,
 				2B12D488196827D0009E3C72 /* LAndGate.m */,
+				2B0DAC3019819E1F00DC84AA /* LNandGate.h */,
+				2B0DAC3119819E1F00DC84AA /* LNandGate.m */,
+				2B0DAC3319819F2100DC84AA /* LOrGate.h */,
+				2B0DAC3419819F2100DC84AA /* LOrGate.m */,
+				2B0DAC361981A14200DC84AA /* LNorGate.h */,
+				2B0DAC371981A14200DC84AA /* LNorGate.m */,
+				2B0DAC391981A1A300DC84AA /* LXorGate.h */,
+				2B0DAC3A1981A1A300DC84AA /* LXorGate.m */,
+				2B0DAC3C1981A41E00DC84AA /* LXnorGate.h */,
+				2B0DAC3D1981A41E00DC84AA /* LXnorGate.m */,
 			);
 			name = "Standard Gates";
 			sourceTree = "<group>";
@@ -743,6 +768,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0DAC3519819F2100DC84AA /* LOrGate.m in Sources */,
 				2B2CAEF41961F73C0000B7ED /* ECOverlayView.m in Sources */,
 				2B0F9B251977217300F46C33 /* ECTFileMenu.m in Sources */,
 				2B8F237619716CC000FD2A85 /* LTAInputInfoView.m in Sources */,
@@ -754,7 +780,9 @@
 				2B0C3F9C196CC33D0026300F /* LTAGateInfoView.m in Sources */,
 				2B3C6FF5195F3D5E002FDFDC /* ECNavigationBar.m in Sources */,
 				2B12D489196827D0009E3C72 /* LAndGate.m in Sources */,
+				2B0DAC3B1981A1A300DC84AA /* LXorGate.m in Sources */,
 				2B8BA5CB1964984A0028627B /* LTrueOutput.m in Sources */,
+				2B0DAC3E1981A41E00DC84AA /* LXnorGate.m in Sources */,
 				2B325F261963001B00F29100 /* ECScreenEdgeScrollController.m in Sources */,
 				2B0F9B1E19770A3200F46C33 /* LGMapModel.xcdatamodeld in Sources */,
 				2B8F23A319720CCC00FD2A85 /* LDataModel.m in Sources */,
@@ -763,6 +791,7 @@
 				2B26D963196B470A00FD9F74 /* ECTCMScrollView.m in Sources */,
 				2BFA241619604D8700D35073 /* LPort.m in Sources */,
 				2B2CAEED1961CE670000B7ED /* LNotGate.m in Sources */,
+				2B0DAC3219819E1F00DC84AA /* LNandGate.m in Sources */,
 				2B12D486196826B1009E3C72 /* LStandardGate.m in Sources */,
 				2B3C6FF6195F3D63002FDFDC /* ECToolBar.m in Sources */,
 				2B3C6FD1195F3D2D002FDFDC /* AppDelegate.m in Sources */,
@@ -770,6 +799,7 @@
 				2B12D48D196832FD009E3C72 /* ECTCMGestureHandler.m in Sources */,
 				2BFA241319604BAE00D35073 /* LGate.m in Sources */,
 				2B39D328197ACF920036C258 /* ECFileTableView.m in Sources */,
+				2B0DAC381981A14200DC84AA /* LNorGate.m in Sources */,
 				2B0C3F8E196CAC820026300F /* ECTAdjustmentMenu.m in Sources */,
 				2B325F2E19634A9500F29100 /* ECTComponentsMenu.m in Sources */,
 				2B39D323197AB0FD0036C258 /* ECBlockView.m in Sources */,
