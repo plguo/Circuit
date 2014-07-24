@@ -32,6 +32,10 @@
 		2B0DAC381981A14200DC84AA /* LNorGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC371981A14200DC84AA /* LNorGate.m */; };
 		2B0DAC3B1981A1A300DC84AA /* LXorGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC3A1981A1A300DC84AA /* LXorGate.m */; };
 		2B0DAC3E1981A41E00DC84AA /* LXnorGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0DAC3D1981A41E00DC84AA /* LXnorGate.m */; };
+		2B0DAC401981C2AC00DC84AA /* LAndGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D488196827D0009E3C72 /* LAndGate.m */; };
+		2B0DAC411981C30100DC84AA /* LStandardGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D485196826B1009E3C72 /* LStandardGate.m */; };
+		2B0DAC421981C30900DC84AA /* LTrueOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8BA5CA1964984A0028627B /* LTrueOutput.m */; };
+		2B0DAC431981C34200DC84AA /* LInputGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F23781971A1BF00FD2A85 /* LInputGate.m */; };
 		2B0F2007195CCEDD00EC267E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F2006195CCEDD00EC267E /* iAd.framework */; };
 		2B0F9B1E19770A3200F46C33 /* LGMapModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F9B1C19770A3200F46C33 /* LGMapModel.xcdatamodeld */; };
 		2B0F9B2019770DEF00F46C33 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0F9B1F19770DEF00F46C33 /* CoreData.framework */; };
@@ -812,12 +816,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B325F1A1962EC5000F29100 /* ECOverlayView.m in Sources */,
+				2B0DAC431981C34200DC84AA /* LInputGate.m in Sources */,
 				2B325F181962EBE500F29100 /* ECGridView.m in Sources */,
 				2B325F161962E67600F29100 /* ECGridViewTests.m in Sources */,
 				2B2CAEE91961CCBA0000B7ED /* LGate.m in Sources */,
 				2B3C6FEE195F3D2E002FDFDC /* LogicGateTests.m in Sources */,
+				2B0DAC401981C2AC00DC84AA /* LAndGate.m in Sources */,
+				2B0DAC411981C30100DC84AA /* LStandardGate.m in Sources */,
 				2B2CAEE81961CCB50000B7ED /* LWire.m in Sources */,
 				2B2CAEEA1961CCBE0000B7ED /* LPort.m in Sources */,
+				2B0DAC421981C30900DC84AA /* LTrueOutput.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

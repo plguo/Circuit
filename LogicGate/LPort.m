@@ -153,5 +153,4 @@
 - (void)objectRemove{
     [self removeAllWire];
 }
-
 @end

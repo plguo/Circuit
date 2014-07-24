@@ -14,6 +14,7 @@
     BOOL _initializedUserInteraction;
     NSTimer* _updateTimer;
     UIView* _selectedView;
+    CGRect _estTouchBounds;
 }
 
 #pragma mark - NSCoding
@@ -53,6 +54,8 @@
         _initializedUserInteraction = NO;
         
         [self.layer addObserver:self forKeyPath:kPositionKeyPath options:0 context:nil];
+        
+        _estTouchBounds = CGRectInset(self.bounds, -5.0, -5.0);
     }
     return self;
 }
@@ -202,6 +205,52 @@
     for (LPort *aPort in _outPorts){
         [aPort gatePositionDidChange];
     }
+}
+
+#pragma mark - Point
+- (UIView*)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    if (CGRectContainsPoint(_estTouchBounds, point)) {
+        UIView* closestView = nil;
+        CGFloat closestDistance = 100.0;
+        
+        //Find Closest View to Touch
+        for (LPort* inPort in _inPorts) {
+            CGFloat distance = [self nonSqrtDistanceBetweenPointA:inPort.center PointB:point];
+            if (distance <= closestDistance) {
+                closestView = inPort;
+                closestDistance = distance;
+            }
+        }
+        
+        for (LPort* outPort in _outPorts) {
+            CGFloat distance = [self nonSqrtDistanceBetweenPointA:outPort.center PointB:point];
+            if (distance <= closestDistance) {
+                closestView = outPort;
+                closestDistance = distance;
+            }
+        }
+        
+        if (closestView) {
+            return closestView;
+        } else if (CGRectContainsPoint(self.bounds, point)){
+            return self;
+        }else{
+            return nil;
+        }
+    }
+    return nil;
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event{
+    return CGRectContainsPoint(_estTouchBounds, point);
+}
+
+- (CGFloat)nonSqrtDistanceBetweenPointA:(CGPoint)pointA PointB:(CGPoint)pointB{
+    #if __LP64__
+        return (pow(pointA.x - pointB.x, 2.0) + pow(pointA.y - pointB.y, 2.0));
+    #else
+        return (powf(pointA.x - pointB.x, 2.0) + powf(pointA.y - pointB.y, 2.0));
+    #endif
 }
 
 

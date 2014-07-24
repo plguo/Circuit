@@ -9,6 +9,8 @@
 #import <XCTest/XCTest.h>
 #import "LGate.h"
 #import "LWire.h"
+#import "LAndGate.h"
+#import "LTrueOutput.h"
 
 @interface LogicGateTests : XCTestCase
 
@@ -29,15 +31,34 @@
 }
 
 
-//- (void)testBasicConnection
-//{
-//    LGate* gate1 = [[LGate alloc] initGate];
-//    LGate* gate2 = [[LGate alloc] initGate];
-//    LWire* wire1 = [[LWire alloc] initWire];
-//    [wire1 connectNewPort:gate1.outPorts[0]];
-//    [wire1 connectNewPort:gate2.inPorts[0]];
-//    
-//}
+- (void)testBasicConnection
+{
+    LAndGate* gate1 = [[LAndGate alloc] initGate];
+    LAndGate* gate2 = [[LAndGate alloc] initGate];
+    LWire* wire1 = [[LWire alloc] initWire];
+    [wire1 connectNewPort:gate1.outPorts[0]];
+    [wire1 connectNewPort:gate2.inPorts[0]];
+    
+}
+
+
+- (void)testLogicConnection
+{
+    LAndGate* gate1 = [[LAndGate alloc] initGate];
+    LTrueOutput* output = [LTrueOutput gate];
+    
+    LWire* wire1 = [[LWire alloc] initWire];
+    [wire1 connectNewPort:output.outPorts[0]];
+    [wire1 connectNewPort:gate1.inPorts[0]];
+    
+    LWire* wire2 = [[LWire alloc] initWire];
+    [wire2 connectNewPort:output.outPorts[0]];
+    [wire2 connectNewPort:gate1.inPorts[1]];
+    
+    LPort* port = gate1.outPorts[0];
+    XCTAssert(port.boolStatus, @"Gate Boolean Result Incorrect");
+    
+}
 
 
 
