@@ -31,6 +31,6 @@ typedef NS_ENUM(NSUInteger, MenuState){
     MenuDisappealingState
 };
 
-@interface ViewController : UIViewController<ECNavigationBarDelegate,ECToolBarDelegate,LGateDelegate,LDataModelDelegate>
+@interface ViewController : UIViewController<ECNavigationBarDelegate,ECToolBarDelegate,LGateDelegate,LDataModelDelegate,UIScrollViewDelegate>
 
 @end

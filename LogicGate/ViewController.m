@@ -83,6 +83,8 @@
     [_mainScrollView addSubview:_gridView];
     
     _mainScrollView.contentSize = _gridView.frame.size;
+    _mainScrollView.delegate = self;
+    _mainScrollView.minimumZoomScale = 0.5;
     
     _gateView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
     _wireView = [[ECOverlayView alloc] initWithFrame:_gridView.frame];
@@ -609,6 +611,11 @@
             [weakFileTableView reloadData];
         }
     }];
+}
+
+#pragma mark- UIScrollViewDelegate
+- (UIView*)viewForZoomingInScrollView:(UIScrollView *)scrollView{
+    return _gridView;
 }
 
 
