@@ -655,7 +655,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = L;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Edward Peiliang Guo";
 				TargetAttributes = {
 					2B098002195C7C7E00EBF2E6 = {
@@ -930,6 +930,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -992,6 +993,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circuit/Circuit-Prefix.pch";
 				INFOPLIST_FILE = "Circuit/Circuit-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1005,6 +1007,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circuit/Circuit-Prefix.pch";
 				INFOPLIST_FILE = "Circuit/Circuit-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1026,6 +1029,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "CircuitTests/CircuitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1044,6 +1048,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circuit/Circuit-Prefix.pch";
 				INFOPLIST_FILE = "CircuitTests/CircuitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1062,6 +1067,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "LogicGate/LogicGate-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1075,6 +1081,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LogicGate/LogicGate-Prefix.pch";
 				INFOPLIST_FILE = "LogicGate/LogicGate-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1096,6 +1103,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "LogicGateTests/LogicGateTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1114,6 +1122,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LogicGate/LogicGate-Prefix.pch";
 				INFOPLIST_FILE = "LogicGateTests/LogicGateTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardplguo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
