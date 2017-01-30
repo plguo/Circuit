@@ -258,6 +258,12 @@
             if ([view isKindOfClass:[LGate class]]) {
                 UIMenuItem* ItemInfo = [[UIMenuItem alloc] initWithTitle:@"info" action:@selector(getInfoFromSelecedLObject)];
                 [items insertObject:ItemInfo atIndex:0];
+                
+                if ([view isKindOfClass:[LSwitch class]]) {
+                    NSString* titleName = [(LSwitch*)view outputState] ? @"OFF" : @"ON";
+                    UIMenuItem* ItemSwitch = [[UIMenuItem alloc] initWithTitle:titleName action:@selector(inverseStateOfSelecedLObject)];
+                    [items insertObject:ItemSwitch atIndex:0];
+                }
             }
             _menuControlLObject= lObject;
             [recognizer.view becomeFirstResponder];
@@ -276,6 +282,13 @@
     if ([_menuControlLObject conformsToProtocol:@protocol(LTAGateInfoViewDelegate) ]) {
         [self openGateInfoViewWithDelegate:(id<LTAGateInfoViewDelegate>)_menuControlLObject];
     }
+}
+
+-(void)inverseStateOfSelecedLObject{
+    if ([_menuControlLObject isKindOfClass:[LSwitch class]]) {
+        [(LSwitch*)_menuControlLObject inverseState];
+    }
+    
 }
 
 -(void)openGateInfoViewWithDelegate:(id<LTAGateInfoViewDelegate>)gate{

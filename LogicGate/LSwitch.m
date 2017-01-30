@@ -17,7 +17,7 @@
     self = [super initWithCoder:coder];
     if (self) {
         _outputState = ![coder decodeBoolForKey:@"OutputState"];
-        
+        self.image = [UIImage imageNamed:[self imageName]];
     }
     return self;
 }
@@ -34,16 +34,11 @@
     self.outPorts = [NSArray arrayWithObject:outP1];
     [self addSubview:outP1];
     
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(8, 8, 13, 34);
-    [button addTarget:self action:@selector(touchUp) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:button];
-    
     self.inputName = @"Variable";
     _outputState = NO;
 }
 
-- (void)touchUp{
+- (void)inverseState{
     _outputState = !_outputState;
     
     LPort* outP1 = self.outPorts[0];
@@ -52,6 +47,10 @@
     self.image = [UIImage imageNamed:[self imageName]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:[LInputGate inputDidUpdateNotificationKey] object:self];
+}
+
+- (BOOL)outputState{
+    return _outputState;
 }
 
 -(NSString*)imageName{

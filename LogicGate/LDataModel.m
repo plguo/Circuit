@@ -9,6 +9,7 @@
 #import "LDataModel.h"
 #import "LWire.h"
 #import "LGate.h"
+#import "LSwitch.h"
 
 #define formatVersion @"1"
 #define DATA_DEBUG_MODE YES
@@ -376,7 +377,15 @@ GateGestureRecognizerTarget:(id)target
             }
             
         }
+        
+        for (LGate* gate in gateArray) {
+            if ([gate isKindOfClass:[LSwitch class]]) {
+                LSwitch* switchGate = (LSwitch*) gate;
+                ((LPort*)switchGate.outPorts[0]).boolStatus = switchGate.outputState;
+            }
+        }
     }
+    
     [self unlockMap];
     
 }

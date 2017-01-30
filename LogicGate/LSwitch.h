@@ -9,5 +9,6 @@
 #import "LInputGate.h"
 
 @interface LSwitch : LInputGate
-
+- (BOOL)outputState;
+- (void)inverseState;
 @end
