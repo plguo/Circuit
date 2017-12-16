@@ -58,25 +58,25 @@
     _dataModel.delegate = self;
     
     //Setup tool bar
-    _toolBar = [ECToolBar autosizeToolBarForView:self.originalContentView];
+    _toolBar = [ECToolBar autosizeToolBarForView:self.view];
     _toolBar.delegate = self;
     _toolBar.fileMenuDataSource = _dataModel;
-    [self.originalContentView addSubview:_toolBar];
+    [self.view addSubview:_toolBar];
 	
     //Setup navigation bar
     
-    _navBar = [ECNavigationBar autosizeTooNavigationBarForView:self.originalContentView];
+    _navBar = [ECNavigationBar autosizeTooNavigationBarForView:self.view];
     _navBar.delegate = self;
-    [self.originalContentView addSubview:_navBar];
+    [self.view addSubview:_navBar];
     
     
     //Setup scroll view
-    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), CGRectGetWidth(self.originalContentView.bounds), CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
+    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
     
     _mainScrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
     _mainScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     _mainScrollView.canCancelContentTouches = NO;
-    [self.originalContentView insertSubview:_mainScrollView belowSubview:_toolBar];
+    [self.view insertSubview:_mainScrollView belowSubview:_toolBar];
     
     //Setup grid view
     _gridView = [ECGridView generateGridWithNumberOfVerticalLines:31 HorizonLines:31];
@@ -107,7 +107,7 @@
     _showButton.frame = CGRectMake(0, 0, CGRectGetWidth(showButtonImage.frame) + 10.0, CGRectGetHeight(showButtonImage.frame) + 10.0);
     showButtonImage.center = CGPointMake(CGRectGetMidX(_showButton.bounds), CGRectGetMidY(_showButton.bounds));
     [_showButton addSubview:showButtonImage];
-    _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 8, 8, _showButton.frame.size.width, _showButton.frame.size.height);
+    _showButton.frame = CGRectMake(self.view.bounds.size.width - _showButton.frame.size.width - 8, 8, _showButton.frame.size.width, _showButton.frame.size.height);
     _showButton.layer.cornerRadius = 4.0;
     _showButton.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
     _showButton.alpha = 0.8;
@@ -117,12 +117,9 @@
     _screenEdgeScrollController = [[ECScreenEdgeScrollController alloc] init];
     _screenEdgeScrollController.scrollView = _mainScrollView;
     //End of View Initialization
-    [UIViewController prepareInterstitialAds];
     
     _tapMode = TapModeNone;
     _menuState = MenuNormalState;
-    
-    self.canDisplayBannerAds = YES;
 }
 
 - (void)viewDidLayoutSubviews{
@@ -146,10 +143,10 @@
     _menuState = MenuDisappealingState;
     [_navBar startHideAnimation];
     [_toolBar startHideAnimation];
-    _showButton.frame = CGRectMake(self.originalContentView.bounds.size.width - _showButton.frame.size.width - 5, 5, _showButton.frame.size.width, _showButton.frame.size.height);
-    [self.originalContentView insertSubview:_showButton belowSubview:_navBar];
+    _showButton.frame = CGRectMake(self.view.bounds.size.width - _showButton.frame.size.width - 5, 5, _showButton.frame.size.width, _showButton.frame.size.height);
+    [self.view insertSubview:_showButton belowSubview:_navBar];
     [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
-        _mainScrollView.frame = self.originalContentView.bounds;
+        _mainScrollView.frame = self.view.bounds;
         _showButton.alpha = 0.8;
     } completion:^(BOOL finished) {
         _menuState = MenuHidenState;
@@ -161,7 +158,7 @@
     _menuState = MenuAppealingState;
     [_navBar startShowAnimation];
     [_toolBar startShowAnimation];
-    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), CGRectGetWidth(self.originalContentView.bounds), CGRectGetHeight(self.originalContentView.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
+    CGRect scrollViewFrame = CGRectMake(0, CGRectGetHeight(_navBar.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - CGRectGetHeight(_toolBar.frame) - CGRectGetHeight(_navBar.frame));
     [UIView animateWithDuration:0.6 delay:0.0 options:0 animations:^{
         _mainScrollView.frame = scrollViewFrame;
         _showButton.alpha = 0.0;
@@ -352,7 +349,7 @@
 - (void)handleViewFromComponentsMenu:(UIView*)view PanGestureRecognizer:(UIGestureRecognizer*)recognizer{
     [recognizer addTarget:self action:@selector(handlePanFrom:)];
     [_gateView addSubview:view];
-    view.center = [self.originalContentView convertPoint:view.center toView:_gateView];
+    view.center = [self.view convertPoint:view.center toView:_gateView];
     if ([view isKindOfClass:[LGate class]]) {
         [(LGate*)view initUserInteractionWithTarget:self action:@selector(handlePanFromWireGestureRecognizer:)];
     }
@@ -588,10 +585,10 @@
 
 #pragma mark - LDataModelDelegate
 - (void)startMapDataProcessing{
-    self.originalContentView.userInteractionEnabled = NO;
+    self.view.userInteractionEnabled = NO;
 }
 - (void)finishMapDataProcessing{
-    self.originalContentView.userInteractionEnabled = YES;
+    self.view.userInteractionEnabled = YES;
 }
 
 #pragma mark- ECFileTableViewDataSource
